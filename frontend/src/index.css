@@ -1,0 +1,301 @@
+:root {
+  --maroon-dark: #4a0309;
+  --maroon-main: #730014;
+  --maroon-light: #911224;
+  --maroon-hover: #57000e;
+  
+  --saffron-main: #ff7700;
+  --saffron-dark: #d85f00;
+  --saffron-light: #ffaa4d;
+  
+  --gold-primary: #d4af37;
+  --gold-light: #f5e096;
+  --gold-bright: #ffcf40;
+  --gold-dark: #9e7d18;
+  --gold-border: rgba(212, 175, 55, 0.35);
+  --gold-border-solid: #d4af37;
+  
+  --bg-cream: #faf7f0;
+  --bg-sand: #f4ede1;
+  --bg-card: #ffffff;
+  
+  --dark-hero: #110705;
+  --dark-overlay: rgba(16, 7, 5, 0.78);
+  --dark-footer: #150906;
+  
+  --text-dark: #231815;
+  --text-muted: #5e4f4b;
+  --text-light: #fbf9f5;
+  --text-gold: #e2b740;
+  
+  --whatsapp-green: #25d366;
+  --whatsapp-hover: #1eb956;
+  
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 6px 20px rgba(115, 0, 20, 0.08);
+  --shadow-lg: 0 12px 35px rgba(115, 0, 20, 0.15);
+  --shadow-gold: 0 0 25px rgba(212, 175, 55, 0.3);
+  
+  --font-serif: 'Rozha One', 'Cinzel', serif;
+  --font-devanagari: 'Tiro Devanagari Hindi', serif;
+  --font-sans: 'Poppins', 'Outfit', sans-serif;
+  
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-pill: 50px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-cream);
+  color: var(--text-dark);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: #f4ede1;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--gold-primary);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--maroon-main);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: all 0.25s ease;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Typography Helpers */
+.font-devanagari {
+  font-family: var(--font-devanagari);
+}
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 1240px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* Decorative Section Flourish */
+.sacred-heading {
+  text-align: center;
+  margin-bottom: 35px;
+  position: relative;
+}
+.sacred-heading-title {
+  font-family: var(--font-devanagari);
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: var(--maroon-main);
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.sacred-heading-title .om-symbol {
+  color: var(--gold-dark);
+  font-size: 1.6rem;
+}
+.sacred-heading-sub {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+  font-family: var(--font-devanagari);
+}
+.sacred-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+.sacred-divider-line {
+  height: 2px;
+  width: 60px;
+  background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+}
+.sacred-divider-icon {
+  color: var(--gold-primary);
+  font-size: 0.9rem;
+}
+
+/* Gold Button */
+.btn-gold {
+  background: linear-gradient(135deg, #e5b93b, #d4af37, #b8860b);
+  color: #1a0804;
+  font-weight: 700;
+  padding: 11px 24px;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.4);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  border: 1px solid #ffd700;
+}
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+  filter: brightness(1.06);
+}
+
+/* Maroon Button */
+.btn-maroon {
+  background: linear-gradient(135deg, var(--maroon-main), var(--maroon-dark));
+  color: #ffffff;
+  font-weight: 600;
+  padding: 11px 24px;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 4px 14px rgba(115, 0, 20, 0.35);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+.btn-maroon:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, var(--maroon-light), var(--maroon-main));
+  box-shadow: 0 6px 20px rgba(115, 0, 20, 0.5);
+}
+
+/* WhatsApp Button */
+.btn-whatsapp {
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  color: #ffffff;
+  font-weight: 600;
+  padding: 11px 24px;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+}
+.btn-whatsapp:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+}
+
+/* Card Styles */
+.sacred-card {
+  background: var(--bg-card);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.sacred-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--gold-primary);
+}
+
+/* Shimmer Animation */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Floating Animations */
+@keyframes pulseGentle {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.pulse-animation {
+  animation: pulseGentle 2.5s infinite ease-in-out;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 4, 3, 0.85);
+  backdrop-filter: blur(5px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-content {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--gold-primary);
+  box-shadow: var(--shadow-gold), 0 25px 60px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* Mobile Sticky Bottom Bar */
+.mobile-sticky-bar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(21, 9, 6, 0.96);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid var(--gold-primary);
+  padding: 8px 16px;
+  z-index: 900;
+  justify-content: space-around;
+  align-items: center;
+}
+@media (max-width: 768px) {
+  .mobile-sticky-bar {
+    display: flex;
+  }
+  body {
+    padding-bottom: 60px;
+  }
+  .sacred-heading-title {
+    font-size: 1.6rem;
+  }
+}
