@@ -1,16 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Phone, Volume2, VolumeX } from 'lucide-react';
 import { PANDIT_INFO } from '../data/pujaData';
 import { translations } from '../data/translations';
-import { toggleOmSound, getOmSoundStatus } from '../utils/omAudio';
+import { toggleOmSound, subscribeOmSound } from '../utils/omAudio';
 
 export default function TopBar({ lang, setLang }) {
   const t = translations[lang].topBar;
-  const [soundPlaying, setSoundPlaying] = useState(getOmSoundStatus());
+  const [soundPlaying, setSoundPlaying] = useState(false);
+
+  useEffect(() => {
+    // Automatically synchronizes with audio engine status
+    const unsubscribe = subscribeOmSound((status) => {
+      setSoundPlaying(status);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const handleSoundToggle = () => {
-    const status = toggleOmSound();
-    setSoundPlaying(status);
+    toggleOmSound();
   };
 
   return (
@@ -44,7 +51,7 @@ export default function TopBar({ lang, setLang }) {
           {/* Rhythmic Cosmic Om Audio Trigger Pill */}
           <button
             onClick={handleSoundToggle}
-            title={soundPlaying ? (lang === 'hi' ? 'ॐ जप बंद करें' : 'Mute Om Chant') : (lang === 'hi' ? 'पवित्र ॐ जप सुनें' : 'Play Om Chant')}
+            title={soundPlaying ? (lang === 'hi' ? 'ॐ जप बंद करें (Mute)' : 'Mute Om Chant') : (lang === 'hi' ? 'पवित्र ॐ जप सुनें' : 'Play Om Chant')}
             style={{
               background: soundPlaying
                 ? 'linear-gradient(135deg, #ffd700, #ffaa00)'
@@ -67,7 +74,7 @@ export default function TopBar({ lang, setLang }) {
             {soundPlaying ? <Volume2 size={14} /> : <VolumeX size={14} />}
             <span>
               {soundPlaying
-                ? (lang === 'hi' ? 'ॐ जप: ओम्... ओम्...' : 'Om Chant: Om... Om...')
+                ? (lang === 'hi' ? 'ॐ जप: चालू (Mute करें)' : 'Om Chant: Playing (Mute)')
                 : (lang === 'hi' ? 'पवित्र ॐ जप सुनें' : 'Play Om Chant')}
             </span>
             {soundPlaying && (

@@ -1,23 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { Phone, MessageCircle, Calendar, Volume2, VolumeX, ArrowUp } from 'lucide-react';
 import { PANDIT_INFO, getWhatsAppLink } from '../data/pujaData';
-import { toggleOmSound, getOmSoundStatus } from '../utils/omAudio';
+import { toggleOmSound, subscribeOmSound } from '../utils/omAudio';
 
 export default function FloatingActions({ onOpenBooking }) {
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [isPlayingSound, setIsPlayingSound] = useState(getOmSoundStatus());
+  const [isPlayingSound, setIsPlayingSound] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setShowScrollTop(window.scrollY > 300);
     };
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    // Sync with audio engine
+    const unsubscribe = subscribeOmSound((status) => {
+      setIsPlayingSound(status);
+    });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      unsubscribe();
+    };
   }, []);
 
   const handleToggleSound = () => {
-    const active = toggleOmSound();
-    setIsPlayingSound(active);
+    toggleOmSound();
   };
 
   const scrollToTop = () => {
@@ -40,7 +48,7 @@ export default function FloatingActions({ onOpenBooking }) {
         {/* Gentle Devotional Cosmic Om Sound Toggle */}
         <button
           onClick={handleToggleSound}
-          title={isPlayingSound ? 'पवित्र ॐ नाद बंद करें' : 'अति शांत, पवित्र ॐ नाद सुनें'}
+          title={isPlayingSound ? 'पवित्र ॐ जप बंद करें (Mute)' : 'पवित्र ॐ जप चालू करें (Play)'}
           style={{
             width: '50px',
             height: '50px',

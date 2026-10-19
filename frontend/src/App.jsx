@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import TopBar from './components/TopBar';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -13,6 +13,7 @@ import Footer from './components/Footer';
 import BookingModal from './components/BookingModal';
 import KundaliModal from './components/KundaliModal';
 import FloatingActions from './components/FloatingActions';
+import { setupDefaultSound } from './utils/omAudio';
 
 // Sub Pages
 import AboutPage from './pages/AboutPage';
@@ -23,9 +24,40 @@ import VastuPage from './pages/VastuPage';
 import GalleryPage from './pages/GalleryPage';
 import ContactPage from './pages/ContactPage';
 
+const VALID_PAGES = ['home', 'about', 'services', 'pujas', 'jyotish', 'vastu', 'gallery', 'contact'];
+
+// 1. Helper to determine initial page from URL hash, localStorage, or sessionStorage
+const getInitialPage = () => {
+  // Check URL hash first (e.g. #services, #contact, #pujas)
+  const hash = window.location.hash.replace('#', '').trim().toLowerCase();
+  if (VALID_PAGES.includes(hash)) {
+    return hash;
+  }
+
+  // Check localStorage (persists across reloads, browser restarts, and tabs)
+  const savedLocal = localStorage.getItem('mangalbhat_active_page');
+  if (VALID_PAGES.includes(savedLocal)) {
+    return savedLocal;
+  }
+
+  // Check sessionStorage
+  const savedSession = sessionStorage.getItem('mangalbhat_active_page');
+  if (VALID_PAGES.includes(savedSession)) {
+    return savedSession;
+  }
+
+  return 'home';
+};
+
+// 2. Helper to determine initial language from localStorage
+const getInitialLang = () => {
+  const saved = localStorage.getItem('mangalbhat_lang');
+  return saved === 'en' ? 'en' : 'hi';
+};
+
 export default function App() {
-  const [activePage, setActivePage] = useState('home');
-  const [lang, setLang] = useState('hi'); // 'hi' or 'en'
+  const [activePage, setActivePage] = useState(getInitialPage);
+  const [lang, setLangState] = useState(getInitialLang);
   
   // Modals state
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
@@ -33,6 +65,104 @@ export default function App() {
   
   const [kundaliModalOpen, setKundaliModalOpen] = useState(false);
   const [selectedAspectForKundali, setSelectedAspectForKundali] = useState('');
+
+  const isNavigatingRef = useRef(false);
+
+  // 1. Initialize Sacred Om Sound ON by default on mount
+  useEffect(() => {
+    setupDefaultSound();
+  }, []);
+
+  // 2. Synchronize activePage with URL hash, localStorage, and sessionStorage
+  useEffect(() => {
+    localStorage.setItem('mangalbhat_active_page', activePage);
+    sessionStorage.setItem('mangalbhat_active_page', activePage);
+
+    const currentHash = window.location.hash.replace('#', '').trim().toLowerCase();
+    if (activePage === 'home') {
+      if (currentHash && VALID_PAGES.includes(currentHash)) {
+        window.history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+    } else {
+      if (currentHash !== activePage) {
+        window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}#${activePage}`);
+      }
+    }
+  }, [activePage]);
+
+  // 3. Listen to browser back/forward and hash changes
+  useEffect(() => {
+    const handleUrlChange = () => {
+      const hash = window.location.hash.replace('#', '').trim().toLowerCase();
+      if (VALID_PAGES.includes(hash)) {
+        setActivePage(hash);
+      } else if (!hash) {
+        setActivePage('home');
+      }
+    };
+
+    window.addEventListener('hashchange', handleUrlChange);
+    window.addEventListener('popstate', handleUrlChange);
+    return () => {
+      window.removeEventListener('hashchange', handleUrlChange);
+      window.removeEventListener('popstate', handleUrlChange);
+    };
+  }, []);
+
+  // 4. Preserve scroll position across page reloads in any location
+  useEffect(() => {
+    let scrollTimer;
+    const handleScroll = () => {
+      if (isNavigatingRef.current) return;
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        sessionStorage.setItem(`mangalbhat_scroll_${activePage}`, window.scrollY.toString());
+      }, 100);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      clearTimeout(scrollTimer);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [activePage]);
+
+  // Restore scroll position on page load / page restore
+  useEffect(() => {
+    const savedScroll = sessionStorage.getItem(`mangalbhat_scroll_${activePage}`);
+    if (savedScroll) {
+      const pos = parseInt(savedScroll, 10);
+      if (!isNaN(pos) && pos > 0) {
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            window.scrollTo({ top: pos, behavior: 'instant' });
+          }, 40);
+        });
+      }
+    }
+  }, [activePage]);
+
+  // Explicit user navigation (e.g. clicking a navbar link or button)
+  const handleNavigate = (pageId, shouldScroll = true) => {
+    const targetPage = VALID_PAGES.includes(pageId) ? pageId : 'home';
+    
+    if (shouldScroll) {
+      isNavigatingRef.current = true;
+      sessionStorage.removeItem(`mangalbhat_scroll_${targetPage}`);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(() => {
+        isNavigatingRef.current = false;
+      }, 500);
+    }
+
+    setActivePage(targetPage);
+  };
+
+  // Persist language state
+  const setLang = (newLang) => {
+    setLangState(newLang);
+    localStorage.setItem('mangalbhat_lang', newLang);
+  };
 
   const handleOpenBooking = (pujaName = '') => {
     setSelectedPujaForBooking(pujaName || (lang === 'hi' ? 'मंगल दोष पूजा (मंगल भात पूजन)' : 'Mangal Dosh Bhat Puja'));
@@ -46,18 +176,18 @@ export default function App() {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      {/* 1. Sacred Top Divine Bar with Active Language Switcher */}
+      {/* 1. Sacred Top Divine Bar with Active Language Switcher & Sound Mute/Unmute Pill */}
       <TopBar lang={lang} setLang={setLang} />
 
       {/* 2. Main Navigation Bar */}
       <Navbar
         lang={lang}
         activePage={activePage}
-        setActivePage={setActivePage}
+        setActivePage={handleNavigate}
         onOpenBooking={() => handleOpenBooking()}
       />
 
-      {/* 3. Page Router */}
+      {/* 3. Page Router with State & Location Preservation */}
       <main style={{ flex: 1 }}>
         {activePage === 'home' && (
           <>
@@ -84,10 +214,7 @@ export default function App() {
             {/* About Pandit Ji Section */}
             <AboutSection
               lang={lang}
-              onNavigateAbout={() => {
-                setActivePage('about');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
+              onNavigateAbout={() => handleNavigate('about')}
               onOpenBooking={() => handleOpenBooking()}
             />
 
@@ -106,10 +233,7 @@ export default function App() {
             {/* Gallery Carousel Section with Lightbox */}
             <GallerySection
               lang={lang}
-              onNavigateGallery={() => {
-                setActivePage('gallery');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
+              onNavigateGallery={() => handleNavigate('gallery')}
             />
           </>
         )}
@@ -154,10 +278,7 @@ export default function App() {
       {/* 5. Rich Devotional Footer */}
       <Footer
         lang={lang}
-        onNavigate={(pageId) => {
-          setActivePage(pageId);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }}
+        onNavigate={handleNavigate}
         onOpenBooking={() => handleOpenBooking()}
       />
 
