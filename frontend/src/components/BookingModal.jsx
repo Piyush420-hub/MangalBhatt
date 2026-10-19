@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Calendar, User, Phone, MapPin, Sparkles, CheckCircle2, MessageCircle } from 'lucide-react';
 import { PANDIT_INFO } from '../data/pujaData';
+import { API_BASE } from '../utils/api';
 
 export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
   const [formData, setFormData] = useState({
@@ -32,7 +33,7 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
 
     try {
       // Call FastAPI backend
-      const response = await fetch('http://localhost:8000/api/bookings', {
+      const response = await fetch(`${API_BASE}/api/bookings`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

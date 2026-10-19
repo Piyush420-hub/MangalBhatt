@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X, FileText, Check, MessageCircle, Sparkles, CheckCircle2 } from 'lucide-react';
+import { API_BASE } from '../utils/api';
 
 export default function KundaliModal({ isOpen, onClose, initialAspect = '' }) {
   const aspectsList = [
@@ -53,7 +54,7 @@ export default function KundaliModal({ isOpen, onClose, initialAspect = '' }) {
     };
 
     try {
-      const res = await fetch('http://localhost:8000/api/kundali-inquiry', {
+      const res = await fetch(`${API_BASE}/api/kundali-inquiry`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)

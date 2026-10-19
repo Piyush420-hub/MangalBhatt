@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { MapPin, Phone, MessageCircle, Mail, Clock, Send, CheckCircle2, Navigation } from 'lucide-react';
 import { PANDIT_INFO, getWhatsAppLink } from '../data/pujaData';
+import { API_BASE } from '../utils/api';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -18,7 +19,7 @@ export default function ContactPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      await fetch('http://localhost:8000/api/contact', {
+      await fetch(`${API_BASE}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

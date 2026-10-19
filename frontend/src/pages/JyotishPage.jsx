@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FileText, Compass, Star, Sparkles, MessageCircle, CheckCircle2 } from 'lucide-react';
 import { getWhatsAppLink } from '../data/pujaData';
+import { API_BASE } from '../utils/api';
 
 export default function JyotishPage({ onOpenKundaliModal }) {
   const [formData, setFormData] = useState({
@@ -30,7 +31,7 @@ export default function JyotishPage({ onOpenKundaliModal }) {
     e.preventDefault();
     setLoading(true);
     try {
-      await fetch('http://localhost:8000/api/kundali-inquiry', {
+      await fetch(`${API_BASE}/api/kundali-inquiry`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
