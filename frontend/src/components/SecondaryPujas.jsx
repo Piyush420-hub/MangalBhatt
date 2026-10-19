@@ -1,8 +1,11 @@
 import React from 'react';
-import { Flame, MessageCircle, Calendar, ShieldCheck, Sparkles } from 'lucide-react';
+import { Flame, MessageCircle, Calendar } from 'lucide-react';
 import { SECONDARY_PUJAS, getWhatsAppLink } from '../data/pujaData';
+import { translations } from '../data/translations';
 
-export default function SecondaryPujas({ onOpenBooking }) {
+export default function SecondaryPujas({ lang = 'hi', onOpenBooking }) {
+  const t = translations[lang].secondaryPujas;
+
   return (
     <section style={{
       padding: '50px 0',
@@ -14,11 +17,11 @@ export default function SecondaryPujas({ onOpenBooking }) {
         <div className="sacred-heading">
           <div className="sacred-heading-title">
             <span className="om-symbol">ॐ</span>
-            <span>वैदिक पूजा-पाठ एवं विशिष्ट हवन अनुष्ठान</span>
+            <span>{t.heading}</span>
             <span className="om-symbol">ॐ</span>
           </div>
           <p className="sacred-heading-sub">
-            शत्रु बाधा, व्यापार वृद्धि, कोर्ट केस विजय, तंत्र निवारण एवं लक्ष्मी प्राप्ति हेतु सिद्ध अनुष्ठान
+            {t.sub}
           </p>
           <div className="sacred-divider">
             <div className="sacred-divider-line" />
@@ -79,7 +82,7 @@ export default function SecondaryPujas({ onOpenBooking }) {
                   fontSize: '1.08rem',
                   fontWeight: '700',
                   color: '#730014',
-                  fontFamily: 'var(--font-devanagari)',
+                  fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)',
                   marginBottom: '6px'
                 }}>
                   {item.titleHi}
@@ -90,7 +93,7 @@ export default function SecondaryPujas({ onOpenBooking }) {
                   color: '#52433e',
                   lineHeight: 1.45,
                   marginBottom: '14px',
-                  fontFamily: 'var(--font-devanagari)'
+                  fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)'
                 }}>
                   {item.focusHi}
                 </p>
@@ -124,7 +127,7 @@ export default function SecondaryPujas({ onOpenBooking }) {
                   className="quick-book-btn"
                 >
                   <Calendar size={13} color="#ffd700" />
-                  <span>बुक करें</span>
+                  <span>{t.bookBtn}</span>
                 </button>
 
                 <a
@@ -145,14 +148,14 @@ export default function SecondaryPujas({ onOpenBooking }) {
                   }}
                 >
                   <MessageCircle size={13} />
-                  <span>पूछें</span>
+                  <span>{t.askBtn}</span>
                 </a>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Sacred Assurance Banner (as instructed in prompt) */}
+        {/* Sacred Assurance Banner */}
         <div style={{
           background: 'linear-gradient(135deg, #730014 0%, #4a0309 100%)',
           border: '2px solid #ffd700',
@@ -176,10 +179,10 @@ export default function SecondaryPujas({ onOpenBooking }) {
               fontSize: 'clamp(1.1rem, 2.2vw, 1.45rem)',
               fontWeight: '700',
               color: '#fff0c7',
-              fontFamily: 'var(--font-devanagari)',
+              fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)',
               letterSpacing: '0.3px'
             }}>
-              "सभी प्रकार की पूजा-पाठ विधि-विधान से संपन्न कराये जाते हैं।"
+              {t.assuranceTitle}
             </h3>
             <span style={{ fontSize: '1.6rem', color: '#ffd700' }}>🕉️</span>
           </div>
@@ -187,9 +190,9 @@ export default function SecondaryPujas({ onOpenBooking }) {
             fontSize: '0.88rem',
             color: '#f0e3ce',
             marginTop: '6px',
-            fontFamily: 'var(--font-devanagari)'
+            fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)'
           }}>
-            चाहे आप स्वयं उज्जैन आकर पूजा में सम्मिलित हों, या ऑनलाइन लाइव संकल्प से पूजा करवाएं—सम्पूर्ण वैदिक कर्मकांड का पालन किया जाता है।
+            {t.assuranceSub}
           </p>
         </div>
       </div>

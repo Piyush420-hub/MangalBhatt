@@ -14,7 +14,7 @@ import BookingModal from './components/BookingModal';
 import KundaliModal from './components/KundaliModal';
 import FloatingActions from './components/FloatingActions';
 
-// Dedicated Sub-Pages
+// Sub Pages
 import AboutPage from './pages/AboutPage';
 import ServicesPage from './pages/ServicesPage';
 import PujaAnushthanPage from './pages/PujaAnushthanPage';
@@ -25,7 +25,7 @@ import ContactPage from './pages/ContactPage';
 
 export default function App() {
   const [activePage, setActivePage] = useState('home');
-  const [lang, setLang] = useState('hi');
+  const [lang, setLang] = useState('hi'); // 'hi' or 'en'
   
   // Modals state
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
@@ -35,22 +35,23 @@ export default function App() {
   const [selectedAspectForKundali, setSelectedAspectForKundali] = useState('');
 
   const handleOpenBooking = (pujaName = '') => {
-    setSelectedPujaForBooking(pujaName || 'मंगल दोष पूजा (मंगल भात पूजन)');
+    setSelectedPujaForBooking(pujaName || (lang === 'hi' ? 'मंगल दोष पूजा (मंगल भात पूजन)' : 'Mangal Dosh Bhat Puja'));
     setBookingModalOpen(true);
   };
 
   const handleOpenKundali = (aspectName = '') => {
-    setSelectedAspectForKundali(aspectName || 'धन (Wealth)');
+    setSelectedAspectForKundali(aspectName || (lang === 'hi' ? 'धन (Wealth)' : 'Wealth'));
     setKundaliModalOpen(true);
   };
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      {/* 1. Sacred Top Divine Bar */}
+      {/* 1. Sacred Top Divine Bar with Active Language Switcher */}
       <TopBar lang={lang} setLang={setLang} />
 
       {/* 2. Main Navigation Bar */}
       <Navbar
+        lang={lang}
         activePage={activePage}
         setActivePage={setActivePage}
         onOpenBooking={() => handleOpenBooking()}
@@ -61,22 +62,28 @@ export default function App() {
         {activePage === 'home' && (
           <>
             {/* Hero Section */}
-            <Hero onOpenBooking={() => handleOpenBooking()} />
+            <Hero
+              lang={lang}
+              onOpenBooking={() => handleOpenBooking()}
+            />
 
-            {/* Sacred 15 Services Icon Grid (Directly matching screenshot) */}
+            {/* Sacred 15 Services Icon Grid with Authentic Vedic Motifs */}
             <ServicesGrid
+              lang={lang}
               onSelectService={(service) => handleOpenBooking(service)}
               onOpenBooking={handleOpenBooking}
             />
 
-            {/* Top 5 Priority Pujas (As commanded by user prompt) */}
+            {/* Top 5 Priority Pujas */}
             <TopPujasHighlight
+              lang={lang}
               onOpenBooking={handleOpenBooking}
               onOpenKundaliModal={handleOpenKundali}
             />
 
-            {/* About Pandit Ji Section (matching screenshot layout) */}
+            {/* About Pandit Ji Section */}
             <AboutSection
+              lang={lang}
               onNavigateAbout={() => {
                 setActivePage('about');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -84,14 +91,21 @@ export default function App() {
               onOpenBooking={() => handleOpenBooking()}
             />
 
-            {/* Secondary Pujas & Hawan Section (As requested by user prompt) */}
-            <SecondaryPujas onOpenBooking={handleOpenBooking} />
+            {/* Secondary Pujas & Hawan Section */}
+            <SecondaryPujas
+              lang={lang}
+              onOpenBooking={handleOpenBooking}
+            />
 
-            {/* Popular Pujas 6 Cards Section (matching screenshot) */}
-            <PopularPujas onOpenBooking={handleOpenBooking} />
+            {/* Popular Pujas Section */}
+            <PopularPujas
+              lang={lang}
+              onOpenBooking={handleOpenBooking}
+            />
 
-            {/* Gallery Section Carousel with Lightbox (matching screenshot) */}
+            {/* Gallery Carousel Section with Lightbox */}
             <GallerySection
+              lang={lang}
               onNavigateGallery={() => {
                 setActivePage('gallery');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -102,42 +116,44 @@ export default function App() {
 
         {/* Sub Pages */}
         {activePage === 'about' && (
-          <AboutPage onOpenBooking={() => handleOpenBooking()} />
+          <AboutPage lang={lang} onOpenBooking={() => handleOpenBooking()} />
         )}
 
         {activePage === 'services' && (
           <ServicesPage
+            lang={lang}
             onOpenBooking={handleOpenBooking}
             onOpenKundaliModal={handleOpenKundali}
           />
         )}
 
         {activePage === 'pujas' && (
-          <PujaAnushthanPage onOpenBooking={handleOpenBooking} />
+          <PujaAnushthanPage lang={lang} onOpenBooking={handleOpenBooking} />
         )}
 
         {activePage === 'jyotish' && (
-          <JyotishPage onOpenKundaliModal={handleOpenKundali} />
+          <JyotishPage lang={lang} onOpenKundaliModal={handleOpenKundali} />
         )}
 
         {activePage === 'vastu' && (
-          <VastuPage onOpenBooking={handleOpenBooking} />
+          <VastuPage lang={lang} onOpenBooking={handleOpenBooking} />
         )}
 
         {activePage === 'gallery' && (
-          <GalleryPage />
+          <GalleryPage lang={lang} />
         )}
 
         {activePage === 'contact' && (
-          <ContactPage />
+          <ContactPage lang={lang} />
         )}
       </main>
 
-      {/* 4. Solution / CTA Banner (matching screenshot) */}
-      <CtaBanner />
+      {/* 4. Solution / CTA Banner */}
+      <CtaBanner lang={lang} />
 
-      {/* 5. Rich Devotional Footer (matching screenshot 4-columns) */}
+      {/* 5. Rich Devotional Footer */}
       <Footer
+        lang={lang}
         onNavigate={(pageId) => {
           setActivePage(pageId);
           window.scrollTo({ top: 0, behavior: 'smooth' });

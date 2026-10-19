@@ -4,9 +4,11 @@ import {
   Sparkles, Clock, Users, BookOpen 
 } from 'lucide-react';
 import { TOP_PUJAS, getWhatsAppLink } from '../data/pujaData';
+import { translations } from '../data/translations';
 
-export default function TopPujasHighlight({ onOpenBooking, onOpenKundaliModal }) {
+export default function TopPujasHighlight({ lang = 'hi', onOpenBooking, onOpenKundaliModal }) {
   const [selectedPuja, setSelectedPuja] = useState(TOP_PUJAS[0].id);
+  const t = translations[lang].topPujas;
 
   return (
     <section style={{
@@ -19,11 +21,11 @@ export default function TopPujasHighlight({ onOpenBooking, onOpenKundaliModal })
         <div className="sacred-heading">
           <div className="sacred-heading-title">
             <span className="om-symbol">ॐ</span>
-            <span>उज्जैन की 5 मुख्य सिद्ध पूजाएं</span>
+            <span>{t.heading}</span>
             <span className="om-symbol">ॐ</span>
           </div>
           <p className="sacred-heading-sub">
-            महाकाल की पावन धरा पर 100% वैदिक विधि-विधान एवं संकल्प द्वारा कष्ट निवारण
+            {t.sub}
           </p>
           <div className="sacred-divider">
             <div className="sacred-divider-line" />
@@ -42,6 +44,7 @@ export default function TopPujasHighlight({ onOpenBooking, onOpenKundaliModal })
         }}>
           {TOP_PUJAS.map((puja) => {
             const isSelected = selectedPuja === puja.id;
+            const displayName = lang === 'hi' ? puja.nameHi : puja.nameEn;
             return (
               <button
                 key={puja.id}
@@ -78,7 +81,9 @@ export default function TopPujasHighlight({ onOpenBooking, onOpenKundaliModal })
                 }}>
                   {puja.number}
                 </span>
-                <span style={{ fontFamily: 'var(--font-devanagari)' }}>{puja.nameHi}</span>
+                <span style={{ fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)' }}>
+                  {displayName}
+                </span>
               </button>
             );
           })}
@@ -87,6 +92,7 @@ export default function TopPujasHighlight({ onOpenBooking, onOpenKundaliModal })
         {/* Detailed Showcase of Selected Puja */}
         {TOP_PUJAS.map((puja) => {
           if (puja.id !== selectedPuja) return null;
+          const currentName = lang === 'hi' ? puja.nameHi : puja.nameEn;
 
           return (
             <div
@@ -112,7 +118,7 @@ export default function TopPujasHighlight({ onOpenBooking, onOpenKundaliModal })
                 }}>
                   <img
                     src={puja.image}
-                    alt={puja.nameHi}
+                    alt={currentName}
                     style={{
                       width: '100%',
                       height: '100%',
@@ -171,7 +177,7 @@ export default function TopPujasHighlight({ onOpenBooking, onOpenKundaliModal })
                       marginBottom: '6px'
                     }}>
                       <Sparkles size={16} />
-                      <span>प्रामाणिक वैदिक संकल्प सेवा</span>
+                      <span>{lang === 'hi' ? 'प्रामाणिक वैदिक संकल्प सेवा' : 'Authentic Scriptural Vedic Ritual'}</span>
                     </div>
 
                     <h3 style={{
@@ -181,7 +187,7 @@ export default function TopPujasHighlight({ onOpenBooking, onOpenKundaliModal })
                       fontFamily: 'var(--font-serif)',
                       marginBottom: '12px'
                     }}>
-                      {puja.nameHi}
+                      {currentName}
                     </h3>
 
                     <p style={{
@@ -189,7 +195,7 @@ export default function TopPujasHighlight({ onOpenBooking, onOpenKundaliModal })
                       lineHeight: 1.65,
                       color: '#473630',
                       marginBottom: '18px',
-                      fontFamily: 'var(--font-devanagari)'
+                      fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)'
                     }}>
                       {puja.fullDesc}
                     </p>
@@ -206,8 +212,8 @@ export default function TopPujasHighlight({ onOpenBooking, onOpenKundaliModal })
                           alignItems: 'center',
                           gap: '6px'
                         }}>
-                          <span>7 प्रमुख स्तंभों का गहन विश्लेषण:</span>
-                          <span style={{ fontSize: '0.8rem', color: '#886214' }}>(क्लिक करके परामर्श लें)</span>
+                          <span>{t.pillarsHeading}</span>
+                          <span style={{ fontSize: '0.8rem', color: '#886214' }}>{t.pillarsSub}</span>
                         </div>
 
                         <div style={{
@@ -218,7 +224,7 @@ export default function TopPujasHighlight({ onOpenBooking, onOpenKundaliModal })
                           {puja.aspects.map((asp) => (
                             <div
                               key={asp.id}
-                              onClick={() => onOpenKundaliModal(asp.titleHi)}
+                              onClick={() => onOpenKundaliModal(lang === 'hi' ? asp.titleHi : asp.titleEn)}
                               style={{
                                 background: '#fdf8ee',
                                 border: '1px solid #e5d3b3',
@@ -235,10 +241,10 @@ export default function TopPujasHighlight({ onOpenBooking, onOpenKundaliModal })
                               <span style={{ fontSize: '1.2rem' }}>{asp.icon}</span>
                               <div>
                                 <div style={{ fontWeight: '700', fontSize: '0.88rem', color: '#473630' }}>
-                                  {asp.titleHi}
+                                  {lang === 'hi' ? asp.titleHi : asp.titleEn}
                                 </div>
                                 <div style={{ fontSize: '0.72rem', color: '#7a6660' }}>
-                                  {asp.titleEn}
+                                  {lang === 'hi' ? asp.titleEn : asp.titleHi}
                                 </div>
                               </div>
                             </div>
@@ -256,7 +262,7 @@ export default function TopPujasHighlight({ onOpenBooking, onOpenKundaliModal })
                           color: '#730014',
                           marginBottom: '8px'
                         }}>
-                          मुख्य लाभ एवं फलश्रुति:
+                          {t.benefitsHeading}
                         </div>
                         <div style={{
                           display: 'grid',
@@ -285,7 +291,7 @@ export default function TopPujasHighlight({ onOpenBooking, onOpenKundaliModal })
                               }}>
                                 <Check size={12} />
                               </div>
-                              <span style={{ fontFamily: 'var(--font-devanagari)' }}>{benefit}</span>
+                              <span style={{ fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)' }}>{benefit}</span>
                             </div>
                           ))}
                         </div>
@@ -308,11 +314,11 @@ export default function TopPujasHighlight({ onOpenBooking, onOpenKundaliModal })
                       }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                           <Clock size={15} color="#730014" />
-                          <span><strong>अवधि:</strong> {puja.duration}</span>
+                          <span><strong>{t.duration}</strong> {puja.duration}</span>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                           <Users size={15} color="#730014" />
-                          <span><strong>आचार्य:</strong> {puja.panditCount}</span>
+                          <span><strong>{t.priests}</strong> {puja.panditCount}</span>
                         </div>
                       </div>
                     )}
@@ -327,23 +333,27 @@ export default function TopPujasHighlight({ onOpenBooking, onOpenKundaliModal })
                     borderTop: '1px solid #ebd9bc'
                   }}>
                     <button
-                      onClick={() => onOpenBooking(puja.nameHi)}
+                      onClick={() => onOpenBooking(currentName)}
                       className="btn-maroon"
                       style={{ padding: '11px 22px' }}
                     >
                       <Calendar size={18} color="#ffd700" />
-                      <span style={{ fontFamily: 'var(--font-devanagari)' }}>यह पूजा बुक करें</span>
+                      <span style={{ fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)' }}>
+                        {t.bookThis}
+                      </span>
                     </button>
 
                     <a
-                      href={getWhatsAppLink(`प्रणाम पंडित जी, मुझे ${puja.nameHi} के मुहूर्त व दक्षिणा की जानकारी चाहिए।`)}
+                      href={getWhatsAppLink(lang === 'hi' ? `प्रणाम पंडित जी, मुझे ${currentName} के मुहूर्त व दक्षिणा की जानकारी चाहिए।` : `Pranam Pandit Ji, I would like information regarding muhurat and dakshina for ${currentName}.`)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn-whatsapp"
                       style={{ padding: '11px 22px' }}
                     >
                       <MessageCircle size={18} />
-                      <span style={{ fontFamily: 'var(--font-devanagari)' }}>WhatsApp पर पूछें</span>
+                      <span style={{ fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)' }}>
+                        {t.askWa}
+                      </span>
                     </a>
                   </div>
                 </div>

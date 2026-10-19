@@ -1,8 +1,13 @@
 import React from 'react';
-import { Phone, MessageCircle, Calendar, Sparkles, MapPin, Award, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { Phone, MessageCircle, Calendar, MapPin } from 'lucide-react';
 import { PANDIT_INFO, getWhatsAppLink } from '../data/pujaData';
+import { translations } from '../data/translations';
 
-export default function Hero({ onOpenBooking }) {
+export default function Hero({ lang = 'hi', onOpenBooking }) {
+  const t = translations[lang].hero;
+
+  const pillIcons = ['🪔', '🤝', '🕉️', '🧘', '📍'];
+
   return (
     <section style={{
       position: 'relative',
@@ -15,7 +20,7 @@ export default function Hero({ onOpenBooking }) {
       borderBottom: '4px solid #d4af37',
       overflow: 'hidden'
     }}>
-      {/* Decorative Golden Ambient Sparks */}
+      {/* Decorative Golden Top Line */}
       <div style={{
         position: 'absolute',
         top: 0,
@@ -45,10 +50,10 @@ export default function Hero({ onOpenBooking }) {
               fontWeight: '600',
               letterSpacing: '1px',
               marginBottom: '10px',
-              fontFamily: 'var(--font-devanagari)'
+              fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)'
             }}>
               <span style={{ color: '#ffaa4d' }}>🕉️</span>
-              <span>|| महाकाल की नगरी उज्जैन से ||</span>
+              <span>{t.cityTag}</span>
             </div>
 
             {/* Pandit Ji Name */}
@@ -73,11 +78,11 @@ export default function Hero({ onOpenBooking }) {
               fontSize: 'clamp(1.2rem, 2.2vw, 1.7rem)',
               color: '#ffc83b',
               fontWeight: '700',
-              fontFamily: 'var(--font-devanagari)',
+              fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)',
               marginBottom: '16px',
               textShadow: '0 2px 8px rgba(0,0,0,0.6)'
             }}>
-              ज्योतिष एवं वास्तु विशेषज्ञ
+              {t.title}
             </div>
 
             {/* Description */}
@@ -87,9 +92,9 @@ export default function Hero({ onOpenBooking }) {
               color: '#f0e6dc',
               marginBottom: '28px',
               maxWidth: '560px',
-              fontFamily: 'var(--font-devanagari)'
+              fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)'
             }}>
-              {PANDIT_INFO.taglineHi}
+              {t.desc}
             </p>
 
             {/* 3 Main Action Buttons */}
@@ -118,26 +123,26 @@ export default function Hero({ onOpenBooking }) {
                   <Phone size={17} color="#ffd700" />
                 </div>
                 <div style={{ textAlign: 'left', lineHeight: 1.2 }}>
-                  <div style={{ fontSize: '0.72rem', textTransform: 'uppercase', opacity: 0.9 }}>Call Now</div>
+                  <div style={{ fontSize: '0.72rem', textTransform: 'uppercase', opacity: 0.9 }}>{t.callNow}</div>
                   <div style={{ fontWeight: '700', letterSpacing: '0.5px' }}>{PANDIT_INFO.phone}</div>
                 </div>
               </a>
 
               {/* WhatsApp Button */}
               <a
-                href={getWhatsAppLink("प्रणाम पंडित जी, मुझे उज्जैन में पूजा और परामर्श के संबंध में बात करनी है।")}
+                href={getWhatsAppLink(lang === 'hi' ? "प्रणाम पंडित जी, मुझे उज्जैन में पूजा और परामर्श के संबंध में बात करनी है।" : "Pranam Pandit Ji, I would like to inquire regarding Puja and astrology consultation in Ujjain.")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-whatsapp"
                 style={{
                   padding: '12px 24px',
                   fontSize: '1rem',
-                  fontFamily: 'var(--font-devanagari)',
+                  fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)',
                   boxShadow: '0 6px 20px rgba(37,211,102,0.4)'
                 }}
               >
                 <MessageCircle size={20} />
-                <span>WhatsApp करें</span>
+                <span>{t.whatsapp}</span>
               </a>
 
               {/* Book Puja Button */}
@@ -147,11 +152,11 @@ export default function Hero({ onOpenBooking }) {
                 style={{
                   padding: '12px 24px',
                   fontSize: '1rem',
-                  fontFamily: 'var(--font-devanagari)'
+                  fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)'
                 }}
               >
                 <Calendar size={19} />
-                <span>पूजा बुक करें</span>
+                <span>{t.bookPuja}</span>
               </button>
             </div>
           </div>
@@ -214,13 +219,13 @@ export default function Hero({ onOpenBooking }) {
                 backdropFilter: 'blur(6px)'
               }}>
                 <MapPin size={14} color="#ff7700" />
-                <span>उज्जैन, मध्य प्रदेश</span>
+                <span>{t.locationBadge}</span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Feature Pills Bar (Directly beneath hero content as in screenshot) */}
+        {/* Feature Pills Bar */}
         <div style={{
           marginTop: '35px',
           background: 'rgba(15, 6, 4, 0.72)',
@@ -233,58 +238,22 @@ export default function Hero({ onOpenBooking }) {
           gap: '16px',
           alignItems: 'center'
         }}>
-          {/* Pill 1 */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <span style={{ fontSize: '1.2rem', color: '#ffc83b' }}>🪔</span>
-            <div>
-              <div style={{ fontSize: '0.86rem', fontWeight: '700', color: '#ffffff' }}>आध्यात्मिक सेवा</div>
-              <div style={{ fontSize: '0.72rem', color: '#ffd269' }}>पवित्र वैदिक परंपरा</div>
+          {t.pills.map((pill, idx) => (
+            <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <span style={{ fontSize: '1.2rem', color: '#ffc83b' }}>{pillIcons[idx]}</span>
+              <div>
+                <div style={{ fontSize: '0.86rem', fontWeight: '700', color: '#ffffff' }}>{pill.title}</div>
+                <div style={{ fontSize: '0.72rem', color: '#ffd269' }}>{pill.sub}</div>
+              </div>
             </div>
-          </div>
-
-          {/* Pill 2 */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <span style={{ fontSize: '1.2rem', color: '#ffc83b' }}>🤝</span>
-            <div>
-              <div style={{ fontSize: '0.86rem', fontWeight: '700', color: '#ffffff' }}>अनुभव एवं विश्वास</div>
-              <div style={{ fontSize: '0.72rem', color: '#ffd269' }}>15+ वर्षों की निरंतर सेवा</div>
-            </div>
-          </div>
-
-          {/* Pill 3 */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <span style={{ fontSize: '1.2rem', color: '#ffc83b' }}>🕉️</span>
-            <div>
-              <div style={{ fontSize: '0.86rem', fontWeight: '700', color: '#ffffff' }}>विधि-विधान से पूजा</div>
-              <div style={{ fontSize: '0.72rem', color: '#ffd269' }}>100% शास्त्रोक्त अनुष्ठान</div>
-            </div>
-          </div>
-
-          {/* Pill 4 */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <span style={{ fontSize: '1.2rem', color: '#ffc83b' }}>🧘</span>
-            <div>
-              <div style={{ fontSize: '0.86rem', fontWeight: '700', color: '#ffffff' }}>व्यक्तिगत मार्गदर्शन</div>
-              <div style={{ fontSize: '0.72rem', color: '#ffd269' }}>कुंडली व दोष निवारण</div>
-            </div>
-          </div>
-
-          {/* Pill 5 */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <span style={{ fontSize: '1.2rem', color: '#ff7700' }}>📍</span>
-            <div>
-              <div style={{ fontSize: '0.86rem', fontWeight: '700', color: '#ffffff' }}>उज्जैन धाम</div>
-              <div style={{ fontSize: '0.72rem', color: '#ffd269' }}>महाकाल की पावन नगरी</div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 
-      {/* Responsive layout styles */}
       <style>{`
         @media (max-width: 900px) {
           .hero-grid {
-            grid-templateColumns: 1fr !important;
+            grid-template-columns: 1fr !important;
             text-align: center;
           }
           .hero-grid div:first-child {

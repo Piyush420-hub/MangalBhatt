@@ -1,37 +1,19 @@
 import React from 'react';
 import { 
   Award, Flame, ShieldCheck, Users, MapPin, 
-  ArrowRight, Phone, MessageCircle 
+  ArrowRight 
 } from 'lucide-react';
-import { PANDIT_INFO, getWhatsAppLink } from '../data/pujaData';
+import { translations } from '../data/translations';
 
-export default function AboutSection({ onNavigateAbout, onOpenBooking }) {
-  const stats = [
-    {
-      icon: <Award size={22} color="#730014" />,
-      value: PANDIT_INFO.experienceYears,
-      label: PANDIT_INFO.experienceLabel
-    },
-    {
-      icon: <Flame size={22} color="#730014" />,
-      value: PANDIT_INFO.completedPujas,
-      label: PANDIT_INFO.completedPujasLabel
-    },
-    {
-      icon: <ShieldCheck size={22} color="#730014" />,
-      value: PANDIT_INFO.vedicAuthenticity,
-      label: PANDIT_INFO.vedicAuthenticityLabel
-    },
-    {
-      icon: <Users size={22} color="#730014" />,
-      value: PANDIT_INFO.satisfiedFamilies,
-      label: PANDIT_INFO.satisfiedFamiliesLabel
-    },
-    {
-      icon: <MapPin size={22} color="#730014" />,
-      value: "उज्जैन",
-      label: "मध्य प्रदेश (महाकाल धाम)"
-    }
+export default function AboutSection({ lang = 'hi', onNavigateAbout, onOpenBooking }) {
+  const t = translations[lang].about;
+
+  const statIcons = [
+    <Award size={22} color="#730014" />,
+    <Flame size={22} color="#730014" />,
+    <ShieldCheck size={22} color="#730014" />,
+    <Users size={22} color="#730014" />,
+    <MapPin size={22} color="#730014" />
   ];
 
   return (
@@ -48,7 +30,7 @@ export default function AboutSection({ onNavigateAbout, onOpenBooking }) {
           alignItems: 'center'
         }} className="about-grid">
 
-          {/* Left Column: Pandit Ji Photo in Temple / Puja Setup */}
+          {/* Left Column: Pandit Ji Photo */}
           <div style={{
             position: 'relative',
             borderRadius: '16px',
@@ -86,7 +68,7 @@ export default function AboutSection({ onNavigateAbout, onOpenBooking }) {
             </div>
           </div>
 
-          {/* Center Column: Bio Text & Know More */}
+          {/* Center Column: Bio Text */}
           <div>
             <div style={{
               color: '#9e7d18',
@@ -94,9 +76,9 @@ export default function AboutSection({ onNavigateAbout, onOpenBooking }) {
               fontSize: '0.95rem',
               letterSpacing: '1px',
               marginBottom: '6px',
-              fontFamily: 'var(--font-devanagari)'
+              fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)'
             }}>
-              || हमारे बारे में ||
+              {t.subtitle}
             </div>
 
             <h2 style={{
@@ -107,17 +89,17 @@ export default function AboutSection({ onNavigateAbout, onOpenBooking }) {
               lineHeight: 1.2,
               marginBottom: '6px'
             }}>
-              {PANDIT_INFO.nameHi}
+              {t.title}
             </h2>
 
             <div style={{
               fontSize: '1.05rem',
               fontWeight: '700',
               color: '#b8860b',
-              fontFamily: 'var(--font-devanagari)',
+              fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)',
               marginBottom: '16px'
             }}>
-              ज्योतिष एवं वास्तु विशेषज्ञ, उज्जैन
+              {t.tagline}
             </div>
 
             <p style={{
@@ -125,9 +107,9 @@ export default function AboutSection({ onNavigateAbout, onOpenBooking }) {
               lineHeight: 1.7,
               color: '#473630',
               marginBottom: '16px',
-              fontFamily: 'var(--font-devanagari)'
+              fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)'
             }}>
-              मैं पंडित तरुण पूरी गोस्वामी जी, विगत कई वर्षों से उज्जैन में रहकर ज्योतिष, वास्तु एवं वैदिक कर्मकांड के क्षेत्र में कार्य कर रहा हूँ। जन्म कुंडली विश्लेषण, वास्तु दोष निवारण, गृह शांति, यज्ञ, अनुष्ठान, मंत्र जप आदि के माध्यम से जीवन में सकारात्मक ऊर्जा, सुख-समृद्धि और शांति का मार्ग प्रदान करता हूँ।
+              {t.bio1}
             </p>
 
             <p style={{
@@ -135,9 +117,9 @@ export default function AboutSection({ onNavigateAbout, onOpenBooking }) {
               lineHeight: 1.65,
               color: '#63504a',
               marginBottom: '22px',
-              fontFamily: 'var(--font-devanagari)'
+              fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)'
             }}>
-              उज्जैन की पावन भूमि पर स्थित विश्वविख्यात मंगलनाथ, महाकालेश्वर, कालभैरव एवं सिद्धवट तीर्थों पर विधिपूर्वक संकल्प के साथ पूजा-अर्चना संपन्न कराई जाती है।
+              {t.bio2}
             </p>
 
             {/* Read More button */}
@@ -147,7 +129,7 @@ export default function AboutSection({ onNavigateAbout, onOpenBooking }) {
                 className="btn-maroon"
                 style={{ padding: '10px 20px', fontSize: '0.92rem' }}
               >
-                <span>और जानें</span>
+                <span>{t.moreBtn}</span>
                 <ArrowRight size={16} />
               </button>
 
@@ -156,18 +138,18 @@ export default function AboutSection({ onNavigateAbout, onOpenBooking }) {
                 className="btn-gold"
                 style={{ padding: '10px 20px', fontSize: '0.92rem' }}
               >
-                <span>परामर्श हेतु संपर्क करें</span>
+                <span>{t.consultBtn}</span>
               </button>
             </div>
           </div>
 
-          {/* Right Column: Trust Badges / Stats Cards (matching screenshot) */}
+          {/* Right Column: Stats Cards */}
           <div style={{
             display: 'flex',
             flexDirection: 'column',
             gap: '10px'
           }}>
-            {stats.map((item, idx) => (
+            {t.stats.map((item, idx) => (
               <div
                 key={idx}
                 style={{
@@ -194,7 +176,7 @@ export default function AboutSection({ onNavigateAbout, onOpenBooking }) {
                   justifyContent: 'center',
                   flexShrink: 0
                 }}>
-                  {item.icon}
+                  {statIcons[idx]}
                 </div>
                 <div>
                   <div style={{
@@ -208,7 +190,7 @@ export default function AboutSection({ onNavigateAbout, onOpenBooking }) {
                   <div style={{
                     fontSize: '0.82rem',
                     color: '#6e5a54',
-                    fontFamily: 'var(--font-devanagari)'
+                    fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)'
                   }}>
                     {item.label}
                   </div>

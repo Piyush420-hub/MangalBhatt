@@ -1,8 +1,11 @@
 import React from 'react';
-import { Phone, MessageCircle } from 'lucide-react';
+import { Phone } from 'lucide-react';
 import { PANDIT_INFO } from '../data/pujaData';
+import { translations } from '../data/translations';
 
 export default function TopBar({ lang, setLang }) {
+  const t = translations[lang].topBar;
+
   return (
     <div style={{
       background: 'linear-gradient(90deg, #3d0207 0%, #680514 50%, #3d0207 100%)',
@@ -29,7 +32,7 @@ export default function TopBar({ lang, setLang }) {
           letterSpacing: '0.5px'
         }}>
           <span style={{ color: '#ffd700', fontSize: '1rem' }}>🕉️</span>
-          <span>|| ॐ नमः शिवाय ||</span>
+          <span>{t.mantra}</span>
         </div>
 
         {/* Center Pillars */}
@@ -41,11 +44,11 @@ export default function TopBar({ lang, setLang }) {
           fontWeight: '500',
           color: '#fcedcc'
         }}>
-          <span>धर्म</span>
+          <span>{t.dharma}</span>
           <span style={{ color: '#d4af37' }}>|</span>
-          <span>सेवा</span>
+          <span>{t.seva}</span>
           <span style={{ color: '#d4af37' }}>|</span>
-          <span>विश्वास</span>
+          <span>{t.vishwas}</span>
         </div>
 
         {/* Right - Call & Language Switcher */}
@@ -68,24 +71,28 @@ export default function TopBar({ lang, setLang }) {
             <span>{PANDIT_INFO.phone}</span>
           </a>
 
-          {/* Language Toggle */}
+          {/* Interactive Language Toggle Button */}
           <div style={{
             display: 'inline-flex',
             alignItems: 'center',
-            background: 'rgba(0,0,0,0.3)',
+            background: 'rgba(0,0,0,0.35)',
             borderRadius: '20px',
-            border: '1px solid rgba(212, 175, 55, 0.5)',
+            border: '1.5px solid #d4af37',
             padding: '2px 4px',
-            fontSize: '0.78rem'
+            fontSize: '0.8rem',
+            boxShadow: '0 2px 6px rgba(0,0,0,0.2)'
           }}>
             <button
               onClick={() => setLang('hi')}
               style={{
-                background: lang === 'hi' ? '#d4af37' : 'transparent',
-                color: lang === 'hi' ? '#240407' : '#fcedcc',
-                padding: '2px 8px',
-                borderRadius: '12px',
-                fontWeight: lang === 'hi' ? '700' : '400'
+                background: lang === 'hi' ? 'linear-gradient(135deg, #ffd700, #d4af37)' : 'transparent',
+                color: lang === 'hi' ? '#3d0207' : '#fcedcc',
+                padding: '3px 10px',
+                borderRadius: '14px',
+                fontWeight: lang === 'hi' ? '800' : '500',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                border: 'none'
               }}
             >
               हिंदी
@@ -94,11 +101,14 @@ export default function TopBar({ lang, setLang }) {
             <button
               onClick={() => setLang('en')}
               style={{
-                background: lang === 'en' ? '#d4af37' : 'transparent',
-                color: lang === 'en' ? '#240407' : '#fcedcc',
-                padding: '2px 8px',
-                borderRadius: '12px',
-                fontWeight: lang === 'en' ? '700' : '400'
+                background: lang === 'en' ? 'linear-gradient(135deg, #ffd700, #d4af37)' : 'transparent',
+                color: lang === 'en' ? '#3d0207' : '#fcedcc',
+                padding: '3px 10px',
+                borderRadius: '14px',
+                fontWeight: lang === 'en' ? '800' : '500',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                border: 'none'
               }}
             >
               English

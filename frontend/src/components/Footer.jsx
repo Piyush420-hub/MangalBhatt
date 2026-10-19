@@ -1,21 +1,25 @@
 import React from 'react';
-import { MapPin, Phone, Mail, MessageCircle, ArrowRight, Heart } from 'lucide-react';
+import { MapPin, Phone, Mail, MessageCircle } from 'lucide-react';
 import { PANDIT_INFO, getWhatsAppLink } from '../data/pujaData';
+import { translations } from '../data/translations';
 
-export default function Footer({ onNavigate, onOpenBooking }) {
+export default function Footer({ lang = 'hi', onNavigate, onOpenBooking }) {
+  const t = translations[lang].footer;
+  const navT = translations[lang].nav;
+
   const quickLinks = [
-    { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About Pandit Ji' },
-    { id: 'services', label: 'Services' },
-    { id: 'pujas', label: 'Puja & Anushthan' },
-    { id: 'jyotish', label: 'Jyotish' },
-    { id: 'vastu', label: 'Vastu' },
-    { id: 'gallery', label: 'Gallery' },
-    { id: 'contact', label: 'Contact' },
-    { id: 'booking', label: 'Book Puja' }
+    { id: 'home', label: navT.home },
+    { id: 'about', label: navT.about },
+    { id: 'services', label: navT.services },
+    { id: 'pujas', label: navT.pujas },
+    { id: 'jyotish', label: navT.jyotish },
+    { id: 'vastu', label: navT.vastu },
+    { id: 'gallery', label: navT.gallery },
+    { id: 'contact', label: navT.contact },
+    { id: 'booking', label: navT.bookPuja }
   ];
 
-  const serviceLinks = [
+  const serviceLinks = lang === 'hi' ? [
     'मंगल भात पूजन',
     'काल सर्प पूजा',
     'कुण्डली विश्लेषण',
@@ -29,6 +33,20 @@ export default function Footer({ onNavigate, onOpenBooking }) {
     'नवचंडी अनुष्ठान',
     'शिवशक्ति अनुष्ठान',
     'और भी बहुत कुछ...'
+  ] : [
+    'Mangal Bhat Puja',
+    'Kaal Sarp Dosh Puja',
+    'Kundali Analysis',
+    'Maha Rudrabhishek',
+    'Mahamrityunjaya Hawan',
+    'Astrology Consultation',
+    'Vastu Consultation',
+    'Yajna & Anushthan',
+    'Griha Vastu Puja',
+    'Idol Consecration',
+    'Navchandi Anushthan',
+    'Shivshakti Anushthan',
+    'And many more...'
   ];
 
   return (
@@ -55,19 +73,19 @@ export default function Footer({ onNavigate, onOpenBooking }) {
               fontSize: '1.15rem',
               fontWeight: '700',
               color: '#ffd700',
-              fontFamily: 'var(--font-devanagari)',
+              fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)',
               marginBottom: '18px',
               borderBottom: '2px solid #730014',
               paddingBottom: '6px',
               display: 'inline-block'
             }}>
-              संपर्क करें
+              {t.contactHeading}
             </h4>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
                 <MapPin size={18} color="#ff7700" style={{ marginTop: '3px', flexShrink: 0 }} />
-                <span>{PANDIT_INFO.locationHi}</span>
+                <span>{lang === 'hi' ? PANDIT_INFO.locationHi : PANDIT_INFO.locationEn}</span>
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -180,13 +198,13 @@ export default function Footer({ onNavigate, onOpenBooking }) {
               fontSize: '1.15rem',
               fontWeight: '700',
               color: '#ffd700',
-              fontFamily: 'var(--font-devanagari)',
+              fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)',
               marginBottom: '18px',
               borderBottom: '2px solid #730014',
               paddingBottom: '6px',
               display: 'inline-block'
             }}>
-              त्वरित लिंक
+              {t.quickLinksHeading}
             </h4>
 
             <div style={{
@@ -212,7 +230,8 @@ export default function Footer({ onNavigate, onOpenBooking }) {
                     fontSize: '0.86rem',
                     padding: '3px 0',
                     cursor: 'pointer',
-                    transition: 'color 0.2s'
+                    transition: 'color 0.2s',
+                    fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)'
                   }}
                   onMouseEnter={(e) => e.currentTarget.style.color = '#ffd700'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#d4c2b0'}
@@ -229,13 +248,13 @@ export default function Footer({ onNavigate, onOpenBooking }) {
               fontSize: '1.15rem',
               fontWeight: '700',
               color: '#ffd700',
-              fontFamily: 'var(--font-devanagari)',
+              fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)',
               marginBottom: '18px',
               borderBottom: '2px solid #730014',
               paddingBottom: '6px',
               display: 'inline-block'
             }}>
-              हमारी सेवाएं
+              {t.servicesHeading}
             </h4>
 
             <div style={{
@@ -254,7 +273,7 @@ export default function Footer({ onNavigate, onOpenBooking }) {
                     display: 'flex',
                     alignItems: 'center',
                     gap: '4px',
-                    fontFamily: 'var(--font-devanagari)'
+                    fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)'
                   }}
                   onMouseEnter={(e) => e.currentTarget.style.color = '#ffd700'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#d4c2b0'}
@@ -291,26 +310,26 @@ export default function Footer({ onNavigate, onOpenBooking }) {
               fontSize: '0.98rem',
               lineHeight: 1.6,
               color: '#f5e5c9',
-              fontFamily: 'var(--font-devanagari)',
+              fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)',
               marginBottom: '12px'
             }}>
-              "शास्त्रों के अनुसार सही मार्गदर्शन ही जीवन को सुखमय बनाता है।"
+              {t.quote}
             </p>
 
             <div style={{
               fontWeight: '700',
               color: '#d4af37',
               fontSize: '0.88rem',
-              fontFamily: 'var(--font-devanagari)'
+              fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)'
             }}>
-              - पं. तरुण पूरी गोस्वामी
+              {t.author}
             </div>
             <div style={{
               fontSize: '0.78rem',
               color: '#9e8c80',
               marginTop: '4px'
             }}>
-              उज्जैन, मध्य प्रदेश
+              {lang === 'hi' ? 'उज्जैन, मध्य प्रदेश' : 'Ujjain, Madhya Pradesh'}
             </div>
           </div>
         </div>
@@ -323,10 +342,7 @@ export default function Footer({ onNavigate, onOpenBooking }) {
           color: '#a38f83'
         }}>
           <div>
-            © {new Date().getFullYear()} Pandit Tarun Puri Goswami. All Rights Reserved. | <span style={{ color: '#ffd700' }}>{PANDIT_INFO.websiteName}</span>
-          </div>
-          <div style={{ marginTop: '4px', fontSize: '0.76rem', color: '#7a685f' }}>
-            Designed with devotion | श्री महाकालेश्वर ज्योतिर्लिंग, उज्जैन
+            © {new Date().getFullYear()} Pandit Tarun Puri Goswami. {t.rights}
           </div>
         </div>
       </div>

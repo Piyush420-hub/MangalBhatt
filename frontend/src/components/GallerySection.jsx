@@ -1,10 +1,23 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, ArrowRight, Eye, X } from 'lucide-react';
 import { GALLERY_ITEMS } from '../data/pujaData';
+import { translations } from '../data/translations';
 
-export default function GallerySection({ onNavigateGallery }) {
+export default function GallerySection({ lang = 'hi', onNavigateGallery }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [lightboxImage, setLightboxImage] = useState(null);
+  const t = translations[lang].gallery;
+
+  const englishGalleryTitles = {
+    1: "Mangal Bhat Puja Ritual at Mangalnath Temple, Ujjain",
+    2: "Authentic Kaal Sarp Dosh Nivaran Altar",
+    3: "Divine Maha Rudrabhishek of Lord Mahakaleshwar",
+    4: "Maha Mrityunjaya Vedic Yajna & Ahutis",
+    5: "Maa Baglamukhi Pitambari Victory Hawan",
+    6: "Navagraha Shanti & Vastu Kalash Consecration",
+    7: "Kundali Janampatri Analysis & Consultation",
+    8: "Sacred Shipra River Ghat Evening Maha Aarti, Ujjain"
+  };
 
   const prevSlide = () => {
     setCurrentIndex((prev) => (prev === 0 ? GALLERY_ITEMS.length - 4 : prev - 1));
@@ -14,9 +27,7 @@ export default function GallerySection({ onNavigateGallery }) {
     setCurrentIndex((prev) => (prev >= GALLERY_ITEMS.length - 4 ? 0 : prev + 1));
   };
 
-  // Visible items (slice 4 items)
   const visibleItems = GALLERY_ITEMS.slice(currentIndex, currentIndex + 4);
-  // If fewer than 4 items due to index, wrap around
   if (visibleItems.length < 4) {
     visibleItems.push(...GALLERY_ITEMS.slice(0, 4 - visibleItems.length));
   }
@@ -32,7 +43,7 @@ export default function GallerySection({ onNavigateGallery }) {
         <div className="sacred-heading">
           <div className="sacred-heading-title">
             <span className="om-symbol">ॐ</span>
-            <span>हमारी पूजा एवं अनुष्ठान की झलकियां</span>
+            <span>{t.heading}</span>
             <span className="om-symbol">ॐ</span>
           </div>
           <div className="sacred-divider">
@@ -42,7 +53,7 @@ export default function GallerySection({ onNavigateGallery }) {
           </div>
         </div>
 
-        {/* Carousel Container with Arrows */}
+        {/* Carousel Container */}
         <div style={{
           position: 'relative',
           display: 'flex',
@@ -50,7 +61,6 @@ export default function GallerySection({ onNavigateGallery }) {
           gap: '12px',
           marginBottom: '30px'
         }}>
-          {/* Left Arrow Button */}
           <button
             onClick={prevSlide}
             style={{
@@ -74,78 +84,78 @@ export default function GallerySection({ onNavigateGallery }) {
             <ChevronLeft size={22} />
           </button>
 
-          {/* Gallery Items Grid */}
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
             gap: '16px',
             width: '100%'
           }} className="gallery-carousel-grid">
-            {visibleItems.map((item, idx) => (
-              <div
-                key={`${item.id}-${idx}`}
-                onClick={() => setLightboxImage(item)}
-                style={{
-                  position: 'relative',
-                  borderRadius: '10px',
-                  overflow: 'hidden',
-                  border: '1px solid #ebd9bc',
-                  boxShadow: '0 4px 14px rgba(0,0,0,0.06)',
-                  cursor: 'pointer',
-                  height: '210px',
-                  transition: 'all 0.3s ease'
-                }}
-                className="gallery-item-card"
-              >
-                <img
-                  src={item.img}
-                  alt={item.titleHi}
+            {visibleItems.map((item, idx) => {
+              const displayTitle = lang === 'hi' ? item.titleHi : englishGalleryTitles[item.id];
+              return (
+                <div
+                  key={`${item.id}-${idx}`}
+                  onClick={() => setLightboxImage({ ...item, displayTitle })}
                   style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    transition: 'transform 0.4s ease'
+                    position: 'relative',
+                    borderRadius: '10px',
+                    overflow: 'hidden',
+                    border: '1px solid #ebd9bc',
+                    boxShadow: '0 4px 14px rgba(0,0,0,0.06)',
+                    cursor: 'pointer',
+                    height: '210px',
+                    transition: 'all 0.3s ease'
                   }}
-                  className="gallery-img"
-                />
+                  className="gallery-item-card"
+                >
+                  <img
+                    src={item.img}
+                    alt={displayTitle}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      transition: 'transform 0.4s ease'
+                    }}
+                    className="gallery-img"
+                  />
 
-                {/* Hover overlay with title */}
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: 'linear-gradient(to top, rgba(16,7,5,0.85) 0%, rgba(16,7,5,0.2) 60%, transparent 100%)',
-                  padding: '16px 12px 12px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'flex-end',
-                  color: '#ffffff'
-                }}>
                   <div style={{
-                    fontSize: '0.84rem',
-                    fontWeight: '700',
-                    color: '#fff0c7',
-                    fontFamily: 'var(--font-devanagari)',
-                    lineHeight: 1.3
-                  }}>
-                    {item.titleHi}
-                  </div>
-                  <div style={{
-                    fontSize: '0.72rem',
-                    color: '#ffd700',
-                    marginTop: '4px',
+                    position: 'absolute',
+                    inset: 0,
+                    background: 'linear-gradient(to top, rgba(16,7,5,0.85) 0%, rgba(16,7,5,0.2) 60%, transparent 100%)',
+                    padding: '16px 12px 12px',
                     display: 'flex',
-                    alignItems: 'center',
-                    gap: '4px'
+                    flexDirection: 'column',
+                    justifyContent: 'flex-end',
+                    color: '#ffffff'
                   }}>
-                    <Eye size={12} />
-                    <span>बड़ा करके देखें</span>
+                    <div style={{
+                      fontSize: '0.84rem',
+                      fontWeight: '700',
+                      color: '#fff0c7',
+                      fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)',
+                      lineHeight: 1.3
+                    }}>
+                      {displayTitle}
+                    </div>
+                    <div style={{
+                      fontSize: '0.72rem',
+                      color: '#ffd700',
+                      marginTop: '4px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '4px'
+                    }}>
+                      <Eye size={12} />
+                      <span>{t.viewLarge}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
-          {/* Right Arrow Button */}
           <button
             onClick={nextSlide}
             style={{
@@ -170,25 +180,20 @@ export default function GallerySection({ onNavigateGallery }) {
           </button>
         </div>
 
-        {/* View Full Gallery Button */}
         <div style={{ textAlign: 'center' }}>
           <button
             onClick={onNavigateGallery}
             className="btn-maroon"
             style={{ padding: '11px 26px' }}
           >
-            <span>पूरी गैलरी देखें</span>
+            <span>{t.viewFullBtn}</span>
             <ArrowRight size={16} />
           </button>
         </div>
       </div>
 
-      {/* Lightbox Modal */}
       {lightboxImage && (
-        <div
-          onClick={() => setLightboxImage(null)}
-          className="modal-overlay"
-        >
+        <div onClick={() => setLightboxImage(null)} className="modal-overlay">
           <div
             onClick={(e) => e.stopPropagation()}
             style={{
@@ -225,12 +230,8 @@ export default function GallerySection({ onNavigateGallery }) {
 
             <img
               src={lightboxImage.img}
-              alt={lightboxImage.titleHi}
-              style={{
-                width: '100%',
-                maxHeight: '70vh',
-                objectFit: 'contain'
-              }}
+              alt={lightboxImage.displayTitle}
+              style={{ width: '100%', maxHeight: '70vh', objectFit: 'contain' }}
             />
 
             <div style={{
@@ -239,9 +240,9 @@ export default function GallerySection({ onNavigateGallery }) {
               textAlign: 'center',
               fontSize: '1.05rem',
               fontWeight: '700',
-              fontFamily: 'var(--font-devanagari)'
+              fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)'
             }}>
-              {lightboxImage.titleHi}
+              {lightboxImage.displayTitle}
             </div>
           </div>
         </div>

@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
-import { Calendar, Menu, X, Phone, Flame } from 'lucide-react';
+import { Calendar, Menu, X, Phone } from 'lucide-react';
 import { PANDIT_INFO } from '../data/pujaData';
+import { translations } from '../data/translations';
 
-export default function Navbar({ activePage, setActivePage, onOpenBooking }) {
+export default function Navbar({ lang = 'hi', activePage, setActivePage, onOpenBooking }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const t = translations[lang].nav;
 
   const navLinks = [
-    { id: 'home', labelHi: 'Home', labelEn: 'Home' },
-    { id: 'about', labelHi: 'About Pandit Ji', labelEn: 'About Pandit Ji' },
-    { id: 'services', labelHi: 'Services', labelEn: 'Services' },
-    { id: 'pujas', labelHi: 'Puja & Anushthan', labelEn: 'Puja & Anushthan' },
-    { id: 'jyotish', labelHi: 'Jyotish', labelEn: 'Jyotish' },
-    { id: 'vastu', labelHi: 'Vastu', labelEn: 'Vastu' },
-    { id: 'gallery', labelHi: 'Gallery', labelEn: 'Gallery' },
-    { id: 'contact', labelHi: 'Contact', labelEn: 'Contact' }
+    { id: 'home', label: t.home },
+    { id: 'about', label: t.about },
+    { id: 'services', label: t.services },
+    { id: 'pujas', label: t.pujas },
+    { id: 'jyotish', label: t.jyotish },
+    { id: 'vastu', label: t.vastu },
+    { id: 'gallery', label: t.gallery },
+    { id: 'contact', label: t.contact }
   ];
 
   const handleNavClick = (id) => {
@@ -89,9 +91,9 @@ export default function Navbar({ activePage, setActivePage, onOpenBooking }) {
               fontSize: '0.82rem',
               color: '#7a5a22',
               fontWeight: '600',
-              fontFamily: 'var(--font-devanagari)'
+              fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)'
             }}>
-              ज्योतिष एवं वास्तु विशेषज्ञ (उज्जैन)
+              {t.panditTitle}
             </div>
           </div>
         </div>
@@ -125,7 +127,7 @@ export default function Navbar({ activePage, setActivePage, onOpenBooking }) {
                   if (!isActive) e.currentTarget.style.color = '#423733';
                 }}
               >
-                {link.labelHi}
+                {link.label}
               </button>
             );
           })}
@@ -142,7 +144,9 @@ export default function Navbar({ activePage, setActivePage, onOpenBooking }) {
             }}
           >
             <Calendar size={16} color="#ffd700" />
-            <span style={{ fontFamily: 'var(--font-devanagari)' }}>पूजा बुक करें</span>
+            <span style={{ fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)' }}>
+              {t.bookPuja}
+            </span>
           </button>
 
           {/* Mobile Menu Button */}
@@ -190,7 +194,7 @@ export default function Navbar({ activePage, setActivePage, onOpenBooking }) {
                     fontSize: '0.98rem'
                   }}
                 >
-                  {link.labelHi}
+                  {link.label}
                 </button>
               );
             })}
@@ -201,7 +205,7 @@ export default function Navbar({ activePage, setActivePage, onOpenBooking }) {
                 style={{ flex: 1, justifyContent: 'center', padding: '10px' }}
               >
                 <Phone size={16} />
-                <span>कॉल करें</span>
+                <span>{lang === 'hi' ? 'कॉल करें' : 'Call Now'}</span>
               </a>
               <button
                 onClick={() => { setMobileMenuOpen(false); onOpenBooking(); }}
@@ -209,14 +213,13 @@ export default function Navbar({ activePage, setActivePage, onOpenBooking }) {
                 style={{ flex: 1, justifyContent: 'center', padding: '10px' }}
               >
                 <Calendar size={16} />
-                <span>पूजा बुक करें</span>
+                <span>{t.bookPuja}</span>
               </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* Media query helper style for desktop-nav */}
       <style>{`
         @media (min-width: 992px) {
           .desktop-nav {

@@ -1,8 +1,11 @@
 import React from 'react';
 import { Phone, MessageCircle } from 'lucide-react';
 import { PANDIT_INFO, getWhatsAppLink } from '../data/pujaData';
+import { translations } from '../data/translations';
 
-export default function CtaBanner() {
+export default function CtaBanner({ lang = 'hi' }) {
+  const t = translations[lang].cta;
+
   return (
     <section style={{
       position: 'relative',
@@ -32,15 +35,15 @@ export default function CtaBanner() {
               marginBottom: '6px',
               textShadow: '0 2px 8px rgba(0,0,0,0.4)'
             }}>
-              अपनी समस्या का समाधान पाएं
+              {t.title}
             </h3>
             <p style={{
               fontSize: '1.02rem',
               color: '#ffe599',
-              fontFamily: 'var(--font-devanagari)',
+              fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)',
               letterSpacing: '0.3px'
             }}>
-              आज ही संपर्क करें और जीवन में सकारात्मक परिवर्तन लाएं।
+              {t.sub}
             </p>
           </div>
 
@@ -71,13 +74,15 @@ export default function CtaBanner() {
               <Phone size={18} color="#ffd700" />
               <div style={{ textAlign: 'left', lineHeight: 1.2 }}>
                 <div style={{ fontWeight: '700', fontSize: '0.96rem' }}>{PANDIT_INFO.phone}</div>
-                <div style={{ fontSize: '0.74rem', color: '#ffd700', fontFamily: 'var(--font-devanagari)' }}>कॉल करें</div>
+                <div style={{ fontSize: '0.74rem', color: '#ffd700', fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)' }}>
+                  {t.callText}
+                </div>
               </div>
             </a>
 
             {/* WhatsApp Button */}
             <a
-              href={getWhatsAppLink("प्रणाम पंडित जी, मुझे अपनी समस्या के समाधान हेतु ज्योतिषीय मार्गदर्शन एवं पूजा करवानी है।")}
+              href={getWhatsAppLink(lang === 'hi' ? "प्रणाम पंडित जी, मुझे अपनी समस्या के समाधान हेतु ज्योतिषीय मार्गदर्शन एवं पूजा करवानी है।" : "Pranam Pandit Ji, I need guidance and puja consultation regarding my current problem.")}
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -97,7 +102,9 @@ export default function CtaBanner() {
               <MessageCircle size={18} />
               <div style={{ textAlign: 'left', lineHeight: 1.2 }}>
                 <div style={{ fontWeight: '700', fontSize: '0.96rem' }}>{PANDIT_INFO.phone}</div>
-                <div style={{ fontSize: '0.74rem', color: '#e8fdec', fontFamily: 'var(--font-devanagari)' }}>WhatsApp करें</div>
+                <div style={{ fontSize: '0.74rem', color: '#e8fdec', fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)' }}>
+                  {t.waText}
+                </div>
               </div>
             </a>
           </div>
@@ -109,13 +116,13 @@ export default function CtaBanner() {
             gap: '10px',
             color: '#ffd700',
             fontSize: '1rem',
-            fontFamily: 'var(--font-devanagari)',
+            fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)',
             fontWeight: '600',
             borderLeft: '1px solid rgba(212,175,55,0.4)',
             paddingLeft: '20px'
           }}>
             <span style={{ fontSize: '1.8rem' }}>🔱</span>
-            <span>धर्म • सेवा • विश्वास</span>
+            <span>{t.motto}</span>
           </div>
         </div>
       </div>
