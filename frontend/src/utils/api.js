@@ -1,8 +1,13 @@
 /**
  * API Base URL Resolver
- * When running in local Vite dev server (port 5173), point to FastAPI on localhost:8000.
- * When running via ngrok or production (port 8000), use relative path to prevent Mixed Content / CORS errors.
+ * 1. If VITE_API_URL is specified in .env, use that URL.
+ * 2. If running on local Vite dev server (port 5173), default to http://localhost:8000.
+ * 3. In production, unified port 8000, or ngrok, use relative path '' to eliminate CORS and Mixed Content issues.
  */
-export const API_BASE = typeof window !== 'undefined' && window.location.port === '5173'
-  ? 'http://localhost:8000'
-  : '';
+const envApi = import.meta.env?.VITE_API_URL;
+
+export const API_BASE = (envApi !== undefined && envApi !== '')
+  ? envApi
+  : (typeof window !== 'undefined' && window.location.port === '5173'
+      ? 'http://localhost:8000'
+      : '');

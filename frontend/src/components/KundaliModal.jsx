@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X, FileText, Check, MessageCircle, Sparkles, CheckCircle2 } from 'lucide-react';
+import { getWhatsAppLink } from '../data/pujaData';
 import { API_BASE } from '../utils/api';
 
 export default function KundaliModal({ isOpen, onClose, initialAspect = '' }) {
@@ -70,7 +71,7 @@ export default function KundaliModal({ isOpen, onClose, initialAspect = '' }) {
       setSuccessData({
         inquiry_id: Math.floor(2000 + Math.random() * 8000),
         message: 'कुण्डली परामर्श अनुरोध दर्ज हुआ। पंडित जी शीघ्र संपर्क करेंगे।',
-        whatsapp_url: `https://wa.me/917024184846?text=${encodeURIComponent(text)}`
+        whatsapp_url: getWhatsAppLink(text)
       });
     } finally {
       setLoading(false);

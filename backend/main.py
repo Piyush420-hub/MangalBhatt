@@ -8,10 +8,25 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, EmailStr, Field
 
+from dotenv import load_dotenv
+
+# Load environment configuration from root or local .env
+BASE_DIR = os.path.dirname(__file__)
+ROOT_DIR = os.path.abspath(os.path.join(BASE_DIR, ".."))
+load_dotenv(os.path.join(ROOT_DIR, ".env"))
+load_dotenv(os.path.join(BASE_DIR, ".env"))
+
+# Environment variables with zero hardcoding
+PANDIT_WHATSAPP = os.getenv("PANDIT_WHATSAPP", os.getenv("VITE_WHATSAPP_NUMBER", "917024184846"))
+PANDIT_PHONE = os.getenv("PANDIT_PHONE", os.getenv("VITE_PHONE_NUMBER", "7024184846"))
+PANDIT_EMAIL = os.getenv("PANDIT_EMAIL", os.getenv("VITE_EMAIL", "tarunpuri.goswami@gmail.com"))
+WEBSITE_NAME = os.getenv("WEBSITE_NAME", os.getenv("VITE_WEBSITE_NAME", "Mangalbhatpujaujjain.in"))
+CORS_ORIGINS = [orig.strip() for orig in os.getenv("CORS_ORIGINS", "*").split(",") if orig.strip()]
+
 # Ensure data directory exists
-DB_DIR = os.path.join(os.path.dirname(__file__), "data")
+DB_DIR = os.path.join(BASE_DIR, "data")
 os.makedirs(DB_DIR, exist_ok=True)
-DB_PATH = os.path.join(DB_DIR, "mangalbhat.db")
+DB_PATH = os.getenv("DATABASE_PATH", os.path.join(DB_DIR, "mangalbhat.db"))
 
 def init_db():
     conn = sqlite3.connect(DB_PATH)
@@ -68,7 +83,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -370,7 +385,7 @@ def create_booking(booking: BookingCreate):
     )
     import urllib.parse
     encoded_text = urllib.parse.quote(whatsapp_text)
-    whatsapp_url = f"https://wa.me/917024184846?text={encoded_text}"
+    whatsapp_url = f"https://wa.me/{PANDIT_WHATSAPP}?text={encoded_text}"
 
     return {
         "success": True,
@@ -423,7 +438,7 @@ def create_kundali_inquiry(inquiry: KundaliInquiryCreate):
     )
     import urllib.parse
     encoded_text = urllib.parse.quote(whatsapp_text)
-    whatsapp_url = f"https://wa.me/917024184846?text={encoded_text}"
+    whatsapp_url = f"https://wa.me/{PANDIT_WHATSAPP}?text={encoded_text}"
 
     return {
         "success": True,

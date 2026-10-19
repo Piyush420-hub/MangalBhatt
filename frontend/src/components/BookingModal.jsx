@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { X, Calendar, User, Phone, MapPin, Sparkles, CheckCircle2, MessageCircle } from 'lucide-react';
-import { PANDIT_INFO } from '../data/pujaData';
+import { PANDIT_INFO, getWhatsAppLink } from '../data/pujaData';
 import { API_BASE } from '../utils/api';
 
 export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
@@ -46,7 +46,7 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
         // Fallback for standalone demo mode
         const fallbackId = Math.floor(1000 + Math.random() * 9000);
         const text = `प्रणाम पंडित जी, मैंने Mangalbhatpujaujjain.in पर पूजा बुक की है।\nनाम: ${formData.name}\nफोन: ${formData.phone}\nपूजा: ${formData.puja_name}\nदिनांक: ${formData.preferred_date || 'जल्द से जल्द'}\nगोत्र: ${formData.gotra || 'सामान्य'}\nस्थान: ${formData.city || 'उज्जैन'}`;
-        const waUrl = `https://wa.me/917024184846?text=${encodeURIComponent(text)}`;
+        const waUrl = getWhatsAppLink(text);
         setSuccessData({
           booking_id: fallbackId,
           message: 'पूजा बुकिंग सफलतापूर्वक दर्ज कर ली गई है। पंडित जी आपसे शीघ्र संपर्क करेंगे।',
@@ -57,7 +57,7 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
       // Offline fallback
       const fallbackId = Math.floor(1000 + Math.random() * 9000);
       const text = `प्रणाम पंडित जी, मैंने Mangalbhatpujaujjain.in पर पूजा बुक की है।\nनाम: ${formData.name}\nफोन: ${formData.phone}\nपूजा: ${formData.puja_name}\nदिनांक: ${formData.preferred_date || 'जल्द से जल्द'}\nगोत्र: ${formData.gotra || 'सामान्य'}\nस्थान: ${formData.city || 'उज्जैन'}`;
-      const waUrl = `https://wa.me/917024184846?text=${encodeURIComponent(text)}`;
+      const waUrl = getWhatsAppLink(text);
       setSuccessData({
         booking_id: fallbackId,
         message: 'पूजा बुकिंग सफलतापूर्वक दर्ज कर ली गई है। पंडित जी आपसे शीघ्र संपर्क करेंगे।',

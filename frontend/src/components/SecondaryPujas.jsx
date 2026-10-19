@@ -1,6 +1,6 @@
 import React from 'react';
 import { Calendar, MessageCircle, Sparkles, CheckCircle2 } from 'lucide-react';
-import { getWhatsAppLink } from '../data/pujaData';
+import { getWhatsAppLink, HAWAN_PUJAS_LIST } from '../data/pujaData';
 
 // 12 Dedicated Sacred Dharmic Emblems
 export const SacredHawanEmblem = ({ type }) => {
@@ -281,117 +281,6 @@ export const SacredHawanEmblem = ({ type }) => {
       return null;
   }
 };
-
-export const HAWAN_PUJAS_LIST = [
-    {
-      id: "p1",
-      titleHi: "मां बगलामुखी हवन",
-      titleEn: "Maa Baglamukhi Hawan",
-      badgeHi: "हवन अनुष्ठान",
-      badgeEn: "Vedic Hawan",
-      focusHi: "शत्रुओं पर विजय, अचल सुरक्षा एवं तंत्र रक्षा",
-      focusEn: "Victory over enemies, absolute protection & tantric defense"
-    },
-    {
-      id: "p2",
-      titleHi: "राजनीतिक सफलता अनुष्ठान",
-      titleEn: "Political Success Anushthan",
-      badgeHi: "विशेष सिद्धि",
-      badgeEn: "Special Siddhi",
-      focusHi: "पद, प्रतिष्ठा, जनसमर्थन और चुनाव में विजय",
-      focusEn: "High office, public prestige, leadership & election victory"
-    },
-    {
-      id: "p3",
-      titleHi: "संतान सुख की प्राप्ति",
-      titleEn: "Santan Gopal Blessing",
-      badgeHi: "पारिवारिक सुख",
-      badgeEn: "Family Blessing",
-      focusHi: "संतान गोपाल अनुष्ठान, वंश वृद्धि व दीर्घायु संतान",
-      focusEn: "Child blessing, lineage expansion & healthy progeny"
-    },
-    {
-      id: "p4",
-      titleHi: "तंत्र-बाधा से मुक्ति",
-      titleEn: "Tantra Badha Removal",
-      badgeHi: "सुरक्षा कवच",
-      badgeEn: "Protection Shield",
-      focusHi: "बुरी नजर, ऊपरी बाधा एवं नकारात्मक ऊर्जा का नाश",
-      focusEn: "Eradication of evil eye, negative aura & unseen obstacles"
-    },
-    {
-      id: "p5",
-      titleHi: "शत्रु-बाधा निवारण",
-      titleEn: "Enemy Obstacle Remedy",
-      badgeHi: "दोष शांति",
-      badgeEn: "Dosh Shanti",
-      focusHi: "गुप्त एवं प्रत्यक्ष विरोधियों के षड्यंत्रों से सुरक्षा",
-      focusEn: "Shielding from hidden adversaries and hostile plots"
-    },
-    {
-      id: "p6",
-      titleHi: "व्यापार सुरक्षा कवच",
-      titleEn: "Business Shield (Kavach)",
-      badgeHi: "व्यापारिक सिद्धि",
-      badgeEn: "Business Siddhi",
-      focusHi: "व्यापार में नजर दोष एवं अचानक घाटे से रक्षा",
-      focusEn: "Protection from commercial evil eye & sudden losses"
-    },
-    {
-      id: "p7",
-      titleHi: "व्यापार वृद्धि महालक्ष्मी",
-      titleEn: "Business Growth & Lakshmi",
-      badgeHi: "लक्ष्मी कृपा",
-      badgeEn: "Lakshmi Grace",
-      focusHi: "ग्राहकों की संख्या में वृद्धि व निरंतर आर्थिक प्रगति",
-      focusEn: "Continuous customer surge & lasting financial progress"
-    },
-    {
-      id: "p8",
-      titleHi: "प्रेम व विवाह संबंध समाधान",
-      titleEn: "Love & Marriage Harmony",
-      badgeHi: "संबंध सुधार",
-      badgeEn: "Harmony Remedy",
-      focusHi: "आपसी मतभेद दूर करना व दांपत्य में मधुरता",
-      focusEn: "Resolving conflicts, mutual understanding & affection"
-    },
-    {
-      id: "p9",
-      titleHi: "कोर्ट केस में विजय",
-      titleEn: "Court & Legal Case Victory",
-      badgeHi: "कानूनी विजय",
-      badgeEn: "Legal Victory",
-      focusHi: "न्यायालयीन विवादों एवं मुकदमों में अनुकूल परिणाम",
-      focusEn: "Favorable triumph in judicial disputes & litigation"
-    },
-    {
-      id: "p10",
-      titleHi: "विवाह बाधा निवारण",
-      titleEn: "Marriage Delay Remedy",
-      badgeHi: "विवाह योग",
-      badgeEn: "Marriage Yoga",
-      focusHi: "उम्र बीतने, दोषों या रिश्तों के टूटने की समस्या का हल",
-      focusEn: "Overcoming alliance delays, doshas & broken ties"
-    },
-    {
-      id: "p11",
-      titleHi: "ऋण-मुक्ति ऋणमोचक पूजा",
-      titleEn: "Debt Relief Rinmochak Puja",
-      badgeHi: "ऋण निवारण",
-      badgeEn: "Debt Relief",
-      focusHi: "कर्ज के दलदल से मुक्ति एवं स्थायी आर्थिक संबल",
-      focusEn: "Liberation from crippling debt & lasting stability"
-    },
-    {
-      id: "p12",
-      titleHi: "लक्ष्मी प्राप्ति श्री सूक्त हवन",
-      titleEn: "Shree Suktam Maha Hawan",
-      badgeHi: "श्री महालक्ष्मी",
-      badgeEn: "Maha Lakshmi",
-      focusHi: "स्थिर धन, वैभव, ऐश्वर्य एवं दरिद्रता का नाश",
-      focusEn: "Bestowal of enduring wealth, grace & eradication of lack"
-    }
-  ];
 
 export default function SecondaryPujas({ lang = 'hi', onOpenBooking }) {
   const items = HAWAN_PUJAS_LIST;

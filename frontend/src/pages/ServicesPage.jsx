@@ -1,7 +1,7 @@
 import React from 'react';
 import { Calendar, MessageCircle, Sparkles, Check, Flame } from 'lucide-react';
-import { TOP_PUJAS, getWhatsAppLink } from '../data/pujaData';
-import { SacredHawanEmblem, HAWAN_PUJAS_LIST } from '../components/SecondaryPujas';
+import { TOP_PUJAS, HAWAN_PUJAS_LIST, getWhatsAppLink } from '../data/pujaData';
+import { SacredHawanEmblem } from '../components/SecondaryPujas';
 
 export default function ServicesPage({ lang = 'hi', onOpenBooking, onOpenKundaliModal }) {
   return (

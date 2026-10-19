@@ -1,17 +1,17 @@
 export const PANDIT_INFO = {
-  websiteName: "Mangalbhatpujaujjain.in",
-  name: "Pandit Tarun Puri Goswami",
-  nameHi: "पंडित तरुण पूरी गोस्वामी",
-  title: "Jyotish & Vastu Specialist",
-  titleHi: "ज्योतिष एवं वास्तु विशेषज्ञ",
+  websiteName: import.meta.env?.VITE_WEBSITE_NAME || "Mangalbhatpujaujjain.in",
+  name: import.meta.env?.VITE_PANDIT_NAME || "Pandit Tarun Puri Goswami",
+  nameHi: import.meta.env?.VITE_PANDIT_NAME_HI || "पंडित तरुण पूरी गोस्वामी",
+  title: import.meta.env?.VITE_PANDIT_TITLE || "Jyotish & Vastu Specialist",
+  titleHi: import.meta.env?.VITE_PANDIT_TITLE_HI || "ज्योतिष एवं वास्तु विशेषज्ञ",
   taglineHi: "सटीक ज्योतिषीय मार्गदर्शन, वास्तु परामर्श और वैदिक पूजा-अनुष्ठान के माध्यम से जीवन में सुख, शांति और समृद्धि का मार्ग प्रशस्त करें।",
   taglineEn: "Leading spiritual guidance, Vedic puja rituals, and authentic astrological consultations in the sacred city of Mahakal, Ujjain.",
-  phone: "7024184846",
-  displayPhone: "7024184846",
-  whatsappNumber: "917024184846",
-  email: "tarunpuri.goswami@gmail.com",
-  locationHi: "उज्जैन, मध्य प्रदेश (महाकाल की पावन नगरी)",
-  locationEn: "Ujjain, Madhya Pradesh, India",
+  phone: import.meta.env?.VITE_PHONE_NUMBER || "7024184846",
+  displayPhone: import.meta.env?.VITE_PHONE_NUMBER || "7024184846",
+  whatsappNumber: import.meta.env?.VITE_WHATSAPP_NUMBER || "917024184846",
+  email: import.meta.env?.VITE_EMAIL || "tarunpuri.goswami@gmail.com",
+  locationHi: import.meta.env?.VITE_LOCATION_HI || "उज्जैन, मध्य प्रदेश (महाकाल की पावन नगरी)",
+  locationEn: import.meta.env?.VITE_LOCATION_EN || "Ujjain, Madhya Pradesh, India",
   experienceYears: "15+",
   experienceLabel: "वर्षों का अनुभव",
   completedPujas: "5000+",
@@ -137,20 +137,118 @@ export const TOP_PUJAS = [
   }
 ];
 
-export const SECONDARY_PUJAS = [
-  { id: "p1", titleHi: "मां बगलामुखी हवन", focusHi: "शत्रुओं पर विजय, अचल सुरक्षा एवं तंत्र रक्षा", category: "हवन अनुष्ठान" },
-  { id: "p2", titleHi: "राजनीतिक सफलता अनुष्ठान", focusHi: "पद, प्रतिष्ठा, जनसमर्थन और चुनाव में विजय", category: "विशेष सिद्धि" },
-  { id: "p3", titleHi: "संतान सुख की प्राप्ति", focusHi: "संतान गोपाल अनुष्ठान एवं वंश वृद्धि", category: "पारिवारिक सुख" },
-  { id: "p4", titleHi: "तंत्र-बाधा से मुक्ति", focusHi: "बुरी नजर, ऊपरी बाधा एवं नकारात्मक ऊर्जा का नाश", category: "सुरक्षा कवच" },
-  { id: "p5", titleHi: "शत्रु-बाधा निवारण", focusHi: "गुप्त एवं प्रत्यक्ष विरोधियों के षड्यंत्रों से सुरक्षा", category: "दोष शांति" },
-  { id: "p6", titleHi: "व्यापार सुरक्षा कवच", focusHi: "व्यापार में नजर दोष एवं अचानक घाटे से रक्षा", category: "व्यापारिक सिद्धि" },
-  { id: "p7", titleHi: "व्यापार वृद्धि महालक्ष्मी", focusHi: "ग्राहकों की संख्या में वृद्धि व निरंतर आर्थिक प्रगति", category: "लक्ष्मी कृपा" },
-  { id: "p8", titleHi: "प्रेम व विवाह संबंध समाधान", focusHi: "आपसी मतभेद दूर करना व दांपत्य में मधुरता", category: "संबंध सुधार" },
-  { id: "p9", titleHi: "कोर्ट केस में विजय", focusHi: "न्यायालयीन विवादों एवं मुकदमों में अनुकूल परिणाम", category: "कानूनी विजय" },
-  { id: "p10", titleHi: "विवाह बाधा निवारण", focusHi: "उम्र बीतने, दोषों या रिश्तों के टूटने की समस्या का हल", category: "विवाह योग" },
-  { id: "p11", titleHi: "ऋण-मुक्ति ऋणमोचक पूजा", focusHi: "कर्ज के दलदल से मुक्ति एवं स्थायी आर्थिक संबल", category: "ऋण निवारण" },
-  { id: "p12", titleHi: "लक्ष्मी की प्राप्ति श्री सूक्त हवन", focusHi: "स्थिर धन, वैभव, ऐश्वर्य एवं दरिद्रता का नाश", category: "श्री महालक्ष्मी" }
+export const HAWAN_PUJAS_LIST = [
+  {
+    id: "p1",
+    titleHi: "मां बगलामुखी हवन",
+    titleEn: "Maa Baglamukhi Hawan",
+    badgeHi: "हवन अनुष्ठान",
+    badgeEn: "Vedic Hawan",
+    focusHi: "शत्रुओं पर विजय, अचल सुरक्षा एवं तंत्र रक्षा",
+    focusEn: "Victory over enemies, absolute protection & tantric defense"
+  },
+  {
+    id: "p2",
+    titleHi: "राजनीतिक सफलता अनुष्ठान",
+    titleEn: "Political Success Anushthan",
+    badgeHi: "विशेष सिद्धि",
+    badgeEn: "Special Siddhi",
+    focusHi: "पद, प्रतिष्ठा, जनसमर्थन और चुनाव में विजय",
+    focusEn: "High office, public prestige, leadership & election victory"
+  },
+  {
+    id: "p3",
+    titleHi: "संतान सुख की प्राप्ति",
+    titleEn: "Santan Gopal Blessing",
+    badgeHi: "पारिवारिक सुख",
+    badgeEn: "Family Blessing",
+    focusHi: "संतान गोपाल अनुष्ठान, वंश वृद्धि व दीर्घायु संतान",
+    focusEn: "Child blessing, lineage expansion & healthy progeny"
+  },
+  {
+    id: "p4",
+    titleHi: "तंत्र-बाधा से मुक्ति",
+    titleEn: "Tantra Badha Removal",
+    badgeHi: "सुरक्षा कवच",
+    badgeEn: "Protection Shield",
+    focusHi: "बुरी नजर, ऊपरी बाधा एवं नकारात्मक ऊर्जा का नाश",
+    focusEn: "Eradication of evil eye, negative aura & unseen obstacles"
+  },
+  {
+    id: "p5",
+    titleHi: "शत्रु-बाधा निवारण",
+    titleEn: "Enemy Obstacle Remedy",
+    badgeHi: "दोष शांति",
+    badgeEn: "Dosh Shanti",
+    focusHi: "गुप्त एवं प्रत्यक्ष विरोधियों के षड्यंत्रों से सुरक्षा",
+    focusEn: "Shielding from hidden adversaries and hostile plots"
+  },
+  {
+    id: "p6",
+    titleHi: "व्यापार सुरक्षा कवच",
+    titleEn: "Business Shield (Kavach)",
+    badgeHi: "व्यापारिक सिद्धि",
+    badgeEn: "Business Siddhi",
+    focusHi: "व्यापार में नजर दोष एवं अचानक घाटे से रक्षा",
+    focusEn: "Protection from commercial evil eye & sudden losses"
+  },
+  {
+    id: "p7",
+    titleHi: "व्यापार वृद्धि महालक्ष्मी",
+    titleEn: "Business Growth & Lakshmi",
+    badgeHi: "लक्ष्मी कृपा",
+    badgeEn: "Lakshmi Grace",
+    focusHi: "ग्राहकों की संख्या में वृद्धि व निरंतर आर्थिक प्रगति",
+    focusEn: "Continuous customer surge & lasting financial progress"
+  },
+  {
+    id: "p8",
+    titleHi: "प्रेम व विवाह संबंध समाधान",
+    titleEn: "Love & Marriage Harmony",
+    badgeHi: "संबंध सुधार",
+    badgeEn: "Harmony Remedy",
+    focusHi: "आपसी मतभेद दूर करना व दांपत्य में मधुरता",
+    focusEn: "Resolving conflicts, mutual understanding & affection"
+  },
+  {
+    id: "p9",
+    titleHi: "कोर्ट केस में विजय",
+    titleEn: "Court & Legal Case Victory",
+    badgeHi: "कानूनी विजय",
+    badgeEn: "Legal Victory",
+    focusHi: "न्यायालयीन विवादों एवं मुकदमों में अनुकूल परिणाम",
+    focusEn: "Favorable triumph in judicial disputes & litigation"
+  },
+  {
+    id: "p10",
+    titleHi: "विवाह बाधा निवारण",
+    titleEn: "Marriage Delay Remedy",
+    badgeHi: "विवाह योग",
+    badgeEn: "Marriage Yoga",
+    focusHi: "उम्र बीतने, दोषों या रिश्तों के टूटने की समस्या का हल",
+    focusEn: "Overcoming alliance delays, doshas & broken ties"
+  },
+  {
+    id: "p11",
+    titleHi: "ऋण-मुक्ति ऋणमोचक पूजा",
+    titleEn: "Debt Relief Rinmochak Puja",
+    badgeHi: "ऋण निवारण",
+    badgeEn: "Debt Relief",
+    focusHi: "कर्ज के दलदल से मुक्ति एवं स्थायी आर्थिक संबल",
+    focusEn: "Liberation from crippling debt & lasting stability"
+  },
+  {
+    id: "p12",
+    titleHi: "लक्ष्मी प्राप्ति श्री सूक्त हवन",
+    titleEn: "Shree Suktam Maha Hawan",
+    badgeHi: "श्री महालक्ष्मी",
+    badgeEn: "Maha Lakshmi",
+    focusHi: "स्थिर धन, वैभव, ऐश्वर्य एवं दरिद्रता का नाश",
+    focusEn: "Bestowal of enduring wealth, grace & eradication of lack"
+  }
 ];
+
+export const SECONDARY_PUJAS = HAWAN_PUJAS_LIST;
 
 export const GRID_SERVICES = [
   { id: "g1", titleHi: "कुण्डली विश्लेषण", titleEn: "Kundali Analysis", icon: "scroll", tag: "ज्योतिष" },
