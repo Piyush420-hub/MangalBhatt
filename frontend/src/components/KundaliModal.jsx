@@ -237,7 +237,7 @@ export default function KundaliModal({ isOpen, onClose, initialAspect = '' }) {
               </div>
 
               {/* Name & Phone */}
-              <div style={{
+              <div className="kundali-form-row" style={{
                 display: 'grid',
                 gridTemplateColumns: '1fr 1fr',
                 gap: '12px',
@@ -287,7 +287,7 @@ export default function KundaliModal({ isOpen, onClose, initialAspect = '' }) {
               </div>
 
               {/* Birth Details: DOB, TOB, POB */}
-              <div style={{
+              <div className="kundali-form-row kundali-birth-row" style={{
                 display: 'grid',
                 gridTemplateColumns: '1fr 1fr 1fr',
                 gap: '10px',

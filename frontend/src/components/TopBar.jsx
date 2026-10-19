@@ -30,7 +30,7 @@ export default function TopBar({ lang, setLang }) {
       position: 'relative',
       zIndex: 100
     }}>
-      <div className="container" style={{
+      <div className="container topbar-content" style={{
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -38,7 +38,7 @@ export default function TopBar({ lang, setLang }) {
         gap: '8px'
       }}>
         {/* Left: Sacred Mantra + Subtle Rhythmic Om Chanting Button */}
-        <div style={{
+        <div className="topbar-mantra" style={{
           display: 'flex',
           alignItems: 'center',
           gap: '12px',
@@ -105,7 +105,7 @@ export default function TopBar({ lang, setLang }) {
         </div>
 
         {/* Right - Call & Language Switcher */}
-        <div style={{
+        <div className="topbar-controls" style={{
           display: 'flex',
           alignItems: 'center',
           gap: '16px'

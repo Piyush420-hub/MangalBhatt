@@ -54,7 +54,7 @@ export default function GallerySection({ lang = 'hi', onNavigateGallery }) {
         </div>
 
         {/* Carousel Container */}
-        <div style={{
+        <div className="gallery-carousel" style={{
           position: 'relative',
           display: 'flex',
           alignItems: 'center',

@@ -33,7 +33,7 @@ export default function Navbar({ lang = 'hi', activePage, setActivePage, onOpenB
       top: 0,
       zIndex: 990
     }}>
-      <div className="container" style={{
+      <div className="container navbar-container" style={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -43,6 +43,7 @@ export default function Navbar({ lang = 'hi', activePage, setActivePage, onOpenB
         {/* Brand / Logo */}
         <div
           onClick={() => handleNavClick('home')}
+          className="navbar-brand"
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -67,14 +68,14 @@ export default function Navbar({ lang = 'hi', activePage, setActivePage, onOpenB
             🕉️
           </div>
 
-          <div>
+          <div className="navbar-brand-copy">
             <div style={{
               fontSize: '0.74rem',
               color: '#d4af37',
               letterSpacing: '1.2px',
               fontWeight: '700',
               textTransform: 'uppercase'
-            }}>
+            }} className="navbar-brand-kicker">
               {PANDIT_INFO.websiteName}
             </div>
             <h1 style={{
@@ -84,7 +85,7 @@ export default function Navbar({ lang = 'hi', activePage, setActivePage, onOpenB
               color: '#730014',
               fontFamily: 'var(--font-serif)',
               letterSpacing: '0.2px'
-            }}>
+            }} className="navbar-brand-name">
               Pandit Tarun Puri Goswami
             </h1>
             <div style={{
@@ -92,7 +93,7 @@ export default function Navbar({ lang = 'hi', activePage, setActivePage, onOpenB
               color: '#7a5a22',
               fontWeight: '600',
               fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)'
-            }}>
+            }} className="navbar-brand-title">
               {t.panditTitle}
             </div>
           </div>
@@ -134,10 +135,10 @@ export default function Navbar({ lang = 'hi', activePage, setActivePage, onOpenB
         </nav>
 
         {/* CTA Button & Mobile Toggle */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <div className="navbar-actions" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <button
             onClick={onOpenBooking}
-            className="btn-maroon"
+            className="btn-maroon navbar-booking-button"
             style={{
               padding: '9px 18px',
               fontSize: '0.88rem'

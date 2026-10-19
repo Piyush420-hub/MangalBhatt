@@ -70,9 +70,9 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-content booking-modal" onClick={(e) => e.stopPropagation()}>
         {/* Header */}
-        <div style={{
+        <div className="booking-modal-header" style={{
           background: 'linear-gradient(135deg, #730014, #4a0309)',
           color: '#ffffff',
           padding: '20px 24px',
@@ -127,7 +127,7 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
         </div>
 
         {/* Content */}
-        <div style={{ padding: '24px' }}>
+        <div className="booking-modal-body" style={{ padding: '24px' }}>
           {successData ? (
             <div style={{ textAlign: 'center', padding: '20px 10px' }}>
               <div style={{
@@ -246,7 +246,7 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
               </div>
 
               {/* Name & Phone */}
-              <div style={{
+              <div className="booking-form-row" style={{
                 display: 'grid',
                 gridTemplateColumns: '1fr 1fr',
                 gap: '14px',
@@ -296,7 +296,7 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
               </div>
 
               {/* Gotra & Preferred Date */}
-              <div style={{
+              <div className="booking-form-row" style={{
                 display: 'grid',
                 gridTemplateColumns: '1fr 1fr',
                 gap: '14px',
@@ -343,7 +343,7 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
               </div>
 
               {/* City & Email */}
-              <div style={{
+              <div className="booking-form-row" style={{
                 display: 'grid',
                 gridTemplateColumns: '1fr 1fr',
                 gap: '14px',
@@ -413,7 +413,7 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
               </div>
 
               {/* Submit Buttons */}
-              <div style={{ display: 'flex', gap: '12px' }}>
+              <div className="booking-form-actions" style={{ display: 'flex', gap: '12px' }}>
                 <button
                   type="submit"
                   disabled={loading}

@@ -57,7 +57,7 @@ export default function Hero({ lang = 'hi', onOpenBooking }) {
             </div>
 
             {/* Pandit Ji Name */}
-            <h1 style={{
+            <h1 className="hero-title" style={{
               fontSize: 'clamp(2.4rem, 4vw, 3.8rem)',
               lineHeight: 1.1,
               fontWeight: '800',
@@ -98,7 +98,7 @@ export default function Hero({ lang = 'hi', onOpenBooking }) {
             </p>
 
             {/* 3 Main Action Buttons */}
-            <div style={{
+            <div className="hero-actions" style={{
               display: 'flex',
               flexWrap: 'wrap',
               gap: '14px',
@@ -162,7 +162,7 @@ export default function Hero({ lang = 'hi', onOpenBooking }) {
           </div>
 
           {/* Right Column - Pandit Ji Portrait with Sacred Aura */}
-          <div style={{
+          <div className="hero-portrait-frame" style={{
             position: 'relative',
             display: 'flex',
             justifyContent: 'center',
@@ -189,6 +189,7 @@ export default function Hero({ lang = 'hi', onOpenBooking }) {
               maxWidth: '380px'
             }}>
               <img
+                className="hero-portrait"
                 src="/images/pandit_ji.png"
                 alt="Pandit Tarun Puri Goswami - Spiritual Jyotish & Vastu Specialist, Ujjain"
                 style={{
@@ -226,7 +227,7 @@ export default function Hero({ lang = 'hi', onOpenBooking }) {
         </div>
 
         {/* Feature Pills Bar */}
-        <div style={{
+        <div className="hero-pills" style={{
           marginTop: '35px',
           background: 'rgba(15, 6, 4, 0.72)',
           backdropFilter: 'blur(10px)',
@@ -256,16 +257,15 @@ export default function Hero({ lang = 'hi', onOpenBooking }) {
             grid-template-columns: 1fr !important;
             text-align: center;
           }
-          .hero-grid div:first-child {
+          .hero-grid > div:first-child {
             display: flex;
             flex-direction: column;
             align-items: center;
           }
-          .hero-grid .btn-maroon,
-          .hero-grid .btn-whatsapp,
-          .hero-grid .btn-gold {
+          .hero-actions .btn-maroon,
+          .hero-actions .btn-whatsapp,
+          .hero-actions .btn-gold {
             justify-content: center;
-            width: 100%;
           }
         }
       `}</style>
