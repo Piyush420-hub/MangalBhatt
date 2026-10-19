@@ -1,16 +1,108 @@
 /**
- * Sacred Vedic Omkara Synthesizer
- * Generates an ultra-smooth, warm, velvety, non-irritating cosmic 'OM' drone
- * based on the 136.1 Hz cosmic frequency with harmonic Tanpura overtones
- * and a gently breathing vowel filter ("Ooo-mmm-hhh").
+ * Sacred Vedic Rhythmic Om Chanting Engine
+ * Produces the authentic rhythmic cycle:
+ * "Ooooooo..." -> "...mmmmmmmm" -> gentle meditative breath pause -> repeats "Oooooommmmmm..."
+ * Tuned to 136.1 Hz (Cosmic Omkara frequency) with Tibetan singing bowl harmonic chime.
  */
 
 let audioCtx = null;
 let masterGain = null;
 let isPlaying = false;
-let oscillators = [];
-let lfo = null;
-let filter = null;
+let chantInterval = null;
+let currentVolume = 0.22; // Richer, audible, soothing volume
+
+export const setOmVolume = (val) => {
+  currentVolume = Math.max(0.05, Math.min(0.5, val));
+  if (masterGain && audioCtx) {
+    masterGain.gain.setValueAtTime(currentVolume, audioCtx.currentTime);
+  }
+};
+
+export const getOmVolume = () => currentVolume;
+
+// Play a single rhythmic sacred chant cycle ("Ooooooo...mmmmmmmm")
+const playChantCycle = () => {
+  if (!isPlaying || !audioCtx) return;
+
+  const now = audioCtx.currentTime;
+  const cycleDuration = 7.2; // 7.2 seconds per chant cycle
+
+  try {
+    // 1. Tibetan Singing Bowl gentle strike at the start of the chant
+    const bowlOsc = audioCtx.createOscillator();
+    const bowlGain = audioCtx.createGain();
+    bowlOsc.type = 'sine';
+    bowlOsc.frequency.setValueAtTime(544.4, now); // Harmonic bell tone
+    bowlGain.gain.setValueAtTime(0.001, now);
+    bowlGain.gain.exponentialRampToValueAtTime(0.08, now + 0.05);
+    bowlGain.gain.exponentialRampToValueAtTime(0.0001, now + 4.0);
+    bowlOsc.connect(bowlGain);
+    bowlGain.connect(masterGain);
+    bowlOsc.start(now);
+    bowlOsc.stop(now + 4.1);
+
+    // 2. Chanting Vocal Formant Filter (Morphs from "Oooo" to "Mmmm")
+    const vocalFilter = audioCtx.createBiquadFilter();
+    vocalFilter.type = 'bandpass';
+    vocalFilter.Q.setValueAtTime(2.8, now);
+
+    // Formant Glide: "Oooo" (~480 Hz) glides to "Mmmm" (~195 Hz)
+    vocalFilter.frequency.setValueAtTime(320, now);
+    vocalFilter.frequency.exponentialRampToValueAtTime(460, now + 0.8); // Open "Ooooo..."
+    vocalFilter.frequency.setValueAtTime(460, now + 2.8);
+    vocalFilter.frequency.exponentialRampToValueAtTime(195, now + 4.2); // Glide into "...mmmmmm"
+    vocalFilter.frequency.setValueAtTime(195, now + 5.5);
+
+    // Lowpass warmth filter
+    const warmthFilter = audioCtx.createBiquadFilter();
+    warmthFilter.type = 'lowpass';
+    warmthFilter.frequency.setValueAtTime(580, now);
+
+    vocalFilter.connect(warmthFilter);
+    warmthFilter.connect(masterGain);
+
+    // 3. Cycle Amplitude Envelope (Swell -> Sustain -> Glide -> Fade -> Silence Breath)
+    const chantGain = audioCtx.createGain();
+    chantGain.gain.setValueAtTime(0.001, now);
+    chantGain.gain.exponentialRampToValueAtTime(0.9, now + 1.2); // Swell into "Ooooo..."
+    chantGain.gain.setValueAtTime(0.85, now + 3.2);             // Sustain
+    chantGain.gain.setValueAtTime(0.7, now + 4.8);              // Deep "...mmmm"
+    chantGain.gain.exponentialRampToValueAtTime(0.0001, now + 5.9); // Fade out
+    chantGain.connect(vocalFilter);
+
+    // 4. Fundamental & Harmonic Vocal Chanting Oscillators
+    // Fundamental Om: 136.1 Hz
+    const osc1 = audioCtx.createOscillator();
+    osc1.type = 'sawtooth'; // Sawtooth provides rich vocal formants
+    osc1.frequency.setValueAtTime(136.1, now);
+    osc1.connect(chantGain);
+
+    // Warm Earth sub-bass: 68.05 Hz
+    const osc2 = audioCtx.createOscillator();
+    osc2.type = 'sine';
+    osc2.frequency.setValueAtTime(68.05, now);
+    osc2.connect(chantGain);
+
+    // Tanpura fifth harmonic: 204.15 Hz
+    const osc3 = audioCtx.createOscillator();
+    osc3.type = 'sine';
+    osc3.frequency.setValueAtTime(204.15, now);
+    osc3.connect(chantGain);
+
+    // Octave overtone: 272.2 Hz
+    const osc4 = audioCtx.createOscillator();
+    osc4.type = 'triangle';
+    osc4.frequency.setValueAtTime(272.2, now);
+    osc4.connect(chantGain);
+
+    [osc1, osc2, osc3, osc4].forEach((osc) => {
+      osc.start(now);
+      osc.stop(now + 6.0); // Stops at 6.0s, leaving 1.2s peaceful silence before next chant
+    });
+  } catch (err) {
+    console.error('Chant cycle error:', err);
+  }
+};
 
 export const initOmSound = () => {
   if (isPlaying) return;
@@ -24,101 +116,41 @@ export const initOmSound = () => {
       audioCtx.resume();
     }
 
-    // Master Gain for very soft, unobtrusive, peaceful volume
+    // Master Gain (rich, clearly audible yet velvety smooth)
     masterGain = audioCtx.createGain();
-    masterGain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
-    // Smooth 3-second fade in to a gentle whisper-quiet volume (0.07 max)
-    masterGain.gain.exponentialRampToValueAtTime(0.065, audioCtx.currentTime + 2.5);
+    masterGain.gain.setValueAtTime(currentVolume, audioCtx.currentTime);
     masterGain.connect(audioCtx.destination);
 
-    // Warm Low-pass Vowel Filter (creates the soft "Ooo-mmm" acoustic body)
-    filter = audioCtx.createBiquadFilter();
-    filter.type = 'lowpass';
-    filter.frequency.setValueAtTime(320, audioCtx.currentTime);
-    filter.Q.setValueAtTime(1.8, audioCtx.currentTime);
-    filter.connect(masterGain);
-
-    // Subtle LFO (Low Frequency Oscillator) to gently modulate the filter
-    // mimicking a slow, rhythmic meditative breath (0.12 Hz = ~8 second breathing cycle)
-    lfo = audioCtx.createOscillator();
-    const lfoGain = audioCtx.createGain();
-    lfo.type = 'sine';
-    lfo.frequency.setValueAtTime(0.12, audioCtx.currentTime);
-    lfoGain.gain.setValueAtTime(90, audioCtx.currentTime);
-    lfo.connect(filter.frequency);
-    lfo.start();
-
-    // Harmonic Layers:
-    // 1. Fundamental Cosmic Om: 136.1 Hz
-    const osc1 = audioCtx.createOscillator();
-    const gain1 = audioCtx.createGain();
-    osc1.type = 'sine';
-    osc1.frequency.setValueAtTime(136.1, audioCtx.currentTime);
-    gain1.gain.setValueAtTime(0.45, audioCtx.currentTime);
-    osc1.connect(gain1);
-    gain1.connect(filter);
-
-    // 2. Sub-bass root (Warm earth tone): 68.05 Hz
-    const osc2 = audioCtx.createOscillator();
-    const gain2 = audioCtx.createGain();
-    osc2.type = 'sine';
-    osc2.frequency.setValueAtTime(68.05, audioCtx.currentTime);
-    gain2.gain.setValueAtTime(0.25, audioCtx.currentTime);
-    osc2.connect(gain2);
-    gain2.connect(filter);
-
-    // 3. Higher Tanpura harmonic (Soft singing overtone): 272.2 Hz
-    const osc3 = audioCtx.createOscillator();
-    const gain3 = audioCtx.createGain();
-    osc3.type = 'sine';
-    osc3.frequency.setValueAtTime(272.2, audioCtx.currentTime);
-    gain3.gain.setValueAtTime(0.15, audioCtx.currentTime);
-    osc3.connect(gain3);
-    gain3.connect(filter);
-
-    // 4. Perfect fifth resonance (Panchama): 204.15 Hz
-    const osc4 = audioCtx.createOscillator();
-    const gain4 = audioCtx.createGain();
-    osc4.type = 'sine';
-    osc4.frequency.setValueAtTime(204.15, audioCtx.currentTime);
-    gain4.gain.setValueAtTime(0.12, audioCtx.currentTime);
-    osc4.connect(gain4);
-    gain4.connect(filter);
-
-    [osc1, osc2, osc3, osc4].forEach((osc) => osc.start());
-    oscillators = [osc1, osc2, osc3, osc4];
-
     isPlaying = true;
+
+    // Play first chant immediately
+    playChantCycle();
+
+    // Rhythmic chant repetition: every 7.2 seconds ("Ooooommmmm... [breath pause] ... Ooooommmmm...")
+    chantInterval = setInterval(() => {
+      if (isPlaying) {
+        playChantCycle();
+      }
+    }, 7200);
   } catch (e) {
     console.error('Audio initialization error:', e);
   }
 };
 
 export const stopOmSound = () => {
-  if (!isPlaying || !audioCtx) return;
+  if (!isPlaying) return;
 
   try {
-    if (masterGain) {
-      // Smooth 1.5-second fade out so it never cuts abruptly
+    if (chantInterval) {
+      clearInterval(chantInterval);
+      chantInterval = null;
+    }
+    if (masterGain && audioCtx) {
       masterGain.gain.setValueAtTime(masterGain.gain.value, audioCtx.currentTime);
-      masterGain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 1.2);
-
+      masterGain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.8);
       setTimeout(() => {
-        oscillators.forEach((osc) => {
-          try {
-            osc.stop();
-            osc.disconnect();
-          } catch (e) {}
-        });
-        if (lfo) {
-          try {
-            lfo.stop();
-            lfo.disconnect();
-          } catch (e) {}
-        }
-        oscillators = [];
         isPlaying = false;
-      }, 1300);
+      }, 900);
     } else {
       isPlaying = false;
     }

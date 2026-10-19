@@ -30,7 +30,7 @@ export default function TopBar({ lang, setLang }) {
         flexWrap: 'wrap',
         gap: '8px'
       }}>
-        {/* Left: Sacred Mantra + Subtle Om Sound Button */}
+        {/* Left: Sacred Mantra + Subtle Rhythmic Om Chanting Button */}
         <div style={{
           display: 'flex',
           alignItems: 'center',
@@ -41,10 +41,10 @@ export default function TopBar({ lang, setLang }) {
           <span style={{ color: '#ffd700', fontSize: '1rem' }}>🕉️</span>
           <span>{t.mantra}</span>
 
-          {/* Gentle Cosmic Om Audio Trigger Pill */}
+          {/* Rhythmic Cosmic Om Audio Trigger Pill */}
           <button
             onClick={handleSoundToggle}
-            title={soundPlaying ? 'ध्वनि बंद करें' : 'शांत ॐ नाद सुनें'}
+            title={soundPlaying ? (lang === 'hi' ? 'ॐ जप बंद करें' : 'Mute Om Chant') : (lang === 'hi' ? 'पवित्र ॐ जप सुनें' : 'Play Om Chant')}
             style={{
               background: soundPlaying
                 ? 'linear-gradient(135deg, #ffd700, #ffaa00)'
@@ -52,29 +52,30 @@ export default function TopBar({ lang, setLang }) {
               color: soundPlaying ? '#3a0206' : '#ffd700',
               border: '1px solid #ffd700',
               borderRadius: '20px',
-              padding: '2px 10px',
-              fontSize: '0.74rem',
-              fontWeight: '700',
+              padding: '3px 12px',
+              fontSize: '0.76rem',
+              fontWeight: '800',
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '5px',
+              gap: '6px',
               cursor: 'pointer',
               transition: 'all 0.25s ease',
-              boxShadow: soundPlaying ? '0 0 10px rgba(255, 215, 0, 0.6)' : 'none'
+              boxShadow: soundPlaying ? '0 0 12px rgba(255, 215, 0, 0.6)' : 'none'
             }}
             className="om-sound-pill"
           >
-            {soundPlaying ? <Volume2 size={13} /> : <VolumeX size={13} />}
+            {soundPlaying ? <Volume2 size={14} /> : <VolumeX size={14} />}
             <span>
               {soundPlaying
-                ? (lang === 'hi' ? 'ॐ नाद चालू है' : 'Om Sound Playing')
-                : (lang === 'hi' ? 'पवित्र ॐ नाद सुनें' : 'Play Om Ambient')}
+                ? (lang === 'hi' ? 'ॐ जप: ओम्... ओम्...' : 'Om Chant: Om... Om...')
+                : (lang === 'hi' ? 'पवित्र ॐ जप सुनें' : 'Play Om Chant')}
             </span>
             {soundPlaying && (
-              <span className="sound-wave-anim" style={{ display: 'inline-flex', gap: '2px' }}>
-                <span style={{ width: '2px', height: '8px', background: '#3a0206', borderRadius: '1px', animation: 'waveBar 0.8s infinite alternate' }} />
-                <span style={{ width: '2px', height: '12px', background: '#3a0206', borderRadius: '1px', animation: 'waveBar 0.8s infinite 0.2s alternate' }} />
-                <span style={{ width: '2px', height: '6px', background: '#3a0206', borderRadius: '1px', animation: 'waveBar 0.8s infinite 0.4s alternate' }} />
+              <span className="sound-wave-anim" style={{ display: 'inline-flex', alignItems: 'center', gap: '2px', marginLeft: '3px' }}>
+                <span style={{ width: '2.5px', height: '8px', background: '#3a0206', borderRadius: '1px', animation: 'waveBar 0.7s infinite alternate' }} />
+                <span style={{ width: '2.5px', height: '14px', background: '#3a0206', borderRadius: '1px', animation: 'waveBar 0.7s infinite 0.2s alternate' }} />
+                <span style={{ width: '2.5px', height: '6px', background: '#3a0206', borderRadius: '1px', animation: 'waveBar 0.7s infinite 0.4s alternate' }} />
+                <span style={{ width: '2.5px', height: '11px', background: '#3a0206', borderRadius: '1px', animation: 'waveBar 0.7s infinite 0.15s alternate' }} />
               </span>
             )}
           </button>
@@ -165,7 +166,7 @@ export default function TopBar({ lang, setLang }) {
       <style>{`
         @keyframes waveBar {
           0% { height: 4px; }
-          100% { height: 12px; }
+          100% { height: 14px; }
         }
         @media (max-width: 768px) {
           .topbar-pillars {
