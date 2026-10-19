@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Phone, MessageCircle, Calendar, Volume2, VolumeX, ArrowUp } from 'lucide-react';
 import { PANDIT_INFO, getWhatsAppLink } from '../data/pujaData';
+import { toggleOmSound, getOmSoundStatus } from '../utils/omAudio';
 
 export default function FloatingActions({ onOpenBooking }) {
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [isPlayingSound, setIsPlayingSound] = useState(false);
-  const [audioCtx, setAudioCtx] = useState(null);
+  const [isPlayingSound, setIsPlayingSound] = useState(getOmSoundStatus());
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,56 +15,9 @@ export default function FloatingActions({ onOpenBooking }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Subtle Devotional Chime / Ambient Sound Synthesizer (Pure Web Audio API, 100% reliable without external audio files)
-  const toggleSound = () => {
-    if (!isPlayingSound) {
-      try {
-        const ctx = new (window.AudioContext || window.webkitAudioContext)();
-        // Play gentle Tibetan bell / Tanpura harmonic meditation tone
-        const playBell = () => {
-          if (ctx.state === 'suspended') {
-            ctx.resume();
-          }
-          const osc1 = ctx.createOscillator();
-          const osc2 = ctx.createOscillator();
-          const gainNode = ctx.createGain();
-
-          osc1.type = 'sine';
-          osc1.frequency.setValueAtTime(136.1, ctx.currentTime); // 136.1 Hz is the sacred cosmic 'OM' frequency
-
-          osc2.type = 'sine';
-          osc2.frequency.setValueAtTime(272.2, ctx.currentTime); // Octave harmonic
-
-          gainNode.gain.setValueAtTime(0.001, ctx.currentTime);
-          gainNode.gain.exponentialRampToValueAtTime(0.18, ctx.currentTime + 0.5);
-          gainNode.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 4.5);
-
-          osc1.connect(gainNode);
-          osc2.connect(gainNode);
-          gainNode.connect(ctx.destination);
-
-          osc1.start(ctx.currentTime);
-          osc2.start(ctx.currentTime);
-          osc1.stop(ctx.currentTime + 4.6);
-          osc2.stop(ctx.currentTime + 4.6);
-        };
-
-        playBell();
-        const interval = setInterval(playBell, 5000);
-
-        setAudioCtx({ ctx, interval });
-        setIsPlayingSound(true);
-      } catch (e) {
-        console.error(e);
-      }
-    } else {
-      if (audioCtx) {
-        clearInterval(audioCtx.interval);
-        audioCtx.ctx.close();
-      }
-      setIsPlayingSound(false);
-      setAudioCtx(null);
-    }
+  const handleToggleSound = () => {
+    const active = toggleOmSound();
+    setIsPlayingSound(active);
   };
 
   const scrollToTop = () => {
@@ -84,26 +37,41 @@ export default function FloatingActions({ onOpenBooking }) {
         zIndex: 998
       }} className="desktop-floating-actions">
 
-        {/* Devotional Sound Toggle */}
+        {/* Gentle Devotional Cosmic Om Sound Toggle */}
         <button
-          onClick={toggleSound}
-          title={isPlayingSound ? 'ध्वनि बंद करें' : 'पवित्र ॐ नाद सुनें'}
+          onClick={handleToggleSound}
+          title={isPlayingSound ? 'पवित्र ॐ नाद बंद करें' : 'अति शांत, पवित्र ॐ नाद सुनें'}
           style={{
-            width: '46px',
-            height: '46px',
+            width: '50px',
+            height: '50px',
             borderRadius: '50%',
-            background: isPlayingSound ? '#730014' : '#ffffff',
+            background: isPlayingSound
+              ? 'linear-gradient(135deg, #ffd700, #ff9900)'
+              : '#ffffff',
             border: '2px solid #d4af37',
-            color: isPlayingSound ? '#ffd700' : '#730014',
+            color: isPlayingSound ? '#3d0207' : '#730014',
             display: 'flex',
+            flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 4px 15px rgba(0,0,0,0.15)',
+            boxShadow: isPlayingSound
+              ? '0 0 20px rgba(255, 215, 0, 0.7), 0 4px 15px rgba(0,0,0,0.2)'
+              : '0 4px 15px rgba(0,0,0,0.15)',
             cursor: 'pointer',
-            transition: 'all 0.3s ease'
+            transition: 'all 0.3s ease',
+            position: 'relative'
           }}
+          className={isPlayingSound ? 'pulse-animation' : ''}
         >
-          {isPlayingSound ? <Volume2 size={20} /> : <VolumeX size={20} />}
+          {isPlayingSound ? <Volume2 size={22} /> : <VolumeX size={22} />}
+          <span style={{
+            fontSize: '9px',
+            fontWeight: '800',
+            lineHeight: 1,
+            marginTop: '2px'
+          }}>
+            {isPlayingSound ? 'ॐ ON' : 'ॐ'}
+          </span>
         </button>
 
         {/* Scroll To Top */}
@@ -196,6 +164,26 @@ export default function FloatingActions({ onOpenBooking }) {
 
       {/* Sticky Bottom Bar for Mobile View */}
       <div className="mobile-sticky-bar">
+        {/* Mobile Om Sound Button */}
+        <button
+          onClick={handleToggleSound}
+          style={{
+            background: isPlayingSound ? '#ffd700' : 'rgba(255,255,255,0.1)',
+            border: '1px solid #ffd700',
+            borderRadius: '50%',
+            width: '38px',
+            height: '38px',
+            color: isPlayingSound ? '#730014' : '#ffd700',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer'
+          }}
+          title="पवित्र ॐ नाद"
+        >
+          {isPlayingSound ? <Volume2 size={18} /> : <VolumeX size={18} />}
+        </button>
+
         <a
           href={`tel:${PANDIT_INFO.phone}`}
           style={{
