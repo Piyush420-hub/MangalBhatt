@@ -3,7 +3,7 @@ import { Calendar, MessageCircle, Sparkles, CheckCircle2 } from 'lucide-react';
 import { getWhatsAppLink } from '../data/pujaData';
 
 // 12 Dedicated Sacred Dharmic Emblems
-const SacredHawanEmblem = ({ type }) => {
+export const SacredHawanEmblem = ({ type }) => {
   switch (type) {
     // 1. Maa Baglamukhi Hawan (Golden Pitambari Agni with Trishul & Sudarshana aura)
     case 'p1':
@@ -282,8 +282,7 @@ const SacredHawanEmblem = ({ type }) => {
   }
 };
 
-export default function SecondaryPujas({ lang = 'hi', onOpenBooking }) {
-  const items = [
+export const HAWAN_PUJAS_LIST = [
     {
       id: "p1",
       titleHi: "मां बगलामुखी हवन",
@@ -393,6 +392,9 @@ export default function SecondaryPujas({ lang = 'hi', onOpenBooking }) {
       focusEn: "Bestowal of enduring wealth, grace & eradication of lack"
     }
   ];
+
+export default function SecondaryPujas({ lang = 'hi', onOpenBooking }) {
+  const items = HAWAN_PUJAS_LIST;
 
   return (
     <section style={{
