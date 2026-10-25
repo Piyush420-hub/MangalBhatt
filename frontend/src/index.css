@@ -38,7 +38,7 @@
   
   --font-serif: 'Rozha One', 'Cinzel', serif;
   --font-devanagari: 'Tiro Devanagari Hindi', serif;
-  --font-sans: 'Poppins', 'Outfit', sans-serif;
+  --font-sans: 'Outfit', 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
   
   --radius-sm: 6px;
   --radius-md: 10px;

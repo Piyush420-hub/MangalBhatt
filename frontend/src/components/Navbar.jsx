@@ -37,8 +37,9 @@ export default function Navbar({ lang = 'hi', setLang, activePage, setActivePage
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingTop: '12px',
-        paddingBottom: '12px'
+        paddingTop: '8px',
+        paddingBottom: '8px',
+        flexWrap: 'nowrap'
       }}>
         {/* Brand / Logo */}
         <div
@@ -47,14 +48,15 @@ export default function Navbar({ lang = 'hi', setLang, activePage, setActivePage
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '12px',
-            cursor: 'pointer'
+            gap: '10px',
+            cursor: 'pointer',
+            flexShrink: 0
           }}
         >
           {/* Sacred Kalash / Trishul Emblem */}
           <div style={{
-            width: '46px',
-            height: '46px',
+            width: '42px',
+            height: '42px',
             borderRadius: '50%',
             background: 'linear-gradient(135deg, #fff2cc, #ffd700, #d4af37)',
             border: '2px solid #9e7d18',
@@ -62,37 +64,41 @@ export default function Navbar({ lang = 'hi', setLang, activePage, setActivePage
             alignItems: 'center',
             justifyContent: 'center',
             boxShadow: '0 2px 8px rgba(212,175,55,0.4)',
-            fontSize: '1.4rem',
-            color: '#730014'
+            fontSize: '1.25rem',
+            color: '#730014',
+            flexShrink: 0
           }}>
             🕉️
           </div>
 
           <div className="navbar-brand-copy">
             <div style={{
-              fontSize: '0.74rem',
+              fontSize: '0.72rem',
               color: '#d4af37',
-              letterSpacing: '1.2px',
+              letterSpacing: '1px',
               fontWeight: '700',
-              textTransform: 'uppercase'
+              textTransform: 'uppercase',
+              whiteSpace: 'nowrap'
             }} className="navbar-brand-kicker">
               {PANDIT_INFO.websiteName}
             </div>
             <h1 style={{
-              fontSize: '1.22rem',
+              fontSize: lang === 'hi' ? '1.18rem' : '1.02rem',
               lineHeight: 1.15,
               fontWeight: '800',
               color: '#730014',
               fontFamily: 'var(--font-serif)',
-              letterSpacing: '0.2px'
+              letterSpacing: '0.1px',
+              whiteSpace: 'nowrap'
             }} className="navbar-brand-name">
               {lang === 'hi' ? PANDIT_INFO.nameHi : PANDIT_INFO.name}
             </h1>
             <div style={{
-              fontSize: '0.82rem',
+              fontSize: '0.78rem',
               color: '#7a5a22',
               fontWeight: '600',
-              fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)'
+              fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)',
+              whiteSpace: 'nowrap'
             }} className="navbar-brand-title">
               {t.panditTitle}
             </div>
@@ -103,7 +109,8 @@ export default function Navbar({ lang = 'hi', setLang, activePage, setActivePage
         <nav style={{
           display: 'none',
           alignItems: 'center',
-          gap: '20px'
+          gap: 'clamp(8px, 1.1vw, 15px)',
+          flexWrap: 'nowrap'
         }} className="desktop-nav">
           {navLinks.map((link) => {
             const isActive = activePage === link.id;
@@ -114,12 +121,13 @@ export default function Navbar({ lang = 'hi', setLang, activePage, setActivePage
                 style={{
                   background: 'transparent',
                   color: isActive ? '#730014' : '#423733',
-                  fontWeight: isActive ? '700' : '500',
-                  fontSize: '0.92rem',
-                  padding: '6px 2px',
+                  fontWeight: isActive ? '800' : '600',
+                  fontSize: '0.86rem',
+                  padding: '4px 2px',
                   borderBottom: isActive ? '2px solid #730014' : '2px solid transparent',
                   transition: 'all 0.2s ease',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  whiteSpace: 'nowrap'
                 }}
                 onMouseEnter={(e) => {
                   if (!isActive) e.currentTarget.style.color = '#730014';
@@ -135,16 +143,17 @@ export default function Navbar({ lang = 'hi', setLang, activePage, setActivePage
         </nav>
 
         {/* CTA Button & Mobile Toggle */}
-        <div className="navbar-actions" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <div className="navbar-actions" style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
           <button
             onClick={onOpenBooking}
             className="btn-maroon navbar-booking-button"
             style={{
-              padding: '9px 18px',
-              fontSize: '0.88rem'
+              padding: '8px 15px',
+              fontSize: '0.84rem',
+              whiteSpace: 'nowrap'
             }}
           >
-            <Calendar size={16} color="#ffd700" />
+            <Calendar size={15} color="#ffd700" />
             <span style={{ fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)' }}>
               {t.bookPuja}
             </span>
