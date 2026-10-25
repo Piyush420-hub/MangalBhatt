@@ -15,18 +15,18 @@ export default function ContactPage() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    try {
-      await fetch(`${API_BASE}/api/contact`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
-    } catch (e) {
-      console.log('offline');
-    }
+
+    const emailStr = formData.email ? `\n- ईमेल: ${formData.email}` : '';
+    const subjectStr = formData.subject ? `\n- विषय: ${formData.subject}` : '';
+
+    const text = `जय श्री महाकाल!\nप्रणाम पंडित जी, मैंने ${PANDIT_INFO.websiteName} पर संदेश भेजा है:\n\n- नाम: ${formData.name}\n- मोबाइल: ${formData.phone}${emailStr}${subjectStr}\n- संदेश: ${formData.message}\n\nकृपया मार्गदर्शन प्रदान करें।`;
+
+    const waUrl = getWhatsAppLink(text);
+    window.open(waUrl, '_blank', 'noopener,noreferrer');
+
     setSubmitted(true);
     setLoading(false);
   };
@@ -221,11 +221,21 @@ export default function ContactPage() {
 
             {submitted ? (
               <div style={{ textAlign: 'center', padding: '30px 10px' }}>
-                <CheckCircle2 size={44} color="#25d366" style={{ margin: '0 auto 12px' }} />
-                <h4 style={{ fontSize: '1.25rem', color: '#730014' }}>आपका संदेश प्राप्त हुआ!</h4>
-                <p style={{ fontSize: '0.9rem', color: '#55423c', marginTop: '6px' }}>
-                  पंडित जी शीघ्र ही आपसे संपर्क करेंगे।
+                <CheckCircle2 size={48} color="#25d366" style={{ margin: '0 auto 12px' }} />
+                <h4 style={{ fontSize: '1.3rem', color: '#730014', marginBottom: '8px' }}>आपका संदेश WhatsApp पर भेजा गया!</h4>
+                <p style={{ fontSize: '0.92rem', color: '#55423c', marginBottom: '20px' }}>
+                  पंडित जी शीघ्र ही आपका संदेश देखकर उत्तर प्रदान करेंगे।
                 </p>
+                <a
+                  href={getWhatsAppLink(`जय श्री महाकाल! प्रणाम पंडित जी, मैंने वेबसाइट पर संदेश भेजा है। नाम: ${formData.name}, मोबाइल: ${formData.phone}`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-whatsapp"
+                  style={{ display: 'inline-flex', padding: '12px 24px', fontSize: '0.96rem' }}
+                >
+                  <MessageCircle size={18} />
+                  <span>WhatsApp चैट खोलें</span>
+                </a>
               </div>
             ) : (
               <form onSubmit={handleSubmit}>
@@ -288,11 +298,11 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="btn-maroon"
-                  style={{ width: '100%', justifyContent: 'center', padding: '12px' }}
+                  className="btn-whatsapp"
+                  style={{ width: '100%', justifyContent: 'center', padding: '12px', fontSize: '1rem' }}
                 >
-                  <Send size={16} color="#ffd700" />
-                  <span>{loading ? 'भेजा जा रहा है...' : 'संदेश भेजें'}</span>
+                  <MessageCircle size={18} />
+                  <span>{loading ? 'WhatsApp खुल रहा है...' : 'WhatsApp पर संदेश भेजें'}</span>
                 </button>
               </form>
             )}

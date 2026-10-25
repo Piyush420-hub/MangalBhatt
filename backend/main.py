@@ -19,7 +19,7 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 # Environment variables with zero hardcoding
 PANDIT_WHATSAPP = os.getenv("PANDIT_WHATSAPP", os.getenv("VITE_WHATSAPP_NUMBER", "917024184846"))
 PANDIT_PHONE = os.getenv("PANDIT_PHONE", os.getenv("VITE_PHONE_NUMBER", "7024184846"))
-PANDIT_EMAIL = os.getenv("PANDIT_EMAIL", os.getenv("VITE_EMAIL", "tarunpuri.goswami@gmail.com"))
+PANDIT_EMAIL = os.getenv("PANDIT_EMAIL", os.getenv("VITE_EMAIL", "goswamitarun72@gmail.com"))
 WEBSITE_NAME = os.getenv("WEBSITE_NAME", os.getenv("VITE_WEBSITE_NAME", "Mangalbhatpujaujjain.in"))
 CORS_ORIGINS = [orig.strip() for orig in os.getenv("CORS_ORIGINS", "*").split(",") if orig.strip()]
 
@@ -116,10 +116,13 @@ class ContactMessageCreate(BaseModel):
     subject: Optional[str] = None
     message: str = Field(..., min_length=5)
 
+PANDIT_NAME = os.getenv("PANDIT_NAME", os.getenv("VITE_PANDIT_NAME", "Pandit Tarun Puri"))
+PANDIT_NAME_HI = os.getenv("PANDIT_NAME_HI", os.getenv("VITE_PANDIT_NAME_HI", "पंडित तरुण पूरी"))
+
 PANDIT_PROFILE = {
     "website_name": WEBSITE_NAME,
-    "pandit_name": os.getenv("PANDIT_NAME", os.getenv("VITE_PANDIT_NAME", "Pandit Tarun Puri Goswami")),
-    "pandit_name_hi": os.getenv("PANDIT_NAME_HI", os.getenv("VITE_PANDIT_NAME_HI", "पंडित तरुण पूरी गोस्वामी")),
+    "pandit_name": PANDIT_NAME,
+    "pandit_name_hi": PANDIT_NAME_HI,
     "title": os.getenv("PANDIT_TITLE", os.getenv("VITE_PANDIT_TITLE", "Jyotish & Vastu Specialist")),
     "title_hi": os.getenv("PANDIT_TITLE_HI", os.getenv("VITE_PANDIT_TITLE_HI", "ज्योतिष एवं वास्तु विशेषज्ञ")),
     "location": os.getenv("PANDIT_LOCATION", os.getenv("VITE_LOCATION_EN", "Ujjain, Madhya Pradesh")),
@@ -131,8 +134,8 @@ PANDIT_PROFILE = {
     "completed_pujas": "5000+",
     "vedic_authenticity": "100% वैदिक विधि-विधान",
     "satisfied_families": "सैकड़ों संतुष्ट परिवार",
-    "about_bio_hi": "मैं पंडित तरुण पूरी गोस्वामी जी, विगत कई वर्षों से उज्जैन में रहकर ज्योतिष, वास्तु एवं वैदिक कर्मकांड के क्षेत्र में कार्य कर रहा हूँ। जन्म कुंडली विश्लेषण, वास्तु दोष निवारण, गृह शांति, यज्ञ, अनुष्ठान, मंत्र जप आदि के माध्यम से जीवन में सकारात्मक ऊर्जा, सुख-समृद्धि और शांति का मार्ग प्रदान करता हूँ।",
-    "about_bio_en": "I am Pandit Tarun Puri Goswami, serving devotees for over 15 years in Ujjain in the field of Vedic Karmakand, Astrology, and Vastu. We conduct sacred Mangal Bhat Puja, Kaal Sarp Dosh Nivaran, Rudrabhishek, Mahamrityunjaya, and Kundali analysis strictly according to authentic Vedic scriptures."
+    "about_bio_hi": f"मैं {PANDIT_NAME_HI} जी, विगत कई वर्षों से उज्जैन में रहकर ज्योतिष, वास्तु एवं वैदिक कर्मकांड के क्षेत्र में कार्य कर रहा हूँ। जन्म कुंडली विश्लेषण, वास्तु दोष निवारण, गृह शांति, यज्ञ, अनुष्ठान, मंत्र जप आदि के माध्यम से जीवन में सकारात्मक ऊर्जा, सुख-समृद्धि और शांति का मार्ग प्रदान करता हूँ।",
+    "about_bio_en": f"I am {PANDIT_NAME}, serving devotees for over 15 years in Ujjain in the field of Vedic Karmakand, Astrology, and Vastu. We conduct sacred Mangal Bhat Puja, Kaal Sarp Dosh Nivaran, Rudrabhishek, Mahamrityunjaya, and Kundali analysis strictly according to authentic Vedic scriptures."
 }
 
 SERVICES_DATA = {

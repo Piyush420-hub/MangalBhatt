@@ -40,42 +40,27 @@ export default function KundaliModal({ isOpen, onClose, initialAspect = '' }) {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
 
-    const payload = {
-      name: formData.name,
-      phone: formData.phone,
-      dob: formData.dob,
-      tob: formData.tob,
-      pob: formData.pob,
-      focus_areas: selectedAspects,
-      notes: formData.notes
-    };
+    const aspectsStr = selectedAspects.length > 0 ? selectedAspects.join(', ') : 'समस्त जीवन पक्ष';
+    const notesStr = formData.notes ? `\n- मुख्य समस्या / प्रश्न: ${formData.notes}` : '';
 
-    try {
-      const res = await fetch(`${API_BASE}/api/kundali-inquiry`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      if (res.ok) {
-        const data = await res.json();
-        setSuccessData(data);
-      } else {
-        throw new Error('Fallback');
-      }
-    } catch {
-      const text = `प्रणाम पंडित जी, मुझे अपनी कुण्डली का विश्लेषण करवाना है।\nनाम: ${formData.name}\nफोन: ${formData.phone}\nजन्म तिथि: ${formData.dob || 'उपलब्ध नहीं'}\nजन्म समय: ${formData.tob || 'उपलब्ध नहीं'}\nजन्म स्थान: ${formData.pob || 'उपलब्ध नहीं'}\nमुख्य विषय: ${selectedAspects.join(', ')}`;
-      setSuccessData({
-        inquiry_id: Math.floor(2000 + Math.random() * 8000),
-        message: 'कुण्डली परामर्श अनुरोध दर्ज हुआ। पंडित जी शीघ्र संपर्क करेंगे।',
-        whatsapp_url: getWhatsAppLink(text)
-      });
-    } finally {
-      setLoading(false);
-    }
+    const text = `जय श्री महाकाल!\nप्रणाम पंडित जी, मुझे अपनी जन्म पत्रिका का विश्लेषण करवाना है:\n\n- जातक का नाम: ${formData.name}\n- मोबाइल नंबर: ${formData.phone}\n- जन्म तिथि: ${formData.dob || 'ज्ञात नहीं'}\n- जन्म समय: ${formData.tob || 'ज्ञात नहीं'}\n- जन्म स्थान: ${formData.pob || 'ज्ञात नहीं'}\n- चयनित मुख्य विषय: ${aspectsStr}${notesStr}\n\nकृपया पत्रिका अध्ययन कर मार्गदर्शन प्रदान करें।`;
+
+    const waUrl = getWhatsAppLink(text);
+
+    // Direct redirect to WhatsApp
+    window.open(waUrl, '_blank', 'noopener,noreferrer');
+
+    const inqId = Math.floor(2000 + Math.random() * 8000);
+    setSuccessData({
+      inquiry_id: inqId,
+      message: 'कुण्डली परामर्श अनुरोध WhatsApp पर भेज दिया गया है।',
+      whatsapp_url: waUrl
+    });
+    setLoading(false);
   };
 
   return (
@@ -132,7 +117,7 @@ export default function KundaliModal({ isOpen, onClose, initialAspect = '' }) {
             जन्म कुण्डली संपूर्ण विश्लेषण
           </h3>
           <p style={{ fontSize: '0.82rem', color: '#f3e4d0', marginTop: '2px' }}>
-            पंडित तरुण पूरी गोस्वामी (15+ वर्षों का ज्योतिष अनुभव)
+            {PANDIT_INFO.nameHi} (15+ वर्षों का ज्योतिष अनुभव)
           </p>
         </div>
 
@@ -376,7 +361,7 @@ export default function KundaliModal({ isOpen, onClose, initialAspect = '' }) {
               <button
                 type="submit"
                 disabled={loading}
-                className="btn-maroon"
+                className="btn-whatsapp"
                 style={{
                   width: '100%',
                   justifyContent: 'center',
@@ -385,8 +370,8 @@ export default function KundaliModal({ isOpen, onClose, initialAspect = '' }) {
                   opacity: loading ? 0.7 : 1
                 }}
               >
-                <FileText size={18} color="#ffd700" />
-                <span>{loading ? 'दर्ज किया जा रहा है...' : 'कुण्डली परामर्श हेतु भेजें'}</span>
+                <MessageCircle size={18} />
+                <span>{loading ? 'WhatsApp खुल रहा है...' : 'WhatsApp पर कुण्डली भेजें'}</span>
               </button>
             </form>
           )}

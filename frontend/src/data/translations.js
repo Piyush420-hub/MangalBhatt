@@ -1,3 +1,5 @@
+import { PANDIT_INFO } from './pujaData';
+
 export const translations = {
   hi: {
     topBar: {
@@ -21,7 +23,7 @@ export const translations = {
     },
     hero: {
       cityTag: "|| महाकाल की नगरी उज्जैन से ||",
-      name: "Pandit Tarun Puri Goswami",
+      name: PANDIT_INFO.nameHi,
       title: "ज्योतिष एवं वास्तु विशेषज्ञ",
       desc: "सटीक ज्योतिषीय मार्गदर्शन, वास्तु परामर्श और वैदिक पूजा-अनुष्ठान के माध्यम से जीवन में सुख, शांति और समृद्धि का मार्ग प्रशस्त करें।",
       callNow: "Call Now",
@@ -78,9 +80,9 @@ export const translations = {
     },
     about: {
       subtitle: "|| हमारे बारे में ||",
-      title: "पंडित तरुण पूरी गोस्वामी",
+      title: PANDIT_INFO.nameHi,
       tagline: "ज्योतिष एवं वास्तु विशेषज्ञ, उज्जैन",
-      bio1: "मैं पंडित तरुण पूरी गोस्वामी जी, विगत कई वर्षों से उज्जैन में रहकर ज्योतिष, वास्तु एवं वैदिक कर्मकांड के क्षेत्र में कार्य कर रहा हूँ। जन्म कुंडली विश्लेषण, वास्तु दोष निवारण, गृह शांति, यज्ञ, अनुष्ठान, मंत्र जप आदि के माध्यम से जीवन में सकारात्मक ऊर्जा, सुख-समृद्धि और शांति का मार्ग प्रदान करता हूँ।",
+      bio1: `मैं ${PANDIT_INFO.nameHi} जी, विगत कई वर्षों से उज्जैन में रहकर ज्योतिष, वास्तु एवं वैदिक कर्मकांड के क्षेत्र में कार्य कर रहा हूँ। जन्म कुंडली विश्लेषण, वास्तु दोष निवारण, गृह शांति, यज्ञ, अनुष्ठान, मंत्र जप आदि के माध्यम से जीवन में सकारात्मक ऊर्जा, सुख-समृद्धि और शांति का मार्ग प्रदान करता हूँ।`,
       bio2: "उज्जैन की पावन भूमि पर स्थित विश्वविख्यात मंगलनाथ, महाकालेश्वर, कालभैरव एवं सिद्धवट तीर्थों पर विधिपूर्वक संकल्प के साथ पूजा-अर्चना संपन्न कराई जाती है।",
       moreBtn: "और जानें",
       consultBtn: "परामर्श हेतु संपर्क करें",
@@ -114,7 +116,7 @@ export const translations = {
       quickLinksHeading: "त्वरित लिंक",
       servicesHeading: "हमारी सेवाएं",
       quote: '"शास्त्रों के अनुसार सही मार्गदर्शन ही जीवन को सुखमय बनाता है।"',
-      author: "- पं. तरुण पूरी गोस्वामी",
+      author: `- ${PANDIT_INFO.nameHi}`,
       rights: "All Rights Reserved. | Designed with devotion | श्री महाकालेश्वर ज्योतिर्लिंग, उज्जैन"
     }
   },
@@ -141,7 +143,7 @@ export const translations = {
     },
     hero: {
       cityTag: "|| From the Sacred City of Mahakal, Ujjain ||",
-      name: "Pandit Tarun Puri Goswami",
+      name: PANDIT_INFO.name,
       title: "Astrology & Vastu Specialist",
       desc: "Pave the path to peace, prosperity, and happiness through authentic Vedic rituals, astrological guidance, and Vastu consultations.",
       callNow: "Call Now",
@@ -198,9 +200,9 @@ export const translations = {
     },
     about: {
       subtitle: "|| About Pandit Ji ||",
-      title: "Pandit Tarun Puri Goswami",
+      title: PANDIT_INFO.name,
       tagline: "Astrology & Vastu Specialist, Ujjain",
-      bio1: "I am Pandit Tarun Puri Goswami, serving devotees for over 15 years in Ujjain in the field of Vedic Karmakand, Astrology, and Vastu. We conduct sacred Mangal Bhat Puja, Kaal Sarp Dosh Nivaran, Rudrabhishek, Mahamrityunjaya, and Kundali analysis strictly according to authentic Vedic scriptures.",
+      bio1: `I am ${PANDIT_INFO.name}, serving devotees for over 15 years in Ujjain in the field of Vedic Karmakand, Astrology, and Vastu. We conduct sacred Mangal Bhat Puja, Kaal Sarp Dosh Nivaran, Rudrabhishek, Mahamrityunjaya, and Kundali analysis strictly according to authentic Vedic scriptures.`,
       bio2: "Pujas are conducted with individual Gotra and Sankalp at world-famous shrines of Ujjain including Mangalnath, Mahakaleshwar, Kaal Bhairav, and Siddhwat.",
       moreBtn: "Know More",
       consultBtn: "Book Consultation",
@@ -234,7 +236,7 @@ export const translations = {
       quickLinksHeading: "Quick Links",
       servicesHeading: "Our Services",
       quote: '"According to sacred scriptures, right guidance makes life joyful and fulfilled."',
-      author: "- Pt. Tarun Puri Goswami",
+      author: `- ${PANDIT_INFO.name}`,
       rights: "All Rights Reserved. | Designed with devotion | Shri Mahakaleshwar Jyotirlinga, Ujjain"
     }
   }

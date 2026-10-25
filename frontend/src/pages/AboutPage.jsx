@@ -17,7 +17,7 @@ export default function AboutPage({ onOpenBooking }) {
             fontFamily: 'var(--font-serif)',
             fontWeight: '800'
           }}>
-            पंडित तरुण पूरी गोस्वामी जी का परिचय
+            {PANDIT_INFO.nameHi} जी का परिचय
           </h1>
           <p style={{
             fontSize: '1.05rem',
@@ -53,7 +53,7 @@ export default function AboutPage({ onOpenBooking }) {
           }}>
             <img
               src="/images/pandit_ji.png"
-              alt="Pandit Tarun Puri Goswami"
+              alt={PANDIT_INFO.name}
               style={{
                 width: '100%',
                 borderRadius: '12px',
@@ -62,7 +62,7 @@ export default function AboutPage({ onOpenBooking }) {
             />
             <div style={{ textAlign: 'center' }}>
               <h3 style={{ fontSize: '1.3rem', color: '#730014', fontFamily: 'var(--font-serif)' }}>
-                पंडित तरुण पूरी गोस्वामी
+                {PANDIT_INFO.nameHi}
               </h3>
               <div style={{ color: '#9e7d18', fontWeight: '600', fontSize: '0.9rem' }}>
                 ज्योतिष एवं वास्तु विशेषज्ञ, उज्जैन (म.प्र.)
@@ -105,7 +105,7 @@ export default function AboutPage({ onOpenBooking }) {
             </h3>
 
             <p style={{ fontSize: '0.96rem', lineHeight: 1.8, color: '#3d2e29', marginBottom: '16px' }}>
-              उज्जैन की अवंतिका नगरी, जिसे कालगणना का केंद्र और भगवान महाकालेश्वर की राजधानी कहा जाता है, में पंडित तरुण पूरी गोस्वामी जी का जन्म एक प्रतिष्ठित वैदिक कर्मकांडी ब्राह्मण कुल में हुआ। बाल्यावस्था से ही वेद, उपनिषद, तंत्र शास्त्र एवं फलित ज्योतिष के अध्ययन में रुचि रही।
+              उज्जैन की अवंतिका नगरी, जिसे कालगणना का केंद्र और भगवान महाकालेश्वर की राजधानी कहा जाता है, में {PANDIT_INFO.nameHi} जी का जन्म एक प्रतिष्ठित वैदिक कर्मकांडी ब्राह्मण कुल में हुआ। बाल्यावस्था से ही वेद, उपनिषद, तंत्र शास्त्र एवं फलित ज्योतिष के अध्ययन में रुचि रही।
             </p>
 
             <p style={{ fontSize: '0.96rem', lineHeight: 1.8, color: '#3d2e29', marginBottom: '16px' }}>

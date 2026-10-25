@@ -1,7 +1,7 @@
 export const PANDIT_INFO = {
-  websiteName: import.meta.env?.VITE_WEBSITE_NAME || "Mangalbhatpujaujjain.in",
-  name: import.meta.env?.VITE_PANDIT_NAME || "Pandit Tarun Puri Goswami",
-  nameHi: import.meta.env?.VITE_PANDIT_NAME_HI || "पंडित तरुण पूरी गोस्वामी",
+  websiteName: import.meta.env?.VITE_WEBSITE_NAME || "mangalbhatujjain.com",
+  name: import.meta.env?.VITE_PANDIT_NAME || "Pandit Tarun Puri",
+  nameHi: import.meta.env?.VITE_PANDIT_NAME_HI || "पंडित तरुण पूरी",
   title: import.meta.env?.VITE_PANDIT_TITLE || "Jyotish & Vastu Specialist",
   titleHi: import.meta.env?.VITE_PANDIT_TITLE_HI || "ज्योतिष एवं वास्तु विशेषज्ञ",
   taglineHi: "सटीक ज्योतिषीय मार्गदर्शन, वास्तु परामर्श और वैदिक पूजा-अनुष्ठान के माध्यम से जीवन में सुख, शांति और समृद्धि का मार्ग प्रशस्त करें।",
@@ -9,7 +9,7 @@ export const PANDIT_INFO = {
   phone: import.meta.env?.VITE_PHONE_NUMBER || "7024184846",
   displayPhone: import.meta.env?.VITE_PHONE_NUMBER || "7024184846",
   whatsappNumber: import.meta.env?.VITE_WHATSAPP_NUMBER || "917024184846",
-  email: import.meta.env?.VITE_EMAIL || "tarunpuri.goswami@gmail.com",
+  email: import.meta.env?.VITE_EMAIL || "goswamitarun72@gmail.com",
   locationHi: import.meta.env?.VITE_LOCATION_HI || "उज्जैन, मध्य प्रदेश (महाकाल की पावन नगरी)",
   locationEn: import.meta.env?.VITE_LOCATION_EN || "Ujjain, Madhya Pradesh, India",
   experienceYears: "15+",
@@ -325,7 +325,7 @@ export const GALLERY_ITEMS = [
 ];
 
 export const getWhatsAppLink = (customText = "") => {
-  const defaultText = "प्रणाम पंडित जी, मुझे Mangalbhatpujaujjain.in के माध्यम से पूजा एवं परामर्श की जानकारी चाहिए।";
+  const defaultText = `प्रणाम पंडित जी, मुझे ${PANDIT_INFO.websiteName} के माध्यम से पूजा एवं परामर्श की जानकारी चाहिए।`;
   const text = customText || defaultText;
   return `https://wa.me/${PANDIT_INFO.whatsappNumber}?text=${encodeURIComponent(text)}`;
 };

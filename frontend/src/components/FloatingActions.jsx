@@ -128,7 +128,7 @@ export default function FloatingActions({ onOpenBooking }) {
 
         {/* Floating WhatsApp Button */}
         <a
-          href={getWhatsAppLink("प्रणाम पंडित जी, मुझे Mangalbhatpujaujjain.in के माध्यम से पूजा करवानी है।")}
+          href={getWhatsAppLink(`प्रणाम पंडित जी, मुझे ${PANDIT_INFO.websiteName} के माध्यम से पूजा करवानी है।`)}
           target="_blank"
           rel="noopener noreferrer"
           title="WhatsApp पर चैट करें"

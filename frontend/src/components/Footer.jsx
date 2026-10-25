@@ -342,7 +342,7 @@ export default function Footer({ lang = 'hi', onNavigate, onOpenBooking }) {
           color: '#a38f83'
         }}>
           <div>
-            © {new Date().getFullYear()} Pandit Tarun Puri Goswami. {t.rights}
+            © {new Date().getFullYear()} {lang === 'hi' ? PANDIT_INFO.nameHi : PANDIT_INFO.name}. {t.rights}
           </div>
         </div>
       </div>

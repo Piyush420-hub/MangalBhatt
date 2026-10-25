@@ -69,8 +69,7 @@ export default function Hero({ lang = 'hi', onOpenBooking }) {
               WebkitTextFillColor: 'transparent',
               textShadow: '0 2px 15px rgba(0,0,0,0.4)'
             }}>
-              Pandit<br />
-              Tarun Puri Goswami
+              {lang === 'hi' ? PANDIT_INFO.nameHi : PANDIT_INFO.name}
             </h1>
 
             {/* Title / Specialization */}
@@ -191,7 +190,7 @@ export default function Hero({ lang = 'hi', onOpenBooking }) {
               <img
                 className="hero-portrait"
                 src="/images/pandit_ji.png"
-                alt="Pandit Tarun Puri Goswami - Spiritual Jyotish & Vastu Specialist, Ujjain"
+                alt={`${lang === 'hi' ? PANDIT_INFO.nameHi : PANDIT_INFO.name} - ${t.title}`}
                 style={{
                   width: '100%',
                   height: '420px',

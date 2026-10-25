@@ -4,6 +4,7 @@ import {
   ArrowRight 
 } from 'lucide-react';
 import { translations } from '../data/translations';
+import { PANDIT_INFO } from '../data/pujaData';
 
 export default function AboutSection({ lang = 'hi', onNavigateAbout, onOpenBooking }) {
   const t = translations[lang].about;
@@ -40,7 +41,7 @@ export default function AboutSection({ lang = 'hi', onNavigateAbout, onOpenBooki
           }}>
             <img
               src="/images/pandit_ji.png"
-              alt="Pandit Tarun Puri Goswami"
+              alt={lang === 'hi' ? PANDIT_INFO.nameHi : PANDIT_INFO.name}
               style={{
                 width: '100%',
                 height: '380px',

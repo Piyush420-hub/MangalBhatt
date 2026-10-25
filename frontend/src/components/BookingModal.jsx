@@ -31,41 +31,26 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
     setLoading(true);
     setErrorMsg('');
 
-    try {
-      // Call FastAPI backend
-      const response = await fetch(`${API_BASE}/api/bookings`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
+    // Format sacred WhatsApp message
+    const formattedDate = formData.preferred_date || 'जल्द से जल्द';
+    const gotra = formData.gotra ? formData.gotra : 'सामान्य / ज्ञात नहीं';
+    const city = formData.city ? formData.city : 'उज्जैन धाम';
+    const request = formData.special_request ? `\n- विशेष संदेश / प्रार्थना: ${formData.special_request}` : '';
 
-      if (response.ok) {
-        const data = await response.json();
-        setSuccessData(data);
-      } else {
-        // Fallback for standalone demo mode
-        const fallbackId = Math.floor(1000 + Math.random() * 9000);
-        const text = `प्रणाम पंडित जी, मैंने Mangalbhatpujaujjain.in पर पूजा बुक की है।\nनाम: ${formData.name}\nफोन: ${formData.phone}\nपूजा: ${formData.puja_name}\nदिनांक: ${formData.preferred_date || 'जल्द से जल्द'}\nगोत्र: ${formData.gotra || 'सामान्य'}\nस्थान: ${formData.city || 'उज्जैन'}`;
-        const waUrl = getWhatsAppLink(text);
-        setSuccessData({
-          booking_id: fallbackId,
-          message: 'पूजा बुकिंग सफलतापूर्वक दर्ज कर ली गई है। पंडित जी आपसे शीघ्र संपर्क करेंगे।',
-          whatsapp_url: waUrl
-        });
-      }
-    } catch (err) {
-      // Offline fallback
-      const fallbackId = Math.floor(1000 + Math.random() * 9000);
-      const text = `प्रणाम पंडित जी, मैंने Mangalbhatpujaujjain.in पर पूजा बुक की है।\nनाम: ${formData.name}\nफोन: ${formData.phone}\nपूजा: ${formData.puja_name}\nदिनांक: ${formData.preferred_date || 'जल्द से जल्द'}\nगोत्र: ${formData.gotra || 'सामान्य'}\nस्थान: ${formData.city || 'उज्जैन'}`;
-      const waUrl = getWhatsAppLink(text);
-      setSuccessData({
-        booking_id: fallbackId,
-        message: 'पूजा बुकिंग सफलतापूर्वक दर्ज कर ली गई है। पंडित जी आपसे शीघ्र संपर्क करेंगे।',
-        whatsapp_url: waUrl
-      });
-    } finally {
-      setLoading(false);
-    }
+    const text = `जय श्री महाकाल!\nप्रणाम पंडित जी, मैंने mangalbhatujjain.com पर पूजा बुक की है:\n\n- यजमान का नाम: ${formData.name}\n- मोबाइल नंबर: ${formData.phone}\n- पूजा का नाम: ${formData.puja_name}\n- इच्छित दिनांक: ${formattedDate}\n- गोत्र: ${gotra}\n- स्थान/शहर: ${city}${request}\n\nकृपया पूजा का शुभ मुहूर्त एवं संपूर्ण वैदिक विधि-विधान की जानकारी प्रदान करें।`;
+
+    const waUrl = getWhatsAppLink(text);
+
+    // Direct redirect to WhatsApp
+    window.open(waUrl, '_blank', 'noopener,noreferrer');
+
+    const bookingId = Math.floor(1000 + Math.random() * 9000);
+    setSuccessData({
+      booking_id: bookingId,
+      message: 'पूजा बुकिंग विवरण WhatsApp पर प्रेषित कर दिया गया है।',
+      whatsapp_url: waUrl
+    });
+    setLoading(false);
   };
 
   return (
@@ -122,7 +107,7 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
             वैदिक पूजा एवं अनुष्ठान बुकिंग
           </h3>
           <p style={{ fontSize: '0.82rem', color: '#f3e4d0', marginTop: '2px' }}>
-            पंडित तरुण पूरी गोस्वामी जी (उज्जैन) द्वारा शास्त्रोक्त संकल्प
+            {PANDIT_INFO.nameHi} जी (उज्जैन) द्वारा शास्त्रोक्त संकल्प
           </p>
         </div>
 
@@ -417,7 +402,7 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="btn-maroon"
+                  className="btn-whatsapp"
                   style={{
                     flex: 1,
                     justifyContent: 'center',
@@ -426,8 +411,8 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
                     opacity: loading ? 0.7 : 1
                   }}
                 >
-                  <Calendar size={18} color="#ffd700" />
-                  <span>{loading ? 'दर्ज हो रहा है...' : 'पूजा संकल्प दर्ज करें'}</span>
+                  <MessageCircle size={18} />
+                  <span>{loading ? 'WhatsApp खुल रहा है...' : 'WhatsApp पर पूजा बुक करें'}</span>
                 </button>
 
                 <button

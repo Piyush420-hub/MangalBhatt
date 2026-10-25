@@ -27,18 +27,20 @@ export default function JyotishPage({ onOpenKundaliModal }) {
     { icon: '💍', title: 'विवाह एवं दांपत्य सुख', desc: 'मांगलिक दोष, नाड़ी दोष, गुण मिलान, विवाह में आ रहे अनावश्यक विलंब का समाधान।' }
   ];
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    try {
-      await fetch(`${API_BASE}/api/kundali-inquiry`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
-    } catch (err) {
-      console.log('offline mode');
-    }
+
+    const dobStr = formData.dob ? `\n- जन्म दिनांक: ${formData.dob}` : '';
+    const tobStr = formData.tob ? `\n- जन्म समय: ${formData.tob}` : '';
+    const pobStr = formData.pob ? `\n- जन्म स्थान: ${formData.pob}` : '';
+    const notesStr = formData.notes ? `\n- मुख्य समस्या / प्रश्न: ${formData.notes}` : '';
+
+    const text = `जय श्री महाकाल!\nप्रणाम पंडित जी, मुझे अपनी जन्मपत्रिका का विश्लेषण करवाना है:\n\n- जातक का नाम: ${formData.name}\n- मोबाइल: ${formData.phone}${dobStr}${tobStr}${pobStr}${notesStr}\n\nकृपया पत्रिका अध्ययन कर मार्गदर्शन प्रदान करें।`;
+
+    const waUrl = getWhatsAppLink(text);
+    window.open(waUrl, '_blank', 'noopener,noreferrer');
+
     setSubmitted(true);
     setLoading(false);
   };
@@ -241,11 +243,11 @@ export default function JyotishPage({ onOpenKundaliModal }) {
               <button
                 type="submit"
                 disabled={loading}
-                className="btn-maroon"
+                className="btn-whatsapp"
                 style={{ width: '100%', justifyContent: 'center', padding: '13px', fontSize: '1rem' }}
               >
-                <FileText size={18} color="#ffd700" />
-                <span>{loading ? 'दर्ज हो रहा है...' : 'कुण्डली विश्लेषण अनुरोध भेजें'}</span>
+                <MessageCircle size={18} />
+                <span>{loading ? 'WhatsApp खुल रहा है...' : 'WhatsApp पर कुण्डली विश्लेषण भेजें'}</span>
               </button>
             </form>
           )}

@@ -86,7 +86,7 @@ export default function Navbar({ lang = 'hi', activePage, setActivePage, onOpenB
               fontFamily: 'var(--font-serif)',
               letterSpacing: '0.2px'
             }} className="navbar-brand-name">
-              Pandit Tarun Puri Goswami
+              {lang === 'hi' ? PANDIT_INFO.nameHi : PANDIT_INFO.name}
             </h1>
             <div style={{
               fontSize: '0.82rem',
