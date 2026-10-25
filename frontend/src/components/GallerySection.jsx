@@ -527,7 +527,7 @@ export default function GallerySection({ lang = 'hi', onNavigateGallery }) {
                     gap: '6px'
                   }}>
                     <span>🪔</span>
-                    <span>{lang === 'hi' ? 'पंडित तरुण पूरी जी द्वारा उज्जैन धाम में संपन्न' : 'Conducted by Pandit Tarun Puri Ji in Ujjain'}</span>
+                    <span>{lang === 'hi' ? 'पण्डित तरुण पुरी जी द्वारा उज्जैन धाम में संपन्न' : 'Conducted by Pandit Tarun Puri Ji in Ujjain'}</span>
                   </span>
                 ) : <span />}
 

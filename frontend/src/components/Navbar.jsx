@@ -3,7 +3,7 @@ import { Calendar, Menu, X, Phone } from 'lucide-react';
 import { PANDIT_INFO } from '../data/pujaData';
 import { translations } from '../data/translations';
 
-export default function Navbar({ lang = 'hi', activePage, setActivePage, onOpenBooking }) {
+export default function Navbar({ lang = 'hi', setLang, activePage, setActivePage, onOpenBooking }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const t = translations[lang].nav;
 
@@ -199,6 +199,55 @@ export default function Navbar({ lang = 'hi', activePage, setActivePage, onOpenB
                 </button>
               );
             })}
+            {/* Mobile Language Switcher */}
+            {setLang && (
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                marginTop: '10px',
+                padding: '8px',
+                background: '#faf5ea',
+                borderRadius: '8px',
+                border: '1px solid #ebd9bc'
+              }}>
+                <span style={{ fontSize: '0.85rem', fontWeight: '700', color: '#730014' }}>
+                  {lang === 'hi' ? 'भाषा (Language):' : 'Language (भाषा):'}
+                </span>
+                <button
+                  onClick={() => setLang('hi')}
+                  style={{
+                    background: lang === 'hi' ? '#730014' : '#ffffff',
+                    color: lang === 'hi' ? '#ffd700' : '#473630',
+                    border: '1px solid #d4af37',
+                    borderRadius: '16px',
+                    padding: '4px 12px',
+                    fontSize: '0.82rem',
+                    fontWeight: '800',
+                    cursor: 'pointer'
+                  }}
+                >
+                  हिंदी
+                </button>
+                <button
+                  onClick={() => setLang('en')}
+                  style={{
+                    background: lang === 'en' ? '#730014' : '#ffffff',
+                    color: lang === 'en' ? '#ffd700' : '#473630',
+                    border: '1px solid #d4af37',
+                    borderRadius: '16px',
+                    padding: '4px 12px',
+                    fontSize: '0.82rem',
+                    fontWeight: '800',
+                    cursor: 'pointer'
+                  }}
+                >
+                  English
+                </button>
+              </div>
+            )}
+
             <div style={{ display: 'flex', gap: '10px', marginTop: '12px' }}>
               <a
                 href={`tel:${PANDIT_INFO.phone}`}

@@ -104,7 +104,7 @@ export default function ServicesPage({ lang = 'hi', onOpenBooking, onOpenKundali
                       fontWeight: '800',
                       boxShadow: '0 2px 8px rgba(0,0,0,0.3)'
                     }}>
-                      {puja.badge}
+                      {lang === 'hi' ? puja.badge : (puja.badgeEn || puja.badge)}
                     </div>
                   </div>
 
@@ -126,10 +126,10 @@ export default function ServicesPage({ lang = 'hi', onOpenBooking, onOpenKundali
                         marginBottom: '14px',
                         fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)'
                       }}>
-                        {puja.fullDesc}
+                        {lang === 'hi' ? puja.fullDesc : (puja.fullDescEn || puja.fullDesc)}
                       </p>
 
-                      {puja.whyUjjain && (
+                      {(puja.whyUjjain || puja.whyUjjainEn) && (
                         <div style={{
                           background: 'linear-gradient(135deg, #fffcf5, #fbf2e2)',
                           borderLeft: '4px solid #d4af37',
@@ -139,13 +139,16 @@ export default function ServicesPage({ lang = 'hi', onOpenBooking, onOpenKundali
                           marginBottom: '14px',
                           borderRadius: '0 8px 8px 0'
                         }}>
-                          <strong style={{ color: '#730014' }}>उज्जैन में ही क्यों?</strong> {puja.whyUjjain}
+                          <strong style={{ color: '#730014' }}>
+                            {lang === 'hi' ? 'उज्जैन में ही क्यों?' : 'Why in Ujjain?'}
+                          </strong>{' '}
+                          {lang === 'hi' ? puja.whyUjjain : (puja.whyUjjainEn || puja.whyUjjain)}
                         </div>
                       )}
 
                       {puja.benefits && (
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '8px', marginBottom: '16px' }}>
-                          {puja.benefits.map((b, i) => (
+                          {((lang === 'hi' ? puja.benefits : (puja.benefitsEn || puja.benefits))).map((b, i) => (
                             <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.86rem', color: '#3d2e29' }}>
                               <Check size={15} color="#730014" style={{ flexShrink: 0 }} />
                               <span>{b}</span>
@@ -180,7 +183,11 @@ export default function ServicesPage({ lang = 'hi', onOpenBooking, onOpenKundali
                       </button>
 
                       <a
-                        href={getWhatsAppLink(`प्रणाम पंडित जी, मुझे ${displayName} के बारे में जानकारी चाहिए।`)}
+                        href={getWhatsAppLink(
+                          lang === 'hi'
+                            ? `प्रणाम पंडित जी, मुझे ${displayName} के बारे में जानकारी चाहिए।`
+                            : `Pranam Pandit Ji, I would like consultation and booking information regarding ${displayName}.`
+                        )}
                         target="_blank"
                         rel="noreferrer"
                         style={{

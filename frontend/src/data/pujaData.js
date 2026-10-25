@@ -1,7 +1,7 @@
 export const PANDIT_INFO = {
   websiteName: import.meta.env?.VITE_WEBSITE_NAME || "mangalbhatujjain.com",
-  name: import.meta.env?.VITE_PANDIT_NAME || "Pandit Tarun Puri",
-  nameHi: import.meta.env?.VITE_PANDIT_NAME_HI || "पंडित तरुण पूरी",
+  name: import.meta.env?.VITE_PANDIT_NAME || "Jyotishacharya Pandit Tarun Puri",
+  nameHi: import.meta.env?.VITE_PANDIT_NAME_HI || "ज्योतिषाचार्य पण्डित तरुण पुरी",
   title: import.meta.env?.VITE_PANDIT_TITLE || "Jyotish & Vastu Specialist",
   titleHi: import.meta.env?.VITE_PANDIT_TITLE_HI || "ज्योतिष एवं वास्तु विशेषज्ञ",
   taglineHi: "सटीक ज्योतिषीय मार्गदर्शन, वास्तु परामर्श और वैदिक पूजा-अनुष्ठान के माध्यम से जीवन में सुख, शांति और समृद्धि का मार्ग प्रशस्त करें।",
@@ -31,20 +31,34 @@ export const TOP_PUJAS = [
     nameHi: "मंगल दोष पूजा (मंगल भात पूजन)",
     nameEn: "Mangal Dosh Bhat Puja",
     highlightTag: "उज्जैन की विश्वप्रसिद्ध पूजा",
+    highlightTagEn: "World Famous Sacred Puja",
     badge: "मंगलनाथ मंदिर",
+    badgeEn: "Mangalnath Temple",
     image: "/images/mangal_bhat.jpg",
     shortDesc: "उज्जैन मंगलनाथ मंदिर में मंगल दोष एवं अंगारक योग निवारण। विवाह में आ रही देरी, दांपत्य कलह एवं रक्त विकार से पूर्ण मुक्ति।",
+    shortDescEn: "Remedy for Mangal Dosh and Angarak Yoga at Mangalnath Temple, Ujjain. Complete relief from marital delays and obstacles.",
     fullDesc: "उज्जैन को मंगल देव की जन्मस्थली के रूप में पुराणों में मान्यता प्राप्त है। मंगलनाथ मंदिर में शिवलिंग पर उबले हुए लाल चावल (भात) का लेप कर विशेष अभिषेक किया जाता है। इससे मंगल की क्रूर दृष्टि शांत होती है और विवाह, भूमि व पारिवारिक सुखों के द्वार खुलते हैं।",
+    fullDescEn: "Ujjain is recognized in ancient Puranas as the sacred birthplace of Lord Mangal (Mars). At the sanctified Mangalnath Temple, boiled red rice (Bhat) is consecrated on the Shiva Lingam with sacred chanting. This ritual pacifies the malefic effects of Mars, opening doors to marital happiness, property acquisition, and family harmony.",
     whyUjjain: "स्कंद पुराण के अवंतिका खंड के अनुसार, मंगल देव का प्राकट्य उज्जैन में ही हुआ था, इसलिए संपूर्ण विश्व में मंगल दोष का निवारण केवल उज्जैन में ही पूर्ण फलदायी माना जाता है।",
+    whyUjjainEn: "According to the Skanda Purana, Lord Mangal manifested in Ujjain. Therefore, worldwide, Mangal Dosh nivaran is believed to be fully effective only in Ujjain.",
     benefits: [
       "विवाह में आ रही अड़चनों व मांगलिक दोष का त्वरित निवारण",
       "दांपत्य जीवन में प्रेम, सौहार्द्र और समझदारी",
       "क्रोध, अवसाद और रक्त संबंधी व्याधियों में शांति",
       "भूमि, मकान, प्रॉपर्टी क्रय-विक्रय में आने वाली रुकावटों का समाधान"
     ],
+    benefitsEn: [
+      "Swift resolution of marriage delays and Manglik Dosh obstacles",
+      "Harmony, understanding, and love in marital and family life",
+      "Relief from temper issues, emotional stress, and blood-related ailments",
+      "Removal of hurdles in real estate, land, and property transactions"
+    ],
     duration: "2 से 3 घंटे",
+    durationEn: "2 to 3 Hours",
     panditCount: "2 से 3 वैदिक ब्राह्मण",
-    samagri: "भात, लाल चंदन, कनेर पुष्प, लाल वस्त्र, रोली, अक्षत, सुपारी, हवन सामग्री"
+    panditCountEn: "2 to 3 Vedic Brahmins",
+    samagri: "भात, लाल चंदन, कनेर पुष्प, लाल वस्त्र, रोली, अक्षत, सुपारी, हवन सामग्री",
+    samagriEn: "Sacred rice (Bhat), red sandalwood, flowers, sacred red cloth, roli, akshat, Hawan samagri"
   },
   {
     id: "kalsarp-dosh-puja",
@@ -52,20 +66,34 @@ export const TOP_PUJAS = [
     nameHi: "काल सर्प दोष पूजा",
     nameEn: "Kaal Sarp Dosh Nivaran Puja",
     highlightTag: "12 प्रकार के कालसर्प दोष",
+    highlightTagEn: "12 Types of Kaal Sarp Dosh",
     badge: "त्रिपिंडी व नाग पूजा",
+    badgeEn: "Tripindi & Naag Puja",
     image: "/images/kalsarp.jpg",
     shortDesc: "जीवन में आ रही अनपेक्षित रुकावटों, व्यापारिक हानि, बुरे सपनों और मानसिक अशांति से मुक्ति हेतु उज्जैन में शास्त्रोक्त पूजा।",
+    shortDescEn: "Authentic Vedic puja in Ujjain for deliverance from unforeseen hurdles, business setbacks, nightmares, and mental stress.",
     fullDesc: "जब जन्मपत्रिका में राहु और केतु के मध्य सभी सात ग्रह आ जाते हैं, तब कालसर्प योग निर्मित होता है। इससे जातक को अथक परिश्रम के बाद भी उचित फल नहीं मिलता। उज्जैन में नाग देवता और भगवान शिव के सानिध्य में विधि-विधान से पूजा कर इस दोष का पूर्ण शमन किया जाता है।",
+    fullDescEn: "When all seven planets are hemmed between Rahu and Ketu in a birth chart, Kaal Sarp Yoga is formed. In Ujjain, under the divine grace of Nag Devta and Lord Shiva, this dosha is completely pacified through time-tested scriptural rituals.",
     whyUjjain: "उज्जैन में महाकाल और सिद्धवट का संगम कालसर्प दोष की शांति के लिए सिद्ध स्थल है। नागचंद्रेश्वर की पावन छत्रछाया में की गई पूजा अनंत गुना फल देती है।",
+    whyUjjainEn: "Ujjain's Mahakal and Siddhwat confluence is an eternally consecrated pilgrimage for Kaal Sarp Dosh peace. Pujas consecrated under the shelter of Nagchandreshwar yield boundless blessings.",
     benefits: [
       "करियर और व्यापार में लंबे समय से अटके कार्यों में सफलता",
       "अकारण भय, नींद में सर्प दर्शन और मानसिक तनाव से मुक्ति",
       "वंश वृद्धि एवं संतान सुख में आने वाली बाधाओं का शमन",
       "आर्थिक अस्थिरता समाप्त होकर स्थायी धन लाभ"
     ],
+    benefitsEn: [
+      "Breakthrough success in stalled career, business, and job endeavors",
+      "Freedom from unexplained anxiety, serpent dreams, and mental turmoil",
+      "Removal of delays in lineage growth and progeny happiness",
+      "Financial stability and enduring growth in wealth"
+    ],
     duration: "3 से 4 घंटे",
+    durationEn: "3 to 4 Hours",
     panditCount: "शास्त्रज्ञ वैदिक ब्राह्मण",
-    samagri: "चांदी व तांबे के नाग-नागिन जोड़ा, नवधान्य, तिल, जौ, दूर्वा, पंचामृत"
+    panditCountEn: "Learned Vedic Acharyas",
+    samagri: "चांदी व तांबे के नाग-नागिन जोड़ा, नवधान्य, तिल, जौ, दूर्वा, पंचामृत",
+    samagriEn: "Consecrated silver and copper serpent pair, nine grains, sesame, durva, panchamrit"
   },
   {
     id: "mahamrityunjaya-anushthan",
@@ -73,20 +101,34 @@ export const TOP_PUJAS = [
     nameHi: "महामृत्युंजय अनुष्ठान",
     nameEn: "Maha Mrityunjaya Anushthan",
     highlightTag: "अकाल मृत्यु निवारण",
+    highlightTagEn: "Protection & Long Life",
     badge: "सवा लाख मंत्र जप",
+    badgeEn: "1.25 Lakh Mantra Chants",
     image: "/images/mahamrityunjaya.jpg",
     shortDesc: "गंभीर बीमारियों से मुक्ति, अकाल मृत्यु के भय का निवारण, दीर्घायु और संपूर्ण सुरक्षा कवच प्रदान करने वाला महायज्ञ।",
-    fullDesc: "महामृत्युंजय मंत्र भगवान शिव का वह संजीवनी मंत्र है जो मृत्यु तुल्य कष्टों को भी टालने की शक्ति रखता है। पंडित तरुण पूरी गोस्वामी जी द्वारा योग्य ब्राह्मणों की टोली के साथ सवा लाख मंत्रों का सस्वर जप एवं दशांश हवन वैदिक विधि से संपन्न कराया जाता है।",
+    shortDescEn: "Supreme Vedic Yajna providing divine armor against critical illnesses, untimely accidents, and fear, granting longevity.",
+    fullDesc: "महामृत्युंजय मंत्र भगवान शिव का वह संजीवनी मंत्र है जो मृत्यु तुल्य कष्टों को भी टालने की शक्ति रखता है। ज्योतिषाचार्य पण्डित तरुण पुरी जी द्वारा योग्य ब्राह्मणों की टोली के साथ सवा लाख मंत्रों का सस्वर जप एवं दशांश हवन वैदिक विधि से संपन्न कराया जाता है।",
+    fullDescEn: "The Maha Mrityunjaya Mantra is Lord Shiva's divine nectar chant capable of averting even death-like suffering. Jyotishacharya Pandit Tarun Puri along with qualified Vedic Brahmins conducts 1.25 Lakh rhythmic Vedic chants and Dashansh Hawan strictly according to scriptural injunctions.",
     whyUjjain: "महाकाल स्वयं कालों के काल हैं। महाकाल की नगरी में महामृत्युंजय अनुष्ठान करवाने से जातक को शिव जी का साक्षात अभयदान प्राप्त होता है।",
+    whyUjjainEn: "Mahakal is the Lord of Time and Death Himself. Conducting Maha Mrityunjaya Anushthan in Ujjain grants devotees direct fearlessness and divine blessings from Lord Shiva.",
     benefits: [
       "गंभीर स्वास्थ्य संकट और असाध्य रोगों से सुरक्षा",
       "अकाल दुर्घटना एवं भय से जातक की रक्षा",
       "शनि की साढ़ेसाती व मारक ग्रहों की दशा में अचूक सुरक्षा कवच",
       "आत्मिक बल, ओज और पारिवारिक सुख-शांति में अपार वृद्धि"
     ],
+    benefitsEn: [
+      "Divine shield against severe health crises and chronic illnesses",
+      "Protection for devotees and family from accidents and negative energies",
+      "Potent protective shield during Saturn Sade Sati and Marak planetary periods",
+      "Immense rise in inner spiritual strength, vitality, and family peace"
+    ],
     duration: "1 से 7 दिवसीय अनुष्ठान",
+    durationEn: "1 to 7 Days Anushthan",
     panditCount: "5 से 11 वैदिक आचार्य",
-    samagri: "अमृता (गिलोय), दूर्वा, तिल, खीर, शुद्ध गाय का घी, गुग्गल, हवन सामग्री"
+    panditCountEn: "5 to 11 Vedic Acharyas",
+    samagri: "अमृता (गिलोय), दूर्वा, तिल, खीर, शुद्ध गाय का घी, गुग्गल, हवन सामग्री",
+    samagriEn: "Amrita (Giloy), Durva grass, sesame, kheer, pure cow ghee, guggul, Hawan samagri"
   },
   {
     id: "rudrabhishek",
@@ -94,20 +136,34 @@ export const TOP_PUJAS = [
     nameHi: "रुद्र अभिषेक",
     nameEn: "Maha Rudrabhishek",
     highlightTag: "मनोकामना पूर्ति",
+    highlightTagEn: "Fulfillment of Wishes",
     badge: "शिव स्तुति व पंचामृत",
+    badgeEn: "Shiva Stuti & Panchamrit",
     image: "/images/rudrabhishek.jpg",
     shortDesc: "महाकाल की पावन नगरी में रुद्राष्टाध्यायी के वैदिक मंत्रों द्वारा भगवान भोलेनाथ का दिव्य दुग्धाभिषेक एवं पंचामृत अभिषेक।",
+    shortDescEn: "Divine continuous sacred milk and Panchamrit Abhishek of Lord Shiva with Vedic Rudrashtadhyayi chants in Ujjain.",
     fullDesc: "रुद्राभिषेक शिव आराधना का सर्वश्रेष्ठ मार्ग है। इसमें जल, दूध, दही, शहद, घी, शक्कर (पंचामृत), गन्ने का रस, नारियल जल और गंगाजल की धारा के साथ नमक-चमक पाठ किया जाता है, जिससे भगवान शिव अत्यंत प्रसन्न होकर समस्त कष्ट हर लेते हैं।",
+    fullDescEn: "Rudrabhishek is the highest form of Shiva worship. Continuous streams of water, milk, curd, honey, ghee, sugar (Panchamrit), sugarcane juice, and holy Ganga water are offered while chanting the powerful Namakam and Chamakam hymns.",
     whyUjjain: "उज्जैन 12 ज्योतिर्लिंगों में एकमात्र दक्षिणमुखी महाकालेश्वर ज्योतिर्लिंग है। यहाँ रुद्राभिषेक का प्रभाव कई गुना अधिक फलदायी होता है।",
+    whyUjjainEn: "Ujjain is home to the only South-facing (Dakshinmukhi) Jyotirlinga, Shri Mahakaleshwar. Rudrabhishek performed here produces manifold divine results.",
     benefits: [
       "सर्व मनोकामनाओं की पूर्ति और जीवन में सुख-समृद्धि",
       "ग्रह पीड़ाओं और कुंडली के अशुभ योगों का शमन",
       "घर व व्यवसाय स्थल से नकारात्मक ऊर्जा का समूल नाश",
       "पापों का प्रायश्चित्त और मानसिक शांति"
     ],
+    benefitsEn: [
+      "Fulfillment of all heartfelt aspirations and prosperity in life",
+      "Pacification of planetary afflictions and inauspicious planetary yogas",
+      "Total elimination of negative energies from home and workplace",
+      "Inner purification, peaceful mind, and spiritual awakening"
+    ],
     duration: "1.5 से 2.5 घंटे",
+    durationEn: "1.5 to 2.5 Hours",
     panditCount: "2 से 3 ब्राह्मण",
-    samagri: "पंचामृत, बेलपत्र, धतूरा, भांग, भस्म, इत्र, मौसमी फल, गंगाजल"
+    panditCountEn: "2 to 3 Brahmins",
+    samagri: "पंचामृत, बेलपत्र, धतूरा, भांग, भस्म, इत्र, मौसमी फल, गंगाजल",
+    samagriEn: "Panchamrit, Belpatra, Dhatura, Bhasma, natural attar, seasonal fruits, Gangajal"
   },
   {
     id: "kundali-vishleshan",
@@ -115,24 +171,34 @@ export const TOP_PUJAS = [
     nameHi: "कुण्डली विश्लेषण",
     nameEn: "Kundali & Birth Chart Analysis",
     highlightTag: "7 प्रमुख जीवन स्तंभ",
+    highlightTagEn: "7 Core Pillars of Life",
     badge: "सटीक ज्योतिष समाधान",
+    badgeEn: "Accurate Astrological Remedies",
     image: "/images/kundali.jpg",
     shortDesc: "धन, प्रेम, व्यवसाय, स्वास्थ्य, परिवार, करियर और विवाह के संबंध में सटीक भविष्यवाणी एवं प्रमाणित वैदिक उपाय।",
-    fullDesc: "आपकी जन्मपत्रिका आपके पूर्वजन्म के संचित कर्मों और वर्तमान जीवन का नक्शा है। पंडित तरुण पूरी गोस्वामी जी 15+ वर्षों के अनुभव से ग्रह-नक्षत्रों, दशा-अंतर्दशा और गोचर का सूक्ष्म अध्ययन कर आपको सही दिशा और सरल उपाय प्रदान करते हैं।",
+    shortDescEn: "Precise predictions and proven Vedic remedies for wealth, love, business, health, family, career, and marriage.",
+    fullDesc: "आपकी जन्मपत्रिका आपके पूर्वजन्म के संचित कर्मों और वर्तमान जीवन का नक्शा है। ज्योतिषाचार्य पण्डित तरुण पुरी जी 15+ वर्षों के अनुभव से ग्रह-नक्षत्रों, दशा-अंतर्दशा और गोचर का सूक्ष्म अध्ययन कर आपको सही दिशा और सरल उपाय प्रदान करते हैं।",
+    fullDescEn: "Your birth chart is the spiritual blueprint of your accumulated past karmas and current life potential. With 15+ years of expertise, Jyotishacharya Pandit Tarun Puri meticulously examines planetary transits, Dashas, and divisional charts to provide clear directions and practical Vedic remedies.",
     aspects: [
-      { id: "dhan", icon: "💰", titleHi: "धन", titleEn: "Wealth", desc: "आर्थिक संपन्नता, धन आगमन के मार्ग, रुका हुआ धन, ऋण मुक्ति" },
-      { id: "prem", icon: "❤️", titleHi: "प्रेम", titleEn: "Love", desc: "प्रेम संबंध, आपसी समझ, विवाह में तब्दील होने के योग" },
-      { id: "vyavsay", icon: "📈", titleHi: "व्यवसाय", titleEn: "Business", desc: "व्यापार में वृद्धि, नए प्रोजेक्ट्स, पार्टनरशिप अनुकूलता" },
-      { id: "swasthya", icon: "🏥", titleHi: "स्वास्थ्य", titleEn: "Health", desc: "शारीरिक व मानसिक स्वास्थ्य, रोग निवारण के ज्योतिषीय उपाय" },
-      { id: "parivar", icon: "👨‍👩‍👧‍👦", titleHi: "परिवार", titleEn: "Family", desc: "पारिवारिक सामंजस्य, संतान सुख, माता-पिता का आशीर्वाद" },
-      { id: "career", icon: "💼", titleHi: "करियर", titleEn: "Career", desc: "नौकरी, प्रमोशन, प्रतियोगी परीक्षाएं, सरकारी सेवा के योग" },
-      { id: "vivah", icon: "💍", titleHi: "विवाह", titleEn: "Marriage", desc: "विवाह की सटीक आयु, गुण मिलान, मांगलिक विचार, दांपत्य सुख" }
+      { id: "dhan", icon: "💰", titleHi: "धन", titleEn: "Wealth", desc: "आर्थिक संपन्नता, धन आगमन के मार्ग, रुका हुआ धन, ऋण मुक्ति", descEn: "Financial stability, avenues of wealth, recovering stuck funds, debt relief" },
+      { id: "prem", icon: "❤️", titleHi: "प्रेम", titleEn: "Love", desc: "प्रेम संबंध, आपसी समझ, विवाह में तब्दील होने के योग", descEn: "Love relationships, mutual compatibility, prospects of marriage" },
+      { id: "vyavsay", icon: "📈", titleHi: "व्यवसाय", titleEn: "Business", desc: "व्यापार में वृद्धि, नए प्रोजेक्ट्स, पार्टनरशिप अनुकूलता", descEn: "Business expansion, new ventures, partnership compatibility" },
+      { id: "swasthya", icon: "🏥", titleHi: "स्वास्थ्य", titleEn: "Health", desc: "शारीरिक व मानसिक स्वास्थ्य, रोग निवारण के ज्योतिषीय उपाय", descEn: "Physical and mental wellness, astrological remedies for health issues" },
+      { id: "parivar", icon: "👨‍👩‍👧‍👦", titleHi: "परिवार", titleEn: "Family", desc: "पारिवारिक सामंजस्य, संतान सुख, माता-पिता का आशीर्वाद", descEn: "Family harmony, progeny happiness, peace in household" },
+      { id: "career", icon: "💼", titleHi: "करियर", titleEn: "Career", desc: "नौकरी, प्रमोशन, प्रतियोगी परीक्षाएं, सरकारी सेवा के योग", descEn: "Job prospects, promotions, competitive exams, government job yogas" },
+      { id: "vivah", icon: "💍", titleHi: "विवाह", titleEn: "Marriage", desc: "विवाह की सटीक आयु, गुण मिलान, मांगलिक विचार, दांपत्य सुख", descEn: "Auspicious marriage timing, Guna Milan, Manglik dosha remedies" }
     ],
     benefits: [
       "जन्मपत्रिका का गहन वैज्ञानिक एवं पराशर पद्धति से विश्लेषण",
       "रत्न, रुद्राक्ष, मंत्र जप एवं दान के सरल व प्रभावशाली उपाय",
       "भविष्य में आने वाली शुभ-अशुभ दशाओं की पूर्व जानकारी",
       "व्यक्तिगत समस्याओं का गोपनीय व व्यावहारिक समाधान"
+    ],
+    benefitsEn: [
+      "In-depth scientific and traditional Parashar Vedic chart analysis",
+      "Practical, potent remedies including gemstones, Rudraksha, mantras, and daan",
+      "Advance insights into upcoming favorable and challenging planetary phases",
+      "Strictly confidential and personalized astrological guidance"
     ]
   }
 ];

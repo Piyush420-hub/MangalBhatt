@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { MapPin, Phone, MessageCircle, Mail, Clock, Send, CheckCircle2, Navigation } from 'lucide-react';
 import { PANDIT_INFO, getWhatsAppLink } from '../data/pujaData';
-import { API_BASE } from '../utils/api';
 
-export default function ContactPage() {
+export default function ContactPage({ lang = 'hi' }) {
+  const isHi = lang === 'hi';
+
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -19,10 +20,16 @@ export default function ContactPage() {
     e.preventDefault();
     setLoading(true);
 
-    const emailStr = formData.email ? `\n- ईमेल: ${formData.email}` : '';
-    const subjectStr = formData.subject ? `\n- विषय: ${formData.subject}` : '';
-
-    const text = `जय श्री महाकाल!\nप्रणाम पंडित जी, मैंने ${PANDIT_INFO.websiteName} पर संदेश भेजा है:\n\n- नाम: ${formData.name}\n- मोबाइल: ${formData.phone}${emailStr}${subjectStr}\n- संदेश: ${formData.message}\n\nकृपया मार्गदर्शन प्रदान करें।`;
+    let text = '';
+    if (isHi) {
+      const emailStr = formData.email ? `\n- ईमेल: ${formData.email}` : '';
+      const subjectStr = formData.subject ? `\n- विषय: ${formData.subject}` : '';
+      text = `जय श्री महाकाल!\nप्रणाम पंडित जी, मैंने ${PANDIT_INFO.websiteName} पर संदेश भेजा है:\n\n- नाम: ${formData.name}\n- मोबाइल: ${formData.phone}${emailStr}${subjectStr}\n- संदेश: ${formData.message}\n\nकृपया मार्गदर्शन प्रदान करें।`;
+    } else {
+      const emailStr = formData.email ? `\n- Email: ${formData.email}` : '';
+      const subjectStr = formData.subject ? `\n- Subject: ${formData.subject}` : '';
+      text = `Jai Shree Mahakal!\nPranam Pandit Ji, I sent an inquiry via ${PANDIT_INFO.websiteName}:\n\n- Name: ${formData.name}\n- Mobile: ${formData.phone}${emailStr}${subjectStr}\n- Message: ${formData.message}\n\nPlease advise on consultation and booking.`;
+    }
 
     const waUrl = getWhatsAppLink(text);
     window.open(waUrl, '_blank', 'noopener,noreferrer');
@@ -37,7 +44,7 @@ export default function ContactPage() {
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
           <div style={{ color: '#d4af37', fontWeight: '700', fontSize: '0.9rem', marginBottom: '6px' }}>
-            || संपर्क एवं तीर्थ मार्गदर्शन ||
+            {isHi ? '|| संपर्क एवं तीर्थ मार्गदर्शन ||' : '|| Pilgrimage & Holy Sanctuary Guidance ||'}
           </div>
           <h1 style={{
             fontSize: '2.5rem',
@@ -45,16 +52,18 @@ export default function ContactPage() {
             fontFamily: 'var(--font-serif)',
             fontWeight: '800'
           }}>
-            पंडित जी से संपर्क करें
+            {isHi ? 'पंडित जी से संपर्क करें' : 'Contact Pandit Ji'}
           </h1>
           <p style={{
             fontSize: '1rem',
             color: '#6e564f',
             maxWidth: '650px',
             margin: '8px auto 0',
-            fontFamily: 'var(--font-devanagari)'
+            fontFamily: isHi ? 'var(--font-devanagari)' : 'var(--font-sans)'
           }}>
-            पूजा बुकिंग, शुभ मुहूर्त निर्धारण अथवा कुंडली परामर्श हेतु निसंकोच संपर्क करें।
+            {isHi
+              ? 'पूजा बुकिंग, शुभ मुहूर्त निर्धारण अथवा कुंडली परामर्श हेतु निसंकोच संपर्क करें।'
+              : 'Reach out directly for ritual bookings, auspicious Muhurat timings, or personalized astrological guidance.'}
           </p>
           <div className="sacred-divider">
             <div className="sacred-divider-line" />
@@ -94,10 +103,10 @@ export default function ContactPage() {
               <MapPin size={24} />
             </div>
             <h4 style={{ fontSize: '1.05rem', color: '#730014', fontWeight: '700', marginBottom: '4px' }}>
-              हमारा स्थान
+              {isHi ? 'हमारा स्थान' : 'Holy Sanctuary'}
             </h4>
             <p style={{ fontSize: '0.88rem', color: '#55423c' }}>
-              उज्जैन, मध्य प्रदेश (महाकाल धाम)
+              {isHi ? PANDIT_INFO.locationHi : PANDIT_INFO.locationEn}
             </p>
           </div>
 
@@ -125,11 +134,13 @@ export default function ContactPage() {
               <Phone size={24} />
             </div>
             <h4 style={{ fontSize: '1.05rem', color: '#730014', fontWeight: '700', marginBottom: '4px' }}>
-              सीधा फोन कॉल
+              {isHi ? 'सीधा संपर्क (कॉल)' : 'Direct Phone'}
             </h4>
-            <a href={`tel:${PANDIT_INFO.phone}`} style={{ fontSize: '1.05rem', color: '#730014', fontWeight: '800' }}>
-              {PANDIT_INFO.phone}
-            </a>
+            <p style={{ fontSize: '0.88rem', color: '#55423c' }}>
+              <a href={`tel:${PANDIT_INFO.phone}`} style={{ color: '#730014', fontWeight: '700' }}>
+                {PANDIT_INFO.phone}
+              </a>
+            </p>
           </div>
 
           {/* Card 3: WhatsApp */}
@@ -145,7 +156,7 @@ export default function ContactPage() {
               width: '50px',
               height: '50px',
               borderRadius: '50%',
-              background: '#e8fdec',
+              background: '#e8f8ee',
               border: '1px solid #25d366',
               display: 'inline-flex',
               alignItems: 'center',
@@ -156,16 +167,22 @@ export default function ContactPage() {
               <MessageCircle size={24} />
             </div>
             <h4 style={{ fontSize: '1.05rem', color: '#730014', fontWeight: '700', marginBottom: '4px' }}>
-              WhatsApp बुकिंग
+              WhatsApp 24x7
             </h4>
-            <a
-              href={getWhatsAppLink()}
-              target="_blank"
-              rel="noreferrer"
-              style={{ fontSize: '0.95rem', color: '#1eb956', fontWeight: '700' }}
-            >
-              24x7 सेवा उपलब्ध
-            </a>
+            <p style={{ fontSize: '0.88rem', color: '#55423c' }}>
+              <a
+                href={getWhatsAppLink(
+                  isHi
+                    ? `प्रणाम पंडित जी, मुझे ${PANDIT_INFO.websiteName} से जानकारी चाहिए।`
+                    : `Pranam Pandit Ji, I am inquiring via ${PANDIT_INFO.websiteName}.`
+                )}
+                target="_blank"
+                rel="noreferrer"
+                style={{ color: '#25d366', fontWeight: '700' }}
+              >
+                +91 {PANDIT_INFO.phone}
+              </a>
+            </p>
           </div>
 
           {/* Card 4: Email */}
@@ -186,172 +203,129 @@ export default function ContactPage() {
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#9e7d18',
+              color: '#d4af37',
               marginBottom: '12px'
             }}>
               <Mail size={24} />
             </div>
             <h4 style={{ fontSize: '1.05rem', color: '#730014', fontWeight: '700', marginBottom: '4px' }}>
-              ईमेल संपर्क
+              {isHi ? 'ईमेल' : 'Email Address'}
             </h4>
-            <a href={`mailto:${PANDIT_INFO.email}`} style={{ fontSize: '0.84rem', color: '#55423c' }}>
-              {PANDIT_INFO.email}
-            </a>
+            <p style={{ fontSize: '0.88rem', color: '#55423c' }}>
+              <a href={`mailto:${PANDIT_INFO.email}`} style={{ color: '#730014' }}>
+                {PANDIT_INFO.email}
+              </a>
+            </p>
           </div>
         </div>
 
-        {/* Contact Form & Pilgrim Guide Grid */}
+        {/* Contact Form Box */}
         <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1.1fr 0.9fr',
-          gap: '30px'
-        }} className="contact-bottom-grid">
-
-          {/* Form */}
-          <div style={{
-            background: '#ffffff',
-            border: '1px solid #ebd9bc',
-            borderRadius: '16px',
-            padding: '30px',
-            boxShadow: '0 4px 15px rgba(0,0,0,0.04)'
+          maxWidth: '650px',
+          margin: '0 auto',
+          background: '#ffffff',
+          border: '2px solid #d4af37',
+          borderRadius: '16px',
+          padding: '30px',
+          boxShadow: '0 8px 30px rgba(115,0,20,0.08)'
+        }}>
+          <h3 style={{
+            fontSize: '1.4rem',
+            color: '#730014',
+            fontFamily: 'var(--font-serif)',
+            marginBottom: '8px',
+            textAlign: 'center'
           }}>
-            <h3 style={{ fontSize: '1.4rem', color: '#730014', fontFamily: 'var(--font-serif)', marginBottom: '16px' }}>
-              संदेश भेजें
-            </h3>
+            {isHi ? 'संदेश अथवा पूजा परामर्श प्रपत्र' : 'Send Message or Inquire for Puja'}
+          </h3>
+          <p style={{ fontSize: '0.88rem', color: '#6e564f', textAlign: 'center', marginBottom: '24px' }}>
+            {isHi
+              ? 'अपना विवरण नीचे भरें, हम यथाशीघ्र आपसे संपर्क करेंगे।'
+              : 'Fill in your details below; we will connect with you promptly.'}
+          </p>
 
-            {submitted ? (
-              <div style={{ textAlign: 'center', padding: '30px 10px' }}>
-                <CheckCircle2 size={48} color="#25d366" style={{ margin: '0 auto 12px' }} />
-                <h4 style={{ fontSize: '1.3rem', color: '#730014', marginBottom: '8px' }}>आपका संदेश WhatsApp पर भेजा गया!</h4>
-                <p style={{ fontSize: '0.92rem', color: '#55423c', marginBottom: '20px' }}>
-                  पंडित जी शीघ्र ही आपका संदेश देखकर उत्तर प्रदान करेंगे।
-                </p>
-                <a
-                  href={getWhatsAppLink(`जय श्री महाकाल! प्रणाम पंडित जी, मैंने वेबसाइट पर संदेश भेजा है। नाम: ${formData.name}, मोबाइल: ${formData.phone}`)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-whatsapp"
-                  style={{ display: 'inline-flex', padding: '12px 24px', fontSize: '0.96rem' }}
-                >
-                  <MessageCircle size={18} />
-                  <span>WhatsApp चैट खोलें</span>
-                </a>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit}>
-                <div className="contact-form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '14px' }}>
-                  <div>
-                    <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: '700', marginBottom: '4px' }}>
-                      आपका नाम *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="उदा. राहुल शर्मा"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #ebd9bc', outline: 'none' }}
-                    />
-                  </div>
-                  <div>
-                    <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: '700', marginBottom: '4px' }}>
-                      फोन नंबर *
-                    </label>
-                    <input
-                      type="tel"
-                      required
-                      placeholder="उदा. 98XXXXXXXX"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #ebd9bc', outline: 'none' }}
-                    />
-                  </div>
-                </div>
-
-                <div style={{ marginBottom: '14px' }}>
-                  <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: '700', marginBottom: '4px' }}>
-                    विषय / पूजा का नाम
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="उदा. मंगल भात पूजा की जानकारी"
-                    value={formData.subject}
-                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #ebd9bc', outline: 'none' }}
-                  />
-                </div>
-
-                <div style={{ marginBottom: '18px' }}>
-                  <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: '700', marginBottom: '4px' }}>
-                    संदेश / प्रश्न *
-                  </label>
-                  <textarea
-                    rows={4}
-                    required
-                    placeholder="कृपया अपने प्रश्न या समस्या का विवरण लिखें..."
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #ebd9bc', outline: 'none' }}
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="btn-whatsapp"
-                  style={{ width: '100%', justifyContent: 'center', padding: '12px', fontSize: '1rem' }}
-                >
-                  <MessageCircle size={18} />
-                  <span>{loading ? 'WhatsApp खुल रहा है...' : 'WhatsApp पर संदेश भेजें'}</span>
-                </button>
-              </form>
-            )}
-          </div>
-
-          {/* Pilgrim Travel Guide to Ujjain */}
-          <div style={{
-            background: 'linear-gradient(135deg, #fdfaf3, #f7efe1)',
-            border: '1px solid #d4af37',
-            borderRadius: '16px',
-            padding: '28px',
-            boxShadow: '0 4px 15px rgba(0,0,0,0.03)'
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#730014', marginBottom: '12px' }}>
-              <Navigation size={20} color="#ff7700" />
-              <h3 style={{ fontSize: '1.25rem', fontFamily: 'var(--font-serif)', fontWeight: '700' }}>
-                उज्जैन तीर्थ यात्री मार्गदर्शिका
-              </h3>
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div>
+              <label style={{ display: 'block', fontSize: '0.86rem', fontWeight: '700', color: '#473630', marginBottom: '4px' }}>
+                {isHi ? 'आपका शुभ नाम *' : 'Your Name *'}
+              </label>
+              <input
+                type="text"
+                required
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                placeholder={isHi ? 'उदा. अमित कुमार' : 'e.g. Amit Kumar'}
+                style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #ebd9bc', fontSize: '0.92rem' }}
+              />
             </div>
 
-            <p style={{ fontSize: '0.88rem', color: '#55423c', lineHeight: 1.6, marginBottom: '16px' }}>
-              यदि आप अन्य शहर या राज्य से पूजा हेतु उज्जैन पधार रहे हैं, तो आपके ठहरने एवं मंदिर दर्शन की सुचारू व्यवस्था में पंडित जी का मार्गदर्शन उपलब्ध है।
-            </p>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.86rem', fontWeight: '700', color: '#473630', marginBottom: '4px' }}>
+                  {isHi ? 'मोबाइल नंबर *' : 'Mobile Number *'}
+                </label>
+                <input
+                  type="tel"
+                  required
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  placeholder={isHi ? 'उदा. 9876543210' : 'e.g. +91 9876543210'}
+                  style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #ebd9bc', fontSize: '0.92rem' }}
+                />
+              </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.86rem', color: '#3d2e29' }}>
-              <div style={{ background: '#ffffff', padding: '10px 14px', borderRadius: '8px', border: '1px solid #ebd9bc' }}>
-                <strong>🚆 निकटतम रेलवे स्टेशन:</strong> उज्जैन जंक्शन (UJN) - मात्र 2 से 3 किमी दूरी।
-              </div>
-              <div style={{ background: '#ffffff', padding: '10px 14px', borderRadius: '8px', border: '1px solid #ebd9bc' }}>
-                <strong>✈️ निकटतम हवाई अड्डा:</strong> देवी अहिल्याबाई होल्कर एयरपोर्ट, इंदौर (IDR) - 55 किमी।
-              </div>
-              <div style={{ background: '#ffffff', padding: '10px 14px', borderRadius: '8px', border: '1px solid #ebd9bc' }}>
-                <strong>🛕 मंगलनाथ मंदिर दूरी:</strong> रेलवे स्टेशन से लगभग 6 किमी (सुगम ऑटो व टैक्सी उपलब्ध)।
-              </div>
-              <div style={{ background: '#ffffff', padding: '10px 14px', borderRadius: '8px', border: '1px solid #ebd9bc' }}>
-                <strong>🔱 महाकालेश्वर मंदिर:</strong> स्टेशन से 2 किमी की दूरी पर।
+              <div>
+                <label style={{ display: 'block', fontSize: '0.86rem', fontWeight: '700', color: '#473630', marginBottom: '4px' }}>
+                  {isHi ? 'ईमेल (वैकल्पिक)' : 'Email (Optional)'}
+                </label>
+                <input
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  placeholder="name@email.com"
+                  style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #ebd9bc', fontSize: '0.92rem' }}
+                />
               </div>
             </div>
-          </div>
+
+            <div>
+              <label style={{ display: 'block', fontSize: '0.86rem', fontWeight: '700', color: '#473630', marginBottom: '4px' }}>
+                {isHi ? 'विषय (किस पूजा या सेवा के लिए)' : 'Subject / Inquiring For'}
+              </label>
+              <input
+                type="text"
+                value={formData.subject}
+                onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                placeholder={isHi ? 'उदा. मंगल भात पूजा मुहूर्त' : 'e.g. Mangal Bhat Puja Muhurat'}
+                style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #ebd9bc', fontSize: '0.92rem' }}
+              />
+            </div>
+
+            <div>
+              <label style={{ display: 'block', fontSize: '0.86rem', fontWeight: '700', color: '#473630', marginBottom: '4px' }}>
+                {isHi ? 'आपका संदेश *' : 'Your Message *'}
+              </label>
+              <textarea
+                required
+                rows="4"
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                placeholder={isHi ? 'कृपया अपना संदेश या प्रश्न यहाँ लिखें...' : 'Please write your question, preferred dates, or query here...'}
+                style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #ebd9bc', fontSize: '0.92rem', resize: 'vertical' }}
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="btn-whatsapp"
+              style={{ justifyContent: 'center', padding: '13px', fontSize: '1rem', marginTop: '8px' }}
+            >
+              <MessageCircle size={18} />
+              <span>{isHi ? 'संदेश व्हाट्सएप पर भेजें' : 'Send Inquiry via WhatsApp'}</span>
+            </button>
+          </form>
         </div>
       </div>
-
-      <style>{`
-        @media (max-width: 850px) {
-          .contact-bottom-grid {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
     </div>
   );
 }

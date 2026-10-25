@@ -182,6 +182,7 @@ export default function App() {
       {/* 2. Main Navigation Bar */}
       <Navbar
         lang={lang}
+        setLang={setLang}
         activePage={activePage}
         setActivePage={handleNavigate}
         onOpenBooking={() => handleOpenBooking()}
@@ -283,19 +284,21 @@ export default function App() {
       />
 
       {/* 6. Floating Action Buttons (Sticky WhatsApp, Call, Om Sound, Mobile Bar) */}
-      <FloatingActions onOpenBooking={() => handleOpenBooking()} />
+      <FloatingActions lang={lang} onOpenBooking={() => handleOpenBooking()} />
 
       {/* 7. Interactive Modals */}
       <BookingModal
         isOpen={bookingModalOpen}
         onClose={() => setBookingModalOpen(false)}
         initialPuja={selectedPujaForBooking}
+        lang={lang}
       />
 
       <KundaliModal
         isOpen={kundaliModalOpen}
         onClose={() => setKundaliModalOpen(false)}
         initialAspect={selectedAspectForKundali}
+        lang={lang}
       />
     </div>
   );

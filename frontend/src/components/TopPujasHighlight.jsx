@@ -139,7 +139,7 @@ export default function TopPujasHighlight({ lang = 'hi', onOpenBooking, onOpenKu
                     fontWeight: '700',
                     backdropFilter: 'blur(4px)'
                   }}>
-                    {puja.highlightTag}
+                    {lang === 'hi' ? puja.highlightTag : (puja.highlightTagEn || puja.highlightTag)}
                   </div>
 
                   <div style={{
@@ -154,7 +154,7 @@ export default function TopPujasHighlight({ lang = 'hi', onOpenBooking, onOpenKu
                     fontSize: '0.82rem',
                     fontWeight: '600'
                   }}>
-                    📍 {puja.badge}
+                    📍 {lang === 'hi' ? puja.badge : (puja.badgeEn || puja.badge)}
                   </div>
                 </div>
 
@@ -197,7 +197,7 @@ export default function TopPujasHighlight({ lang = 'hi', onOpenBooking, onOpenKu
                       marginBottom: '18px',
                       fontFamily: lang === 'hi' ? 'var(--font-devanagari)' : 'var(--font-sans)'
                     }}>
-                      {puja.fullDesc}
+                      {lang === 'hi' ? puja.fullDesc : (puja.fullDescEn || puja.fullDesc)}
                     </p>
 
                     {/* Special 7 Aspects for Kundali */}
@@ -269,7 +269,7 @@ export default function TopPujasHighlight({ lang = 'hi', onOpenBooking, onOpenKu
                           gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
                           gap: '8px'
                         }}>
-                          {puja.benefits.map((benefit, idx) => (
+                          {((lang === 'hi' ? puja.benefits : (puja.benefitsEn || puja.benefits))).map((benefit, idx) => (
                             <div key={idx} style={{
                               display: 'flex',
                               alignItems: 'flex-start',
@@ -314,11 +314,11 @@ export default function TopPujasHighlight({ lang = 'hi', onOpenBooking, onOpenKu
                       }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                           <Clock size={15} color="#730014" />
-                          <span><strong>{t.duration}</strong> {puja.duration}</span>
+                          <span><strong>{t.duration}</strong> {lang === 'hi' ? puja.duration : (puja.durationEn || puja.duration)}</span>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                           <Users size={15} color="#730014" />
-                          <span><strong>{t.priests}</strong> {puja.panditCount}</span>
+                          <span><strong>{t.priests}</strong> {lang === 'hi' ? puja.panditCount : (puja.panditCountEn || puja.panditCount)}</span>
                         </div>
                       </div>
                     )}
