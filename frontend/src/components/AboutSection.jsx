@@ -45,7 +45,8 @@ export default function AboutSection({ lang = 'hi', onNavigateAbout, onOpenBooki
               style={{
                 width: '100%',
                 height: '380px',
-                objectFit: 'cover'
+                objectFit: 'cover',
+                objectPosition: 'center 12%'
               }}
             />
             {/* Om Badge */}

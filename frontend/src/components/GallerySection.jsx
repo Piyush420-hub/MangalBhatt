@@ -60,7 +60,7 @@ export default function GallerySection({ lang = 'hi', onNavigateGallery }) {
 
   const currentLightbox = lightboxIndex !== null ? filteredItems[lightboxIndex] : null;
   const currentLightboxTitle = currentLightbox
-    ? (lang === 'hi' ? currentLightbox.titleHi : (englishGalleryTitles[currentLightbox.id] || currentLightbox.titleHi))
+    ? (lang === 'hi' ? currentLightbox.titleHi : (englishGalleryTitles[currentLightbox.id] || (currentLightbox.isPanditPuja ? "Vedic Puja Ritual by Pandit Ji" : currentLightbox.titleHi)))
     : '';
 
   const panditCount = GALLERY_ITEMS.filter((i) => i.isPanditPuja).length;
@@ -533,7 +533,7 @@ export default function GallerySection({ lang = 'hi', onNavigateGallery }) {
 
                 <a
                   href={getWhatsAppLink(
-                    `जय श्री महाकाल पंडित जी! मुझे गैलरी में दिख रही पूजा (${currentLightbox.titleHi}) के बारे में जानकारी एवं परामर्श चाहिए।`
+                    `जय श्री महाकाल! प्रणाम पंडित जी, मैंने आपकी वेबसाइट गैलरी में छायाचित्र संख्या ${lightboxIndex + 1} (${currentLightbox.titleHi}) देखा है। मुझे भी ऐसी पूजा एवं अनुष्ठान कराने की जानकारी व मुहूर्त बताएं।`
                   )}
                   target="_blank"
                   rel="noopener noreferrer"

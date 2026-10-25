@@ -56,6 +56,9 @@ export default function AboutPage({ onOpenBooking }) {
               alt={PANDIT_INFO.name}
               style={{
                 width: '100%',
+                height: '440px',
+                objectFit: 'cover',
+                objectPosition: 'center 12%',
                 borderRadius: '12px',
                 marginBottom: '16px'
               }}

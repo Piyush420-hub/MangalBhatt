@@ -7,19 +7,16 @@ export default function GalleryPage({ lang = 'hi' }) {
   const [lightboxIndex, setLightboxIndex] = useState(null);
 
   const filters = [
-    { id: 'all', label: 'सभी चित्र', count: GALLERY_ITEMS.length },
-    { id: 'pandit_puja', label: 'पंडित जी द्वारा संपन्न पूजाएं', count: GALLERY_ITEMS.filter((i) => i.isPanditPuja).length },
-    { id: 'mangal', label: 'मंगल भात पूजन', count: GALLERY_ITEMS.filter((i) => i.category === 'mangal').length },
-    { id: 'kalsarp', label: 'काल सर्प दोष निवारण', count: GALLERY_ITEMS.filter((i) => i.category === 'kalsarp').length },
-    { id: 'shiv', label: 'रुद्राभिषेक व शिव', count: GALLERY_ITEMS.filter((i) => i.category === 'shiv').length },
-    { id: 'hawan', label: 'वैदिक हवन व महायज्ञ', count: GALLERY_ITEMS.filter((i) => i.category === 'hawan').length }
+    { id: 'all', label: 'सभी छायाचित्र', count: GALLERY_ITEMS.length },
+    { id: 'pandit_puja', label: 'पंडित जी द्वारा की गई पूजाएँ', count: GALLERY_ITEMS.filter((i) => i.isPanditPuja).length },
+    { id: 'temple', label: 'उज्जैन तीर्थ व मंदिर दर्शन', count: GALLERY_ITEMS.filter((i) => !i.isPanditPuja).length }
   ];
 
   const filteredItems = activeFilter === 'all'
     ? GALLERY_ITEMS
     : activeFilter === 'pandit_puja'
       ? GALLERY_ITEMS.filter((item) => item.isPanditPuja)
-      : GALLERY_ITEMS.filter((item) => item.category === activeFilter);
+      : GALLERY_ITEMS.filter((item) => !item.isPanditPuja);
 
   const currentLightboxItem = lightboxIndex !== null ? filteredItems[lightboxIndex] : null;
 
@@ -348,7 +345,7 @@ export default function GalleryPage({ lang = 'hi' }) {
               </div>
 
               <a
-                href={getWhatsAppLink(`जय श्री महाकाल! प्रणाम पंडित जी, मैंने वेबसाइट गैलरी में '${currentLightboxItem.titleHi}' देखी है। मुझे भी ऐसी पूजा एवं अनुष्ठान की जानकारी व मुहूर्त बताएं।`)}
+                href={getWhatsAppLink(`जय श्री महाकाल! प्रणाम पंडित जी, मैंने आपकी वेबसाइट गैलरी में छायाचित्र संख्या ${lightboxIndex + 1} (${currentLightboxItem.titleHi}) देखा है। मुझे भी ऐसी पूजा एवं अनुष्ठान कराने की जानकारी व मुहूर्त बताएं।`)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-whatsapp"

@@ -195,6 +195,7 @@ export default function Hero({ lang = 'hi', onOpenBooking }) {
                   width: '100%',
                   height: '420px',
                   objectFit: 'cover',
+                  objectPosition: 'center 12%',
                   borderRadius: '18px',
                   border: '2px solid rgba(255, 230, 150, 0.6)'
                 }}
