@@ -380,10 +380,9 @@ export const GALLERY_ITEMS = [
   { id: 64, titleHi: "पंडित जी द्वारा की गई पूजा", category: "pandit_puja", isPanditPuja: true, img: "/images/pandit_puja_56.jpg" },
   { id: 65, titleHi: "पंडित जी द्वारा की गई पूजा", category: "pandit_puja", isPanditPuja: true, img: "/images/pandit_puja_57.jpg" },
   { id: 66, titleHi: "पंडित जी द्वारा की गई पूजा", category: "pandit_puja", isPanditPuja: true, img: "/images/pandit_puja_58.jpg" },
-  { id: 67, titleHi: "पंडित जी द्वारा की गई पूजा", category: "pandit_puja", isPanditPuja: true, img: "/images/pandit_puja_59.jpg" },
-  { id: 68, titleHi: "पंडित जी द्वारा की गई पूजा", category: "pandit_puja", isPanditPuja: true, img: "/images/pandit_puja_60.jpg" },
-  { id: 69, titleHi: "पंडित जी द्वारा की गई पूजा", category: "pandit_puja", isPanditPuja: true, img: "/images/pandit_puja_61.jpg" },
-  { id: 70, titleHi: "पंडित जी द्वारा की गई पूजा", category: "pandit_puja", isPanditPuja: true, img: "/images/pandit_puja_62.jpg" }
+  { id: 67, titleHi: "पंडित जी द्वारा की गई पूजा", category: "pandit_puja", isPanditPuja: true, img: "/images/pandit_puja_60.jpg" },
+  { id: 68, titleHi: "पंडित जी द्वारा की गई पूजा", category: "pandit_puja", isPanditPuja: true, img: "/images/pandit_puja_61.jpg" },
+  { id: 69, titleHi: "पंडित जी द्वारा की गई पूजा", category: "pandit_puja", isPanditPuja: true, img: "/images/pandit_puja_62.jpg" }
 ];
 
 export const getWhatsAppLink = (customText = "") => {
