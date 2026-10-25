@@ -100,9 +100,13 @@ export const translations = {
       bookAction: "पूजा बुक करें"
     },
     gallery: {
-      heading: "हमारी पूजा एवं अनुष्ठान की झलकियां",
-      viewFullBtn: "पूरी गैलरी देखें",
-      viewLarge: "बड़ा करके देखें"
+      heading: "पंडित जी द्वारा की गई पूजाएँ एवं दर्शन",
+      subheading: "उज्जैन के पावन तीर्थों में पंडित तरुण पूरी जी द्वारा वैदिक विधि-विधान से संपन्न पूजाओं के छायाचित्र",
+      viewFullBtn: "पूरी गैलरी देखें (70+ छायाचित्र)",
+      viewLarge: "बड़ा करके देखें",
+      filterAll: "सभी चित्र",
+      filterPandit: "पंडित जी द्वारा संपन्न पूजाएं",
+      filterTemples: "उज्जैन तीर्थ दर्शन"
     },
     cta: {
       title: "अपनी समस्या का समाधान पाएं",
@@ -220,9 +224,13 @@ export const translations = {
       bookAction: "Book Puja"
     },
     gallery: {
-      heading: "Glimpses of Sacred Ceremonies",
-      viewFullBtn: "View Full Gallery",
-      viewLarge: "Click to View Large"
+      heading: "Pujas Performed by Pandit Ji & Sacred Darshan",
+      subheading: "Authentic glimpses of Vedic rituals conducted by Pandit Tarun Puri Ji at holy shrines of Ujjain",
+      viewFullBtn: "View Complete Gallery (70+ Photos)",
+      viewLarge: "Click to View",
+      filterAll: "All Photos",
+      filterPandit: "Pujas by Pandit Ji",
+      filterTemples: "Ujjain Shrines & Temples"
     },
     cta: {
       title: "Find Divine Solutions to Your Problems",
