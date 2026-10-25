@@ -52,7 +52,7 @@ export default function AboutPage({ onOpenBooking }) {
             boxShadow: '0 10px 30px rgba(115,0,20,0.1)'
           }}>
             <img
-              src="/images/pandit_ji.png"
+              src="/images/pandit_tarun_puri.png?v=2"
               alt={PANDIT_INFO.name}
               style={{
                 width: '100%',

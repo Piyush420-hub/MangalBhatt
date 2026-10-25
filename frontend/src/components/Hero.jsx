@@ -189,7 +189,7 @@ export default function Hero({ lang = 'hi', onOpenBooking }) {
             }}>
               <img
                 className="hero-portrait"
-                src="/images/pandit_ji.png"
+                src="/images/pandit_tarun_puri.png?v=2"
                 alt={`${lang === 'hi' ? PANDIT_INFO.nameHi : PANDIT_INFO.name} - ${t.title}`}
                 style={{
                   width: '100%',

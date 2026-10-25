@@ -40,7 +40,7 @@ export default function AboutSection({ lang = 'hi', onNavigateAbout, onOpenBooki
             boxShadow: '0 10px 30px rgba(115,0,20,0.12)'
           }}>
             <img
-              src="/images/pandit_ji.png"
+              src="/images/pandit_tarun_puri.png?v=2"
               alt={lang === 'hi' ? PANDIT_INFO.nameHi : PANDIT_INFO.name}
               style={{
                 width: '100%',
