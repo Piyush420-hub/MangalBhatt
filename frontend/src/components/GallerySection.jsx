@@ -60,7 +60,7 @@ export default function GallerySection({ lang = 'hi', onNavigateGallery }) {
 
   const currentLightbox = lightboxIndex !== null ? filteredItems[lightboxIndex] : null;
   const currentLightboxTitle = currentLightbox
-    ? (lang === 'hi' ? currentLightbox.titleHi : (currentLightbox.titleEn || englishGalleryTitles[currentLightbox.id] || "Vedic Puja by Pandit Ji"))
+    ? (lang === 'hi' ? currentLightbox.titleHi : (currentLightbox.titleEn || "Puja Performed by Pandit Ji"))
     : '';
 
   const panditCount = GALLERY_ITEMS.filter((i) => i.isPanditPuja).length;
@@ -205,7 +205,7 @@ export default function GallerySection({ lang = 'hi', onNavigateGallery }) {
             width: '100%'
           }} className="gallery-carousel-grid">
             {visibleItems.map((item, idx) => {
-              const displayTitle = lang === 'hi' ? item.titleHi : (item.titleEn || englishGalleryTitles[item.id] || "Vedic Puja by Pandit Ji");
+              const displayTitle = lang === 'hi' ? item.titleHi : (item.titleEn || "Puja Performed by Pandit Ji");
               const actualFilteredIndex = filteredItems.findIndex((fi) => fi.id === item.id);
               return (
                 <div

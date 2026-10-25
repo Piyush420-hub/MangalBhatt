@@ -146,7 +146,7 @@ export default function GalleryPage({ lang = 'hi' }) {
               <div style={{ position: 'relative', height: '230px', overflow: 'hidden' }}>
                 <img
                   src={item.img}
-                  alt={isHi ? item.titleHi : (item.titleEn || item.titleHi)}
+                  alt={isHi ? item.titleHi : (item.titleEn || 'Puja Performed by Pandit Ji')}
                   loading="lazy"
                   style={{
                     width: '100%',
@@ -218,7 +218,7 @@ export default function GalleryPage({ lang = 'hi' }) {
                   lineHeight: 1.4,
                   margin: 0
                 }}>
-                  {isHi ? item.titleHi : (item.titleEn || item.titleHi)}
+                  {isHi ? item.titleHi : (item.titleEn || 'Puja Performed by Pandit Ji')}
                 </h4>
               </div>
             </div>
@@ -305,7 +305,7 @@ export default function GalleryPage({ lang = 'hi' }) {
             <div style={{ position: 'relative', maxHeight: '72vh', overflow: 'hidden', background: '#000000', display: 'flex', justifyContent: 'center' }}>
               <img
                 src={currentLightboxItem.img}
-                alt={isHi ? currentLightboxItem.titleHi : (currentLightboxItem.titleEn || currentLightboxItem.titleHi)}
+                alt={isHi ? currentLightboxItem.titleHi : (currentLightboxItem.titleEn || 'Puja Performed by Pandit Ji')}
                 style={{
                   maxWidth: '100%',
                   maxHeight: '72vh',
@@ -332,7 +332,7 @@ export default function GalleryPage({ lang = 'hi' }) {
                   marginBottom: '4px',
                   fontFamily: isHi ? 'var(--font-devanagari)' : 'var(--font-sans)'
                 }}>
-                  {isHi ? currentLightboxItem.titleHi : (currentLightboxItem.titleEn || currentLightboxItem.titleHi)}
+                  {isHi ? currentLightboxItem.titleHi : (currentLightboxItem.titleEn || 'Puja Performed by Pandit Ji')}
                 </h3>
                 <div style={{ color: '#d4af37', fontSize: '0.8rem' }}>
                   {isHi ? 'छायाचित्र' : 'Photo'} {lightboxIndex + 1} {isHi ? 'में से' : 'of'} {filteredItems.length}
@@ -343,7 +343,7 @@ export default function GalleryPage({ lang = 'hi' }) {
                 href={getWhatsAppLink(
                   isHi
                     ? `प्रणाम पंडित जी, मुझे ${currentLightboxItem.titleHi} के बारे में जानकारी चाहिए।`
-                    : `Pranam Pandit Ji, I would like information regarding ${currentLightboxItem.titleEn || currentLightboxItem.titleHi}.`
+                    : `Pranam Pandit Ji, I would like information regarding ${currentLightboxItem.titleEn || 'Puja Performed by Pandit Ji'}.`
                 )}
                 target="_blank"
                 rel="noreferrer"
