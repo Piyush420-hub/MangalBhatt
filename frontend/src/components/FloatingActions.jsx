@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Phone, MessageCircle, Calendar, Volume2, VolumeX, ArrowUp } from 'lucide-react';
 import { PANDIT_INFO, getWhatsAppLink } from '../data/pujaData';
 import { toggleOmSound, subscribeOmSound } from '../utils/omAudio';
+import { translations } from '../data/translations';
 
-export default function FloatingActions({ onOpenBooking }) {
+export default function FloatingActions({ lang = 'hi', onOpenBooking }) {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [isPlayingSound, setIsPlayingSound] = useState(false);
+  const t = translations[lang]?.floating || translations.hi.floating;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,7 +50,7 @@ export default function FloatingActions({ onOpenBooking }) {
         {/* Gentle Devotional Cosmic Om Sound Toggle */}
         <button
           onClick={handleToggleSound}
-          title={isPlayingSound ? 'पवित्र ॐ जप बंद करें (Mute)' : 'पवित्र ॐ जप चालू करें (Play)'}
+          title={isPlayingSound ? t.omOn : t.omOff}
           style={{
             width: '50px',
             height: '50px',
@@ -86,7 +88,7 @@ export default function FloatingActions({ onOpenBooking }) {
         {showScrollTop && (
           <button
             onClick={scrollToTop}
-            title="ऊपर जाएं"
+            title={t.backToTop}
             style={{
               width: '46px',
               height: '46px',
@@ -108,7 +110,7 @@ export default function FloatingActions({ onOpenBooking }) {
         {/* Floating Call Button */}
         <a
           href={`tel:${PANDIT_INFO.phone}`}
-          title="पंडित जी को कॉल करें"
+          title={t.callPandit}
           style={{
             width: '52px',
             height: '52px',
@@ -128,10 +130,10 @@ export default function FloatingActions({ onOpenBooking }) {
 
         {/* Floating WhatsApp Button */}
         <a
-          href={getWhatsAppLink(`प्रणाम पंडित जी, मुझे ${PANDIT_INFO.websiteName} के माध्यम से पूजा करवानी है।`)}
+          href={getWhatsAppLink(t.defaultWaMsg)}
           target="_blank"
           rel="noopener noreferrer"
-          title="WhatsApp पर चैट करें"
+          title={t.chatWhatsApp}
           style={{
             width: '56px',
             height: '56px',
@@ -187,7 +189,7 @@ export default function FloatingActions({ onOpenBooking }) {
             justifyContent: 'center',
             cursor: 'pointer'
           }}
-          title="पवित्र ॐ नाद"
+          title={isPlayingSound ? t.omOn : t.omOff}
         >
           {isPlayingSound ? <Volume2 size={18} /> : <VolumeX size={18} />}
         </button>
@@ -205,11 +207,11 @@ export default function FloatingActions({ onOpenBooking }) {
           }}
         >
           <Phone size={18} />
-          <span>कॉल करें</span>
+          <span>{t.callBtn}</span>
         </a>
 
         <a
-          href={getWhatsAppLink()}
+          href={getWhatsAppLink(t.defaultWaMsg)}
           target="_blank"
           rel="noopener noreferrer"
           style={{
@@ -245,7 +247,7 @@ export default function FloatingActions({ onOpenBooking }) {
           }}
         >
           <Calendar size={16} />
-          <span>पूजा बुक करें</span>
+          <span>{t.bookPujaBtn}</span>
         </button>
       </div>
     </>

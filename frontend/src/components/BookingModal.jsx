@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Calendar, User, Phone, MapPin, Sparkles, CheckCircle2, MessageCircle } from 'lucide-react';
 import { PANDIT_INFO, getWhatsAppLink } from '../data/pujaData';
-import { API_BASE } from '../utils/api';
+import { translations } from '../data/translations';
 
-export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
+export default function BookingModal({ isOpen, onClose, initialPuja = '', lang = 'hi' }) {
+  const t = translations[lang]?.bookingModal || translations.hi.bookingModal;
+  const isHi = lang === 'hi';
+
+  const defaultPuja = initialPuja || (isHi ? 'मंगल दोष पूजा (मंगल भात पूजन)' : 'Mangal Dosh Bhat Puja (Mangalnath, Ujjain)');
+
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
     email: '',
-    puja_name: initialPuja || 'मंगल दोष पूजा (मंगल भात पूजन)',
+    puja_name: defaultPuja,
     gotra: '',
     preferred_date: '',
     city: '',
@@ -19,39 +24,74 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
   const [successData, setSuccessData] = useState(null);
   const [errorMsg, setErrorMsg] = useState('');
 
+  useEffect(() => {
+    if (initialPuja) {
+      setFormData((prev) => ({ ...prev, puja_name: initialPuja }));
+    }
+  }, [initialPuja]);
+
   if (!isOpen) return null;
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!formData.name || !formData.phone) {
-      setErrorMsg('कृपया नाम एवं फोन नंबर अवश्य दर्ज करें।');
+      setErrorMsg(t.errorRequired);
       return;
     }
 
     setLoading(true);
     setErrorMsg('');
 
-    // Format sacred WhatsApp message
-    const formattedDate = formData.preferred_date || 'जल्द से जल्द';
-    const gotra = formData.gotra ? formData.gotra : 'सामान्य / ज्ञात नहीं';
-    const city = formData.city ? formData.city : 'उज्जैन धाम';
-    const request = formData.special_request ? `\n- विशेष संदेश / प्रार्थना: ${formData.special_request}` : '';
+    const formattedDate = formData.preferred_date || (isHi ? 'शीघ्र अति शीघ्र' : 'Earliest auspicious date');
+    const gotra = formData.gotra ? formData.gotra : (isHi ? 'सामान्य / ज्ञात नहीं' : 'Not known / General');
+    const city = formData.city ? formData.city : (isHi ? 'उज्जैन धाम' : 'Ujjain Pilgrimage');
+    const request = formData.special_request
+      ? `\n- ${isHi ? 'विशेष प्रार्थना / समस्या' : 'Special Note / Question'}: ${formData.special_request}`
+      : '';
 
-    const text = `जय श्री महाकाल!\nप्रणाम पंडित जी, मैंने mangalbhatujjain.com पर पूजा बुक की है:\n\n- यजमान का नाम: ${formData.name}\n- मोबाइल नंबर: ${formData.phone}\n- पूजा का नाम: ${formData.puja_name}\n- इच्छित दिनांक: ${formattedDate}\n- गोत्र: ${gotra}\n- स्थान/शहर: ${city}${request}\n\nकृपया पूजा का शुभ मुहूर्त एवं संपूर्ण वैदिक विधि-विधान की जानकारी प्रदान करें।`;
+    const text = isHi
+      ? `जय श्री महाकाल!\nप्रणाम पंडित जी, मैंने mangalbhatujjain.com पर पूजा बुक की है:\n\n- यजमान का नाम: ${formData.name}\n- मोबाइल नंबर: ${formData.phone}\n- पूजा का नाम: ${formData.puja_name}\n- इच्छित दिनांक: ${formattedDate}\n- गोत्र: ${gotra}\n- स्थान/शहर: ${city}${request}\n\nकृपया पूजा का शुभ मुहूर्त एवं संपूर्ण वैदिक विधि-विधान की जानकारी प्रदान करें।`
+      : `Namaste Pandit Ji!\nI would like to book a Vedic Puja via mangalbhatujjain.com:\n\n- Devotee Name: ${formData.name}\n- Contact Number: ${formData.phone}\n- Puja / Ritual: ${formData.puja_name}\n- Preferred Date: ${formattedDate}\n- Gotra: ${gotra}\n- City / Country: ${city}${request}\n\nKindly provide the auspicious Muhurat and complete Vedic ceremony details.`;
 
     const waUrl = getWhatsAppLink(text);
-
-    // Direct redirect to WhatsApp
     window.open(waUrl, '_blank', 'noopener,noreferrer');
 
     const bookingId = Math.floor(1000 + Math.random() * 9000);
     setSuccessData({
       booking_id: bookingId,
-      message: 'पूजा बुकिंग विवरण WhatsApp पर प्रेषित कर दिया गया है।',
+      message: t.successMsg,
       whatsapp_url: waUrl
     });
     setLoading(false);
   };
+
+  const pujaOptions = isHi
+    ? [
+        { val: "मंगल दोष पूजा (मंगल भात पूजन)", label: "1. मंगल दोष पूजा (मंगल भात पूजन - उज्जैन)" },
+        { val: "काल सर्प दोष पूजा", label: "2. काल सर्प दोष पूजा (त्रिपिंडी व नाग पूजा)" },
+        { val: "महामृत्युंजय अनुष्ठान", label: "3. महामृत्युंजय अनुष्ठान (सवा लाख जप व हवन)" },
+        { val: "रुद्र अभिषेक", label: "4. रुद्र अभिषेक (महाकाल दुग्धाभिषेक)" },
+        { val: "कुण्डली विश्लेषण", label: "5. कुण्डली विश्लेषण (7 स्तंभ संपूर्ण समाधान)" },
+        { val: "मां बगलामुखी हवन", label: "मां बगलामुखी हवन (शत्रु विजय व तंत्र रक्षा)" },
+        { val: "नवग्रह शांति पूजा", label: "नवग्रह शांति पूजा" },
+        { val: "गृह प्रवेश व वास्तु शांति", label: "गृह प्रवेश व वास्तु शांति पूजा" },
+        { val: "अर्क विवाह / कुंभ विवाह", label: "अर्क विवाह / कुंभ विवाह" },
+        { val: "व्यापार वृद्धि व लक्ष्मी अनुष्ठान", label: "व्यापार वृद्धि व लक्ष्मी अनुष्ठान" },
+        { val: "अन्य वैदिक अनुष्ठान", label: "अन्य वैदिक अनुष्ठान" }
+      ]
+    : [
+        { val: "Mangal Dosh Bhat Puja", label: "1. Mangal Dosh Bhat Puja (Mangalnath, Ujjain)" },
+        { val: "Kaal Sarp Dosh Nivaran Puja", label: "2. Kaal Sarp Dosh Nivaran Puja" },
+        { val: "Maha Mrityunjaya Anushthan", label: "3. Maha Mrityunjaya Anushthan (1.25 Lakh Chants)" },
+        { val: "Maha Rudrabhishek", label: "4. Maha Rudrabhishek (Lord Mahakal)" },
+        { val: "Kundali & Birth Chart Analysis", label: "5. Kundali & Birth Chart Analysis" },
+        { val: "Maa Baglamukhi Hawan", label: "Maa Baglamukhi Hawan (Protection & Victory)" },
+        { val: "Navagraha Shanti Puja", label: "Navagraha Shanti Puja" },
+        { val: "Griha Pravesh & Vastu Shanti", label: "Griha Pravesh & Vastu Shanti" },
+        { val: "Ark Vivah / Kumbh Vivah", label: "Ark Vivah / Kumbh Vivah" },
+        { val: "Business Growth & Lakshmi Hawan", label: "Business Growth & Lakshmi Hawan" },
+        { val: "Other Vedic Puja & Rituals", label: "Other Vedic Pujas & Rituals" }
+      ];
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -81,6 +121,7 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
               color: '#ffffff',
               cursor: 'pointer'
             }}
+            aria-label="Close"
           >
             <X size={18} />
           </button>
@@ -94,20 +135,20 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
             gap: '6px'
           }}>
             <Sparkles size={14} />
-            <span>पवित्र उज्जैन तीर्थ संकल्प</span>
+            <span>{isHi ? 'पवित्र उज्जैन तीर्थ संकल्प' : 'Sanctified Ujjain Pilgrimage Sankalp'}</span>
           </div>
 
           <h3 style={{
             fontSize: '1.45rem',
             fontWeight: '800',
-            fontFamily: 'var(--font-serif)',
+            fontFamily: isHi ? 'var(--font-serif)' : 'var(--font-sans)',
             color: '#fff0c7',
             marginTop: '4px'
           }}>
-            वैदिक पूजा एवं अनुष्ठान बुकिंग
+            {t.title}
           </h3>
           <p style={{ fontSize: '0.82rem', color: '#f3e4d0', marginTop: '2px' }}>
-            {PANDIT_INFO.nameHi} जी (उज्जैन) द्वारा शास्त्रोक्त संकल्प
+            {isHi ? `${PANDIT_INFO.nameHi} द्वारा शास्त्रोक्त संकल्प` : `Consecrated by ${PANDIT_INFO.name} (Ujjain)`}
           </p>
         </div>
 
@@ -133,10 +174,10 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
               <h4 style={{
                 fontSize: '1.35rem',
                 color: '#730014',
-                fontFamily: 'var(--font-serif)',
+                fontFamily: isHi ? 'var(--font-serif)' : 'var(--font-sans)',
                 marginBottom: '8px'
               }}>
-                शुभम भवतु! बुकिंग सफल रही
+                {t.successTitle}
               </h4>
 
               <div style={{
@@ -147,9 +188,9 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
                 marginBottom: '16px',
                 fontSize: '0.92rem'
               }}>
-                <strong>बुकिंग संदर्भ आईडी:</strong> #{successData.booking_id}
+                <strong>{isHi ? 'बुकिंग संदर्भ आईडी:' : 'Booking Ref ID:'}</strong> #{successData.booking_id}
                 <div style={{ fontSize: '0.82rem', color: '#66534d', marginTop: '4px' }}>
-                  पूजा: {formData.puja_name}
+                  {isHi ? 'पूजा:' : 'Puja:'} {formData.puja_name}
                 </div>
               </div>
 
@@ -157,9 +198,9 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
                 fontSize: '0.9rem',
                 color: '#473630',
                 marginBottom: '22px',
-                fontFamily: 'var(--font-devanagari)'
+                fontFamily: isHi ? 'var(--font-devanagari)' : 'var(--font-sans)'
               }}>
-                {successData.message} त्वरित पुष्टि एवं शुभ मुहूर्त हेतु नीचे दिए गए बटन से सीधे WhatsApp पर जुड़ें।
+                {successData.message}
               </p>
 
               <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -171,14 +212,14 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
                   style={{ padding: '12px 24px', fontSize: '0.96rem' }}
                 >
                   <MessageCircle size={18} />
-                  <span>WhatsApp पर तुरंत पुष्टि करें</span>
+                  <span>{t.waDirectBtn}</span>
                 </a>
                 <button
                   onClick={onClose}
                   className="btn-gold"
                   style={{ padding: '12px 20px', fontSize: '0.96rem' }}
                 >
-                  बंद करें
+                  {t.closeBtn}
                 </button>
               </div>
             </div>
@@ -200,7 +241,7 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
               {/* Puja Selection */}
               <div style={{ marginBottom: '16px' }}>
                 <label style={{ display: 'block', fontSize: '0.86rem', fontWeight: '700', color: '#473630', marginBottom: '6px' }}>
-                  पूजा का चयन करें *
+                  {t.pujaLabel}
                 </label>
                 <select
                   value={formData.puja_name}
@@ -216,17 +257,11 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
                     outline: 'none'
                   }}
                 >
-                  <option value="मंगल दोष पूजा (मंगल भात पूजन)">1. मंगल दोष पूजा (मंगल भात पूजन - उज्जैन)</option>
-                  <option value="काल सर्प दोष पूजा">2. काल सर्प दोष पूजा (त्रिपिंडी व नाग पूजा)</option>
-                  <option value="महामृत्युंजय अनुष्ठान">3. महामृत्युंजय अनुष्ठान (सवा लाख जप व हवन)</option>
-                  <option value="रुद्र अभिषेक">4. रुद्र अभिषेक (महाकाल दुग्धाभिषेक)</option>
-                  <option value="कुण्डली विश्लेषण">5. कुण्डली विश्लेषण (7 स्तंभ संपूर्ण समाधान)</option>
-                  <option value="मां बगलामुखी हवन">मां बगलामुखी हवन (शत्रु विजय व तंत्र रक्षा)</option>
-                  <option value="नवग्रह शांति पूजा">नवग्रह शांति पूजा</option>
-                  <option value="गृह प्रवेश व वास्तु शांति">गृह प्रवेश व वास्तु शांति पूजा</option>
-                  <option value="अर्क विवाह / कुंभ विवाह">अर्क विवाह / कुंभ विवाह</option>
-                  <option value="व्यापार वृद्धि व लक्ष्मी अनुष्ठान">व्यापार वृद्धि व लक्ष्मी अनुष्ठान</option>
-                  <option value="अन्य वैदिक अनुष्ठान">अन्य वैदिक अनुष्ठान</option>
+                  {pujaOptions.map((opt, idx) => (
+                    <option key={idx} value={opt.val}>
+                      {opt.label}
+                    </option>
+                  ))}
                 </select>
               </div>
 
@@ -239,12 +274,12 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
               }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: '700', color: '#473630', marginBottom: '6px' }}>
-                    यजमान का नाम *
+                    {t.nameLabel}
                   </label>
                   <input
                     type="text"
                     required
-                    placeholder="उदा. अमित शर्मा"
+                    placeholder={t.namePlaceholder}
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     style={{
@@ -260,12 +295,12 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
 
                 <div>
                   <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: '700', color: '#473630', marginBottom: '6px' }}>
-                    मोबाइल / WhatsApp नंबर *
+                    {t.phoneLabel}
                   </label>
                   <input
                     type="tel"
                     required
-                    placeholder="उदा. 98XXXXXXXX"
+                    placeholder={t.phonePlaceholder}
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     style={{
@@ -289,11 +324,11 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
               }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: '700', color: '#473630', marginBottom: '6px' }}>
-                    गोत्र (यदि ज्ञात हो)
+                    {t.gotraLabel}
                   </label>
                   <input
                     type="text"
-                    placeholder="उदा. कश्यप / भारद्वाज"
+                    placeholder={t.gotraPlaceholder}
                     value={formData.gotra}
                     onChange={(e) => setFormData({ ...formData, gotra: e.target.value })}
                     style={{
@@ -309,7 +344,7 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
 
                 <div>
                   <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: '700', color: '#473630', marginBottom: '6px' }}>
-                    पूजा की इच्छित तिथि
+                    {t.dateLabel}
                   </label>
                   <input
                     type="date"
@@ -336,11 +371,11 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
               }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: '700', color: '#473630', marginBottom: '6px' }}>
-                    आपका शहर / राज्य
+                    {t.cityLabel}
                   </label>
                   <input
                     type="text"
-                    placeholder="उदा. इंदौर / मुंबई / दिल्ली"
+                    placeholder={t.cityPlaceholder}
                     value={formData.city}
                     onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                     style={{
@@ -356,11 +391,11 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
 
                 <div>
                   <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: '700', color: '#473630', marginBottom: '6px' }}>
-                    ईमेल (वैकल्पिक)
+                    {t.emailLabel}
                   </label>
                   <input
                     type="email"
-                    placeholder="user@example.com"
+                    placeholder={t.emailPlaceholder}
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     style={{
@@ -378,11 +413,11 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
               {/* Special Request */}
               <div style={{ marginBottom: '20px' }}>
                 <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: '700', color: '#473630', marginBottom: '6px' }}>
-                  समस्या या संकल्प का संक्षिप्त विवरण
+                  {t.requestLabel}
                 </label>
                 <textarea
                   rows={2}
-                  placeholder="उदा. शीघ्र विवाह हेतु, या व्यापार में लगातार हानि से मुक्ति हेतु..."
+                  placeholder={t.requestPlaceholder}
                   value={formData.special_request}
                   onChange={(e) => setFormData({ ...formData, special_request: e.target.value })}
                   style={{
@@ -412,7 +447,7 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
                   }}
                 >
                   <MessageCircle size={18} />
-                  <span>{loading ? 'WhatsApp खुल रहा है...' : 'WhatsApp पर पूजा बुक करें'}</span>
+                  <span>{loading ? t.submitting : t.submitBtn}</span>
                 </button>
 
                 <button
@@ -424,10 +459,12 @@ export default function BookingModal({ isOpen, onClose, initialPuja = '' }) {
                     padding: '12px 18px',
                     borderRadius: '30px',
                     fontWeight: '600',
-                    fontSize: '0.9rem'
+                    fontSize: '0.9rem',
+                    border: 'none',
+                    cursor: 'pointer'
                   }}
                 >
-                  रद्द करें
+                  {t.closeBtn}
                 </button>
               </div>
             </form>

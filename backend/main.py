@@ -117,7 +117,7 @@ class ContactMessageCreate(BaseModel):
     message: str = Field(..., min_length=5)
 
 PANDIT_NAME = os.getenv("PANDIT_NAME", os.getenv("VITE_PANDIT_NAME", "Pandit Tarun Puri"))
-PANDIT_NAME_HI = os.getenv("PANDIT_NAME_HI", os.getenv("VITE_PANDIT_NAME_HI", "पंडित तरुण पूरी"))
+PANDIT_NAME_HI = os.getenv("PANDIT_NAME_HI", os.getenv("VITE_PANDIT_NAME_HI", "पण्डित तरुण पुरी"))
 
 PANDIT_PROFILE = {
     "website_name": WEBSITE_NAME,
@@ -311,7 +311,7 @@ TESTIMONIALS = [
     {
         "name": "अनिल त्रिवेदी",
         "city": "अहमदाबाद, गुजरात",
-        "review": "मेरी पुत्री के विवाह में मंगल दोष के कारण 4 साल से रुकावट आ रही थी। पंडित तरुण पूरी गोस्वामी जी से मंगलनाथ मंदिर में भात पूजा करवाई, 4 महीने के अंदर विवाह तय हो गया। पंडित जी का विधि-विधान अद्भुत है।",
+        "review": "मेरी पुत्री के विवाह में मंगल दोष के कारण 4 साल से रुकावट आ रही थी। पण्डित तरुण पुरी गोस्वामी जी से मंगलनाथ मंदिर में भात पूजा करवाई, 4 महीने के अंदर विवाह तय हो गया। पंडित जी का विधि-विधान अद्भुत है।",
         "rating": 5,
         "puja": "मंगल भात पूजन"
     },
